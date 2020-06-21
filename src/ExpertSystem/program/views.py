@@ -43,6 +43,9 @@ def program_detail(request, id):
     return render(request, 'program_detail.html', {"expert_list" : expert_list})
 
 
+def program_add(request):
+    return render(request, 'add_program_template.html')
+
 def get_experts_list(program_id):
     experts = Expert.objects.filter(program__id=program_id)
     return experts
