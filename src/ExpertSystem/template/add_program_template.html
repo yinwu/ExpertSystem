@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://v3.bootcss.com/favicon.ico">
+
+    <title>专家抽签系统</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            padding-top: 50px;
+        }
+
+        /*
+    * Global add-ons
+    */
+
+        .sub-header {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /*
+    * Top navigation
+    * Hide default border to remove 1px line.
+    */
+        .navbar-fixed-top {
+            border: 0;
+        }
+
+        /*
+    * Sidebar
+    */
+
+        /* Hide for mobile, show later */
+        .sidebar {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .sidebar {
+                position: fixed;
+                top: 51px;
+                bottom: 0;
+                left: 0;
+                z-index: 1000;
+                display: block;
+                padding: 20px;
+                overflow-x: hidden;
+                overflow-y: auto;
+                /* Scrollable contents if viewport is shorter than content. */
+                background-color: #f5f5f5;
+                border-right: 1px solid #eee;
+            }
+        }
+
+        /* Sidebar navigation */
+        .nav-sidebar {
+            margin-right: -21px;
+            /* 20px padding + 1px border */
+            margin-bottom: 20px;
+            margin-left: -20px;
+        }
+
+        .nav-sidebar>li>a {
+            padding-right: 20px;
+            padding-left: 20px;
+        }
+
+        .nav-sidebar>.active>a,
+        .nav-sidebar>.active>a:hover,
+        .nav-sidebar>.active>a:focus {
+            color: #fff;
+            background-color: #428bca;
+        }
+
+
+        /*
+    * Main content
+    */
+
+        .main {
+            padding: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .main {
+                padding-right: 40px;
+                padding-left: 40px;
+            }
+        }
+
+        .main .page-header {
+            margin-top: 0;
+        }
+
+
+        /*
+    * Placeholder dashboard ideas
+    */
+
+        .placeholders {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .placeholders h4 {
+            margin-bottom: 0;
+        }
+
+        .placeholder {
+            margin-bottom: 20px;
+        }
+
+        .placeholder img {
+            display: inline-block;
+            border-radius: 50%;
+        }
+
+        tr:hover {
+            box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">新增</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="txt_departmentname">部门名称</label>
+                        <input type="text" name="txt_departmentname" class="form-control" id="txt_departmentname"
+                            placeholder="部门名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_parentdepartment">上级部门</label>
+                        <input type="text" name="txt_parentdepartment" class="form-control" id="txt_parentdepartment"
+                            placeholder="上级部门">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_departmentlevel">部门级别</label>
+                        <input type="text" name="txt_departmentlevel" class="form-control" id="txt_departmentlevel"
+                            placeholder="部门级别">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_statu">描述</label>
+                        <input type="text" name="txt_statu" class="form-control" id="txt_statu" placeholder="状态">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span
+                            class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                    <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span
+                            class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
