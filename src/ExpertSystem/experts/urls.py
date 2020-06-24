@@ -7,4 +7,5 @@ urlpatterns = [
     path('list/', views.expert_list, name='list'),
     path('detail/', views.expert_detail, name='detail'),
     path('add/', views.add_expert_req, name='add'),
+    path('save/', views.save_expert_req, name='save'),
 ]
