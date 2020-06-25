@@ -10,4 +10,5 @@ urlpatterns = [
     path('checkProgram', views.program_check, name='checkProgram'),
     path('selectExperts/<int:id>', views.program_select_experts, name='selectExperts'),
     path('exportExperts/<int:id>', views.program_export_experts, name='exportExperts'),
+    path('search/', views.search, name='search'),
 ]
