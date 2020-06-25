@@ -120,14 +120,18 @@
       border-radius: 50%;
     }
     
+    tr:hover {
+      box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.15);
+    } 
+
     </style>
   
   
   </head>
 
   <body>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+  
+  <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -152,52 +156,27 @@
       </div>
     </nav>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Export</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">选择1</a></li>
-            <li><a href="">选择2</a></li>
-            <li><a href="">选择3</a></li>
-            <li><a href="">选择4</a></li>
-            <li><a href="">选择5</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">选择1</a></li>
-            <li><a href="">选择2</a></li>
-            <li><a href="">选择3</a></li>
-          </ul>
-        </div>
-		
-		
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">项目详细信息</h2>
-		  <!--
-          <div class="table-responsive">
-            <div>
-              <h3>项目名称</h3>
-              <p>{{program.name}}</p>
-              <h3>项目描述</h3>
-              <p>{{program.desp}}</p>
-              <h3>项目负责人</h3>
-              <p>{{program.responser}}</p>
-              <h3>联系方式</h3>
-              <p>12343456</p>
-            </div>
-			-->
-			
-		    <div class="col-md-12" >
-            <div class="panel panel-default" >
-            <div class="panel-body table-responsive">
-            <div style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd; background-image: url(/experts/static/modules/front/expert/images/ico-08.jpg); background-repeat:no-repeat; padding-left:20px; background-position: bottom left;">项目信息</div>
 
-                <form id="inputForm" class="form-horizontal" action="/experts/project/operate/form.html" method="post">
+<!-- START content-right -->
+<div class="content-right" >
+
+  <!-- Start Page Header -->
+  <div class="page-header">
+    <!--h1 class="title">当前页</h1-->
+      <ol class="breadcrumb">
+        <li><a href="/program/list">首页 </a></li>
+		<li class="active">抽取专家</li>
+      </ol>
+
+
+  </div>
+  <!-- End Page Header -->
+<div class="col-md-12" >
+      <div class="panel panel-default" >
+        <div class="panel-body table-responsive">
+<div style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd; background-image: url(/experts/static/modules/front/expert/images/ico-08.jpg); background-repeat:no-repeat; padding-left:20px; background-position: bottom left;">项目信息</div>
+
+<form id="inputForm" class="form-horizontal" action="/experts/project/operate/form.html" method="post">
 							<input id="id" name="id" type="hidden" value="aff82cbeea78412bb6d93b5b142ca9d4"/>
 							<input type="hidden" id="zbrId" name="zbrId" value="8f90c30591be47cca98223eb067f6287"/>
 							<input type="hidden" id="evaOrgId" name="evaOrgId" value="8a12bf42b4964f11aa3ac5a081356f26"/>
@@ -210,7 +189,6 @@
 								<tr>
 									<td>
 							        <table class="table table-bordered table-condensed" style="margin-bottom: 0px;">
-								</tr>
 								<tr>
 									<td style="width:12%">
 										<label class="tab_control_label">项目名称: </label>
@@ -269,55 +247,91 @@
 								</tr>
 								<tr>
 								
-									<td><label class="tab_control_label">项目描述: </label></td>
+											<td><label class="tab_control_label">项目描述: </label></td>
 											
-									<td colspan="3">
-										{{program.desp}}	
-									</td>
+											<td colspan="3">
+											    {{program.desp}}	
+											</td>
 											
-
-								</tr>	
-							</table>			
-	        </form>
-        </div>   
-        </div> 
-        </div>
-        </div>
-		
-        <table class="table table-striped">
-			<thead>
-			    <tr>
-					<td style="background-color:#ECECFF;">
-					<b>评审专家列表</b>
-					</td>
-				</tr>
-			</thead>
+										</tr>	
+							</table>
+							</td>
+							</tr>
 							
-            <thead>
-                <tr>
-                  <th>专家姓名</th>
-                  <th>专家职称</th>
-                  <th>单位</th>
-                  <th>联系方式</th>
-                  <th>级别</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for expert in expert_list %}
-                <tr>
-                  <td>{{expert.name}}</td>
-                  <td>{{expert.title}}</td>
-                  <td>{{expert.unit}}</td>
-                  <td>{{expert.phone}}</td>
-                  <td>{{expert.level}}</td>
-                </tr>
-                {% endfor%}
-            </tbody>
-            </table>
-          </div>
+							<tr>
+								<td style="background-color:#ECECFF;">
+								<b>抽取条件</b>
+							</td>
+							</tr>
+								
+							
+							<tr id="xmbds" style="display:;">
+								<td>
+									 <table class="table table-bordered table-condensed" style="margin-bottom: 0px;">
+										 	<thead>
+											<tr class="table-head-tr-huise">
+											
+											<td>
+											<label for="country">专家级别</label>
+                                            <select class="custom-select d-block w-100" id="grade" required="">
+                                            <option value="">Choose...</option>
+                                            <option>一级</option>
+											<option>二级</option>
+											
+                                            </select>
+                                               <div class="invalid-feedback">
+                                                  请输入正确的专家级别.
+                                               </div>
+											</td>
+											<td>
+											<label for="country">专家职称</label>
+                                            <select class="custom-select d-block w-100" id="title" required="">
+                                            <option value="">Choose...</option>
+                                            <option>工程师</option>
+                                            </select>
+                                               <div class="invalid-feedback">
+                                                  请输入正确的专家职称
+                                               </div>
+											</td>
+											<td>
+											<label for="country">专家领域</label>
+                                            <select class="custom-select d-block w-100" id="expertise" required="">
+                                            <option value="">Choose...</option>
+                                            <option>计算机</option>
+											<option>地质</option>
+                                            </select>
+                                               <div class="invalid-feedback">
+                                                  请输入正确的专家领域
+                                               </div>
+											</td>
+											</tr>
+											</thead>
+											<tbody id="xmbdTbody">
+											
+											</tbody>
+										</table>
+								</td>
+							</tr>
+								
+							</table>
+							<div style="width:350px; display:block; margin:10px auto;">
+								<button type="submit" class="btn-blu-btn">抽取</button>
+								
+								<button type="button" class="btn-blu-btn" onclick="xmgd('aff82cbeea78412bb6d93b5b142ca9d4');">取消</button>
+								
+								
+								
+								<button type="button" class="btn-cancel" onclick="history.go(-1)">返 回</button>
+							</div>
+						</form>
+
+ 
+        
         </div>
-		
-      </div>
+
+           
+            </div> 
     </div>
-</body>
-</html>
+
+</div>
+<!--content-right end-->

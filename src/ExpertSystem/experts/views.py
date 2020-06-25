@@ -17,7 +17,10 @@ def expert_list(request):
 
 
 def add_expert_req(request):
-    return render(request, 'add_program_template.html')
+    return render(request, 'add_expert_template.html')
+    
+def delete_expert_req(request):
+    return render(request, 'delete_expert_template.html')
 
 def expert_detail(request, expert_id):
     context = {"name":"test_name"}

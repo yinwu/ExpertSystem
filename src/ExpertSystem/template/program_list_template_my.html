@@ -120,6 +120,10 @@
       border-radius: 50%;
     }
     
+    tr:hover {
+      box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.15);
+    } 
+
     </style>
   
   
@@ -152,172 +156,73 @@
       </div>
     </nav>
 
+<!--
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Export</a></li>
+            <li class="active"><a href="/experts/index">主页 <span class="sr-only">(current)</span></a></li>
+            <li><a href="/experts/list">专家列表</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="">选择1</a></li>
-            <li><a href="">选择2</a></li>
-            <li><a href="">选择3</a></li>
-            <li><a href="">选择4</a></li>
-            <li><a href="">选择5</a></li>
+            <li class="active"><a href="/program/add/">添加项目</a></li>
+            <li><a href="/program/delete">删除项目</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="">选择1</a></li>
-            <li><a href="">选择2</a></li>
-            <li><a href="">选择3</a></li>
-          </ul>
+            <li><a href="">王专家</a></li>
+            <li><a href="">李专家</a></li>
+            <li><a href="">刘专家</a></li>
+            <li><a href="">宋专家</a></li>
+            <li><a href="">朱专家</a></li>
+          </ul> 
         </div>
-		
-		
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">项目详细信息</h2>
-		  <!--
+          <h2 class="sub-header">项目列表</h2>
           <div class="table-responsive">
-            <div>
-              <h3>项目名称</h3>
-              <p>{{program.name}}</p>
-              <h3>项目描述</h3>
-              <p>{{program.desp}}</p>
-              <h3>项目负责人</h3>
-              <p>{{program.responser}}</p>
-              <h3>联系方式</h3>
-              <p>12343456</p>
-            </div>
-			-->
-			
-		    <div class="col-md-12" >
-            <div class="panel panel-default" >
-            <div class="panel-body table-responsive">
-            <div style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd; background-image: url(/experts/static/modules/front/expert/images/ico-08.jpg); background-repeat:no-repeat; padding-left:20px; background-position: bottom left;">项目信息</div>
-
-                <form id="inputForm" class="form-horizontal" action="/experts/project/operate/form.html" method="post">
-							<input id="id" name="id" type="hidden" value="aff82cbeea78412bb6d93b5b142ca9d4"/>
-							<input type="hidden" id="zbrId" name="zbrId" value="8f90c30591be47cca98223eb067f6287"/>
-							<input type="hidden" id="evaOrgId" name="evaOrgId" value="8a12bf42b4964f11aa3ac5a081356f26"/>
-							<table class="table table-bordered table-condensed">
-								<tr>
-									<td style="background-color:#ECECFF;">
-										<b>项目信息</b>
-									</td>
-								</tr>
-								<tr>
-									<td>
-							        <table class="table table-bordered table-condensed" style="margin-bottom: 0px;">
-								</tr>
-								<tr>
-									<td style="width:12%">
-										<label class="tab_control_label">项目名称: </label>
-									</td>
-									<td style="width:38%">
-										{{program.name}}
-									</td>
-									<td style="width:12%"><label class="tab_control_label">项目编号: </label></td>
-									<td style="width:38%">
-										dddcd
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<label class="tab_control_label">项目负责人: </label>
-									</td>
-									<td>
-										{{program.responser}}
-									</td>
-									<td><label class="tab_control_label">金额: </label></td>
-									<td>
-										111.0000（万元）
-									</td>
-								</tr>
-								<tr>
-									<td><label class="tab_control_label">招标代理: </label></td>
-									<td>
-										联想（北京）有限公司
-									</td>
-									<td><label class="tab_control_label">所属地: </label></td>
-									<td>
-										
-									</td>
-								</tr>
-								
-								<tr>
-									<td><label class="tab_control_label">评标开始时间: </label></td>
-									<td>
-										2020-06-19 14:33
-									</td>
-									<td><label class="tab_control_label">评标结束时间: </label></td>
-									<td>
-										2020-06-19 14:33
-									</td>
-								</tr>
-								
-								<tr>
-									<td><label class="tab_control_label">创建时间: </label></td>
-									<td>
-										2020-06-19 14:33
-									</td>
-									<td><label class="tab_control_label">当前状态: </label></td>
-									<td>
-										新建
-									</td>
-								</tr>
-								<tr>
-								
-									<td><label class="tab_control_label">项目描述: </label></td>
-											
-									<td colspan="3">
-										{{program.desp}}	
-									</td>
-											
-
-								</tr>	
-							</table>			
-	        </form>
-        </div>   
-        </div> 
-        </div>
-        </div>
-		
-        <table class="table table-striped">
-			<thead>
-			    <tr>
-					<td style="background-color:#ECECFF;">
-					<b>评审专家列表</b>
-					</td>
-				</tr>
-			</thead>
-							
-            <thead>
+            <table class="table table-striped">
+              <thead>
                 <tr>
-                  <th>专家姓名</th>
-                  <th>专家职称</th>
-                  <th>单位</th>
-                  <th>联系方式</th>
-                  <th>级别</th>
+                  <th>序号</th>
+                  <th>项目名称</th>
+                  <th>负责人</th>
+                  <th>项目描述</th>
+                  <th>备注信息</th>
                 </tr>
-            </thead>
-            <tbody>
-                {% for expert in expert_list %}
-                <tr>
-                  <td>{{expert.name}}</td>
-                  <td>{{expert.title}}</td>
-                  <td>{{expert.unit}}</td>
-                  <td>{{expert.phone}}</td>
-                  <td>{{expert.level}}</td>
+              </thead>
+              <tbody>
+                {% for item in program_list %}
+                <tr   onclick="location.href='/program/detail/{{item.id}}';">
+                  <td>{{item.id}}</td>
+                  <td>{{item.name}}</td>
+                  <td>{{item.responser}}</td>
+                  <td>{{item.description}}</td>
+                  <td>{{item.info}}</td>
                 </tr>
                 {% endfor%}
-            </tbody>
+              </tbody>
             </table>
           </div>
         </div>
-		
       </div>
     </div>
+	-->
+	
+	 <form id="searchForm" action="./program_list_template_my.html" method="post">
+		<input id="pageNo" name="pageNo" type="hidden" value="1"/>
+		<input id="pageSize" name="pageSize" type="hidden" value="10"/>
+		<input id="orderBy" name="orderBy" type="hidden" value=""/>
+  
+<div style="width:836px; float:left; display:block; border-left:1px solid #ccc; border-right:1px solid #ccc; border-top:1px solid #ccc; background-color: #EEF5FF">
+        		<ul style="height:42px;">
+		           	<li style=" width:100%; top: 1px; float: left; height: 42px; line-height: 42px;text-indent:20px;">
+		           	项目名称：<input id="name" name="name" type="text" value="" style="width:180px;"/>
+		           	项目编号：<input id="code" name="code" type="text" value="" style="width:180px;"/>
+					 <a class="btn-search" href="javascript:search();">查 询</a>
+		         	 <a class="btn-search" href="./form.html">新 建</a>
+		           	 </li>
+		           	
+	            </ul>
+  </div> 
+  </form>
 </body>
 </html>

@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from experts.models import Expert
-from program.models import Program
+from program.models import Program 
 
 def program_list(request):
     
@@ -42,9 +42,19 @@ def program_detail(request, id):
     
     return render(request, 'program_detail.html', {"expert_list" : expert_list})
 
+def program_check(request):
+    return render(request, 'program_check_template.html')
+    
+def program_select_experts(request):
+    return render(request, 'select_expert_template.html')
+
 
 def program_add(request):
     return render(request, 'add_program_template.html')
+    
+def program_delete(request):
+    return render(request, 'delete_program_template.html')
+    
 
 def get_experts_list(program_id):
     experts = Expert.objects.filter(program__id=program_id)
