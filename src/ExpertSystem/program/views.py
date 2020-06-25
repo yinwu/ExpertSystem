@@ -39,14 +39,56 @@ def program_detail(request, id):
         {"name":"李四", "title":"院士", "unit":"北航", "phone":"18788878789", "level":"高级"},
         {"name":"李四", "title":"院士", "unit":"北航", "phone":"187888787810", "level":"高级"}
     ]
+   
+    test_data = [
+        {"id":"1", "name":"name1", "responser":"responser1", "description":"descriptino1", "info":"info1"},
+        {"id":"2", "name":"name2", "responser":"responser2", "description":"descriptino2", "info":"info2"},
+        {"id":"3", "name":"name3", "responser":"responser3", "description":"descriptino3", "info":"info3"},
+        {"id":"4", "name":"name4", "responser":"responser4", "description":"descriptino4", "info":"info4"},
+        {"id":"5", "name":"name5", "responser":"responser5", "description":"descriptino5", "info":"info5"},
+        {"id":"6", "name":"name6", "responser":"responser6", "description":"descriptino6", "info":"info6"},
+        {"id":"7", "name":"name7", "responser":"responser7", "description":"descriptino7", "info":"info7"},
+        {"id":"8", "name":"name8", "responser":"responser8", "description":"descriptino8", "info":"info8"},
+        {"id":"9", "name":"name9", "responser":"responser9", "description":"descriptino9", "info":"info9"},
+        {"id":"10", "name":"name10", "responser":"responser10", "description":"descriptino10", "info":"info10"}
+    ]
     
-    return render(request, 'program_detail.html', {"expert_list" : expert_list})
+    
+   
+    context = {}
+    context = test_data[id]
+    
+    print(id)
+    print(context)
+    
+    
+    return render(request, 'program_detail.html', {"expert_list" : expert_list, "program": context})
 
 def program_check(request):
     return render(request, 'program_check_template.html')
     
-def program_select_experts(request):
-    return render(request, 'select_expert_template.html')
+def program_select_experts(request, id):
+    test_data = [
+        {"id":"1", "name":"name1", "responser":"responser1", "description":"descriptino1", "info":"info1"},
+        {"id":"2", "name":"name2", "responser":"responser2", "description":"descriptino2", "info":"info2"},
+        {"id":"3", "name":"name3", "responser":"responser3", "description":"descriptino3", "info":"info3"},
+        {"id":"4", "name":"name4", "responser":"responser4", "description":"descriptino4", "info":"info4"},
+        {"id":"5", "name":"name5", "responser":"responser5", "description":"descriptino5", "info":"info5"},
+        {"id":"6", "name":"name6", "responser":"responser6", "description":"descriptino6", "info":"info6"},
+        {"id":"7", "name":"name7", "responser":"responser7", "description":"descriptino7", "info":"info7"},
+        {"id":"8", "name":"name8", "responser":"responser8", "description":"descriptino8", "info":"info8"},
+        {"id":"9", "name":"name9", "responser":"responser9", "description":"descriptino9", "info":"info9"},
+        {"id":"10", "name":"name10", "responser":"responser10", "description":"descriptino10", "info":"info10"}
+    ]
+    
+    
+   
+    context = {}
+    context = test_data[id]
+    return render(request, 'select_expert_template.html', {"program": context})
+    
+def program_export_experts(request, id):
+    return render(request, 'export_expert_template.html')
 
 
 def program_add(request):

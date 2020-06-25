@@ -8,5 +8,6 @@ urlpatterns = [
     path('deleteProgram', views.program_delete, name='deleteProgram'),
     path('detail/<int:id>', views.program_detail, name='detail'),
     path('checkProgram', views.program_check, name='checkProgram'),
-    path('selectExperts/', views.program_select_experts, name='selectExperts')
+    path('selectExperts/<int:id>', views.program_select_experts, name='selectExperts'),
+    path('exportExperts/<int:id>', views.program_export_experts, name='exportExperts'),
 ]
