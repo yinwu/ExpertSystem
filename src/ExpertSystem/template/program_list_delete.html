@@ -135,9 +135,10 @@
 	}
 	*/
     </style>
-  
+  {% load static %}
   
   </head>
+  
 
   <body>
 
@@ -195,24 +196,8 @@
 		
 	
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		
-		   
-		  
+		 
           <h2 class="sub-header">项目列表</h2>
-		
-		  <div class="col-sm-4">
-		  <form method="get" action="/program/search/">
-		  {% csrf_token %}
-		  <div class="input-group">
-		  <input type="text" name="name" class="form-control" placeholder="请输入关键字" required />
-		  <span class="input-group-btn">
-		  <input type="submit" class="btn btn-default" value="查询" />
-		  </span>
-		  </div>
-		  </form>
-		  </div>
-		  
-		  <br />
 		  <br />
 		  <br />
           <div class="table-responsive">
@@ -224,23 +209,46 @@
                   <th>负责人</th>
                   <th>项目描述</th>
                   <th>备注信息</th>
+				  <th>操作</th>
                 </tr>
               </thead>
               <tbody>
-                {% for item in program_list %}
+                
+			  {% if post_list %}
+                {% for item in post_list %}
                 <tr   onclick="location.href='/program/detail/{{item.id}}';">
                   <td>{{item.id}}</td>
                   <td>{{item.name}}</td>
                   <td>{{item.responser}}</td>
                   <td>{{item.description}}</td>
                   <td>{{item.info}}</td>
+				  <td style=" border-bottom:2px solid #ccc;border-right:2px solid #ccc;background-color:#f2f2f2;">
+
+	                <a style="padding: 10px;background-color: white;color: #3299fd;font-size: 15px;float: left;margin-right:10px;" href="/program/detail/{{item.id}}" >
+		            查看 </a>
+	                <a style="padding: 10px;background-color: white;color: #3299fd;font-size: 15px;float: left;margin-right:10px;" href="list.html?id=item.id" >
+		            修改 </a>	
+	                <a style="padding: 10px;background-color: white;color: #3299fd;font-size: 15px;float: left;margin-right:10px;" href="list.html?id=item.id" onclick="return confirmx('确认要删除该项目吗？', this.href)">
+		            删除 </a>
+	                <a style="padding: 10px;background-color: white;color: #3299fd;font-size: 15px;float: left;margin-right:10px;" href="/program/selectExperts/{{item.id}}" >
+		            抽取专家 </a>
+	                <a style="padding: 10px;background-color: white;color: #3299fd;font-size: 15px;float: left;margin-right:10px;" href="/program/exportExperts/{{item.id}}" >
+		            导出专家 </a>
+	
+                  </td>
                 </tr>
-                {% endfor%}
+                {% endfor %}
+			  {% else %}
+				<h4>没有查询到数据</h4>
+			  {% endif %} 
               </tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
+	<div style="width:450px; display:block; margin:10px auto;">
+		<button type="button" class="btn-cancel" onclick="history.go(-1)">返 回</button>
+	</div>
 </body>
 </html>

@@ -197,10 +197,12 @@
             <div class="panel-body table-responsive">
             <div style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd; background-image: url(/experts/static/modules/front/expert/images/ico-08.jpg); background-repeat:no-repeat; padding-left:20px; background-position: bottom left;">项目信息</div>
 
-                <form id="inputForm" class="form-horizontal" action="/experts/project/operate/form.html" method="post">
+                <form id="inputForm" class="form-horizontal" action="" method="get">
+				<!--
 							<input id="id" name="id" type="hidden" value="aff82cbeea78412bb6d93b5b142ca9d4"/>
 							<input type="hidden" id="zbrId" name="zbrId" value="8f90c30591be47cca98223eb067f6287"/>
 							<input type="hidden" id="evaOrgId" name="evaOrgId" value="8a12bf42b4964f11aa3ac5a081356f26"/>
+							-->
 							<table class="table table-bordered table-condensed">
 								<tr>
 									<td style="background-color:#ECECFF;">
@@ -319,5 +321,27 @@
 		
       </div>
     </div>
+	<div style="width:350px; display:block; margin:10px auto;">
+		<button type="button" class="btn-blu-btn" onclick="location.href='/program/detail/{{program.id}}';">修改</button>
+		
+		<script type="text/javascript">
+           function del(hint, ref){
+            if(confirm(hint)){
+            window.location = ref;//跳转
+
+            }else{
+			 location.reload();
+            }
+           }
+        </script>
+		<a href="/program/list" onclick="return del('确认要删除该项目吗？', this.href)">
+
+            <button type="button" class="btn-blu-btn" >删除</button>
+
+        </a>
+		<button type="button" class="btn-blu-btn" onclick="location.href='/program/selectExperts/{{program.id}}';">抽取专家</button>						
+		<button type="button" class="btn-blu-btn" onclick="location.href='/program/exportExperts/{{program.id}}';">导出专家</button>						
+		<button type="button" class="btn-cancel" onclick="history.go(-1)">返 回</button>
+	</div>
 </body>
 </html>

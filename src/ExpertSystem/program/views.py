@@ -56,7 +56,7 @@ def program_detail(request, id):
     
    
     context = {}
-    context = test_data[id]
+    context = test_data[id-1]
     
     print(id)
     print(context)
@@ -84,7 +84,7 @@ def program_select_experts(request, id):
     
    
     context = {}
-    context = test_data[id]
+    context = test_data[id-1]
     return render(request, 'select_expert_template.html', {"program": context})
     
 def program_export_experts(request, id):
