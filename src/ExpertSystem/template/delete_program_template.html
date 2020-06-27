@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<html lang="zh-CN"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,222 +11,237 @@
 
     <title>专家抽签系统</title>
 
-    <!-- CSS only -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <!-- JS, Popper.js, and jQuery -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  
     <style>
-        body {
-            padding-top: 50px;
-        }
-
-        /*
+    body {
+      padding-top: 50px;
+    }
+    
+    /*
     * Global add-ons
     */
-
-        .sub-header {
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        /*
+    
+    .sub-header {
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    /*
     * Top navigation
     * Hide default border to remove 1px line.
     */
-        .navbar-fixed-top {
-            border: 0;
-        }
-
-        /*
+    .navbar-fixed-top {
+      border: 0;
+    }
+    
+    /*
     * Sidebar
     */
-
-        /* Hide for mobile, show later */
-        .sidebar {
-            display: none;
-        }
-
-        @media (min-width: 768px) {
-            .sidebar {
-                position: fixed;
-                top: 51px;
-                bottom: 0;
-                left: 0;
-                z-index: 1000;
-                display: block;
-                padding: 20px;
-                overflow-x: hidden;
-                overflow-y: auto;
-                /* Scrollable contents if viewport is shorter than content. */
-                background-color: #f5f5f5;
-                border-right: 1px solid #eee;
-            }
-        }
-
-        /* Sidebar navigation */
-        .nav-sidebar {
-            margin-right: -21px;
-            /* 20px padding + 1px border */
-            margin-bottom: 20px;
-            margin-left: -20px;
-        }
-
-        .nav-sidebar>li>a {
-            padding-right: 20px;
-            padding-left: 20px;
-        }
-
-        .nav-sidebar>.active>a,
-        .nav-sidebar>.active>a:hover,
-        .nav-sidebar>.active>a:focus {
-            color: #fff;
-            background-color: #428bca;
-        }
-
-
-        /*
+    
+    /* Hide for mobile, show later */
+    .sidebar {
+      display: none;
+    }
+    @media (min-width: 768px) {
+      .sidebar {
+        position: fixed;
+        top: 51px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        background-color: #f5f5f5;
+        border-right: 1px solid #eee;
+      }
+    }
+    
+    /* Sidebar navigation */
+    .nav-sidebar {
+      margin-right: -21px; /* 20px padding + 1px border */
+      margin-bottom: 20px;
+      margin-left: -20px;
+    }
+    .nav-sidebar > li > a {
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+    .nav-sidebar > .active > a,
+    .nav-sidebar > .active > a:hover,
+    .nav-sidebar > .active > a:focus {
+      color: #fff;
+      background-color: #428bca;
+    }
+    
+    
+    /*
     * Main content
     */
-
-        .main {
-            padding: 20px;
-        }
-
-        @media (min-width: 768px) {
-            .main {
-                padding-right: 40px;
-                padding-left: 40px;
-            }
-        }
-
-        .main .page-header {
-            margin-top: 0;
-        }
-
-
-        /*
+    
+    .main {
+      padding: 20px;
+    }
+    @media (min-width: 768px) {
+      .main {
+        padding-right: 40px;
+        padding-left: 40px;
+      }
+    }
+    .main .page-header {
+      margin-top: 0;
+    }
+    
+    
+    /*
     * Placeholder dashboard ideas
     */
-
-        .placeholders {
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .placeholders h4 {
-            margin-bottom: 0;
-        }
-
-        .placeholder {
-            margin-bottom: 20px;
-        }
-
-        .placeholder img {
-            display: inline-block;
-            border-radius: 50%;
-        }
-
-        tr:hover {
-            box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.15);
-        }
+    
+    .placeholders {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .placeholders h4 {
+      margin-bottom: 0;
+    }
+    .placeholder {
+      margin-bottom: 20px;
+    }
+    .placeholder img {
+      display: inline-block;
+      border-radius: 50%;
+    }
+    
+    tr:hover {
+      box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.15);
+    } 
+	/*
+	a{
+	display: inline-block;
+	padding: 10px;
+	background-color: white;
+	color: #3299fd;
+	font-size: 15px;
+	float: left;
+	margin-right:10px;
+	}
+	*/
     </style>
+  
+  
+  </head>
 
+  <body>
 
-</head>
-<body>
-    <div class="container col-md-8 col-md-offset-2">
-        <div class="bs-docs-example">
-            <div class="hero-unit">
-
-                <div class="container">
-                    <div class="col-md-8 order-md-1">
-                        <h4 class="mb-3">新增专家信息</h4>
-                        <form class="needs-validation" novalidate="">
-                          <div class="row">
-                            <div class="col-md-6 mb-3">
-                              <label for="firstName">姓名</label>
-                              <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
-                              <div class="invalid-feedback">
-                                Valid first name is required.
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-6 mb-3">
-                              <label for="cc-name">联系电话</label>
-                              <input type="text" class="form-control" id="cc-name" placeholder="" required="">
-                              <small class="text-muted">手机号码或者固定电话</small>
-                              <div class="invalid-feedback">
-                                联系电话不能为空
-                              </div>
-                            </div>
-                            </div>
-                          <div class="mb-3">
-                            <label for="email">邮箱 <span class="text-muted">(Optional)</span></label>
-                            <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                            <div class="invalid-feedback">
-                              Please enter a valid email address for shipping updates.
-                            </div>
-                          </div>
-                  
-                          <div class="mb-3">
-                            <label for="address">地址</label>
-                            <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
-                            <div class="invalid-feedback">
-                              Please enter your shipping address.
-                            </div>
-                          </div>
-                  
-                          <div class="mb-3">
-                            <label for="address2">单位<span class="text-muted">(Optional)</span></label>
-                            <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-                          </div>
-                  
-                          <div class="row">
-                            <div class="col-md-5 mb-3">
-                              <label for="country">级别</label>
-                              <select class="custom-select d-block w-100" id="country" required="">
-                                <option value="">Choose...</option>
-                                <option>United States</option>
-                              </select>
-                              <div class="invalid-feedback">
-                                Please select a valid country.
-                              </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                              <label for="state">职称</label>
-                              <select class="custom-select d-block w-100" id="state" required="">
-                                <option value="">Choose...</option>
-                                <option>California</option>
-                              </select>
-                              <div class="invalid-feedback">
-                                Please provide a valid state.
-                              </div>
-                            </div>
-                          </div>
-                          <hr class="mb-4">
-                          <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="same-address">
-                            <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
-                          </div>
-                          <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="save-info">
-                            <label class="custom-control-label" for="save-info">Save this information for next time</label>
-                          </div>
-                          <hr class="mb-4">
-                            <div class="mb-4">
-                            <button class="btn btn-primary btn-lg btn-block col-md-3 mb-4" type="submit">保存</button>
-                            </div>
-                        </form>
-                      </div>
-                </div>
-            </div>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">专家抽签系统</a>
         </div>
-    </div>
-</body>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </nav>
 
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="/experts/index">主页 <span class="sr-only">(current)</span></a></li>
+            <!--<li><a href="/experts/list">专家列表</a></li>
+			-->
+			<li><a href="{% url 'list' %}">专家列表</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <!--<li class="active"><a href="/program/add/">添加项目</a></li>
+			-->
+			<li class="active"><a href="{% url 'addProgram' %}">添加项目</a></li>
+           
+			
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">王专家</a></li>
+            <li><a href="">李专家</a></li>
+            <li><a href="">刘专家</a></li>
+            <li><a href="">宋专家</a></li>
+            <li><a href="">朱专家</a></li>
+          </ul> 
+        </div>
+		
+	
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		
+		   
+		  
+          <h2 class="sub-header">项目列表</h2>
+		
+		  <div class="col-sm-4">
+		  <form method="get" action="/program/search/">
+		  {% csrf_token %}
+		  <div class="input-group">
+		  <input type="text" name="name" class="form-control" placeholder="请输入关键字" required />
+		  <span class="input-group-btn">
+		  <input type="submit" class="btn btn-default" value="查询" />
+		  </span>
+		  </div>
+		  </form>
+		  </div>
+		  
+		  <br />
+		  <br />
+		  <br />
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>序号</th>
+                  <th>项目名称</th>
+                  <th>负责人</th>
+                  <th>项目描述</th>
+                  <th>备注信息</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in program_list %}
+                <tr onclick="location.href='/program/detail/{{item.id}}';">
+                  <td>{{item.id}}</td>
+                  <td>{{item.name}}</td>
+                  <td>{{item.responser}}</td>
+                  <td>{{item.description}}</td>
+                  <td>{{item.info}}</td>
+                </tr>
+                {% endfor%}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+	<div style="width:450px; display:block; margin:10px auto;">
+		<button type="button" class="btn-cancel" onclick="history.go(-1)">返 回</button>
+	</div>
+</body>
 </html>

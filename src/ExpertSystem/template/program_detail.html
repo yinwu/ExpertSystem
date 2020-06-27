@@ -195,7 +195,7 @@
 		    <div class="col-md-12" >
             <div class="panel panel-default" >
             <div class="panel-body table-responsive">
-            <div style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd; background-image: url(/experts/static/modules/front/expert/images/ico-08.jpg); background-repeat:no-repeat; padding-left:20px; background-position: bottom left;">项目信息</div>
+            <div style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd; background-repeat:no-repeat; padding-left:20px; background-position: bottom left;">项目信息</div>
 
                 <form id="inputForm" class="form-horizontal" action="" method="get">
 				<!--
@@ -322,19 +322,18 @@
       </div>
     </div>
 	<div style="width:350px; display:block; margin:10px auto;">
-		<button type="button" class="btn-blu-btn" onclick="location.href='/program/detail/{{program.id}}';">修改</button>
+		<button type="button" class="btn-blu-btn" onclick="location.href='/program/modify/{{program.id}}';">修改</button>
 		
 		<script type="text/javascript">
            function del(hint, ref){
             if(confirm(hint)){
             window.location = ref;//跳转
-
             }else{
-			 location.reload();
+			    location.reload();
             }
            }
         </script>
-		<a href="/program/list" onclick="return del('确认要删除该项目吗？', this.href)">
+		<a href="/program/deleteProgram/{{program.id}}" onclick="return del('确认要删除该项目吗？', this.href)">
 
             <button type="button" class="btn-blu-btn" >删除</button>
 

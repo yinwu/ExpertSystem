@@ -180,9 +180,7 @@
             <!--<li class="active"><a href="/program/add/">添加项目</a></li>
 			-->
 			<li class="active"><a href="{% url 'addProgram' %}">添加项目</a></li>
-            <!--<li><a href="/program/delete">删除项目</a></li>
-			-->
-			<li><a href="{% url 'deleteProgram' %}">删除项目</a></li>
+           
 			
           </ul>
           <ul class="nav nav-sidebar">
@@ -209,7 +207,6 @@
                   <th>负责人</th>
                   <th>项目描述</th>
                   <th>备注信息</th>
-				  <th>操作</th>
                 </tr>
               </thead>
               <tbody>
@@ -222,6 +219,7 @@
                   <td>{{item.responser}}</td>
                   <td>{{item.description}}</td>
                   <td>{{item.info}}</td>
+				  <!--
 				  <td style=" border-bottom:2px solid #ccc;border-right:2px solid #ccc;background-color:#f2f2f2;">
 
 	                <a style="padding: 10px;background-color: white;color: #3299fd;font-size: 15px;float: left;margin-right:10px;" href="/program/detail/{{item.id}}" >
@@ -236,6 +234,7 @@
 		            导出专家 </a>
 	
                   </td>
+				  -->
                 </tr>
                 {% endfor %}
 			  {% else %}
