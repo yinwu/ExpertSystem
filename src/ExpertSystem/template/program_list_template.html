@@ -217,23 +217,29 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>序号</th>
+                  <th>项目编号</th>
                   <th>项目名称</th>
                   <th>负责人</th>
-                  <th>项目描述</th>
-                  <th>备注信息</th>
+                  <th>所属地</th>
+                  <th>金额</th>
+                  <th>项目创建时间</th>
+                  <th>招标开始时间</th>
+                  <th>招标结束时间</th>
                 </tr>
               </thead>
               <tbody>
                 {% for item in program_list %}
                 <tr   onclick="location.href='/program/detail/{{item.id}}';">
-                  <td>{{item.id}}</td>
+                  <td>{{item.seq}}</td>
                   <td>{{item.name}}</td>
                   <td>{{item.responser}}</td>
-                  <td>{{item.description}}</td>
-                  <td>{{item.info}}</td>
+                  <td>{{item.location}}</td>
+                  <td>{{item.money}}</td>
+                  <td>{{item.program_date}}</td>
+                  <td>{{item.start_date}}</td>
+                  <td>{{item.end_date}}</td>
                 </tr>
-                {% endfor%}
+                {% endfor %}
               </tbody>
             </table>
           </div>

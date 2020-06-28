@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 
@@ -8,40 +8,34 @@ from django.shortcuts import render
 
 
 from experts.models import Expert
+from program.models import Program
+from program.forms import ProgramForm
 from program.models import Program 
 
 def program_list(request):
     
-    test_data = [
-        {"id":"1", "name":"name1", "responser":"responser1", "description":"descriptino1", "info":"info1"},
-        {"id":"2", "name":"name2", "responser":"responser2", "description":"descriptino2", "info":"info2"},
-        {"id":"3", "name":"name3", "responser":"responser3", "description":"descriptino3", "info":"info3"},
-        {"id":"4", "name":"name4", "responser":"responser4", "description":"descriptino4", "info":"info4"},
-        {"id":"5", "name":"name5", "responser":"responser5", "description":"descriptino5", "info":"info5"},
-        {"id":"6", "name":"name6", "responser":"responser6", "description":"descriptino6", "info":"info6"},
-        {"id":"7", "name":"name7", "responser":"responser7", "description":"descriptino7", "info":"info7"},
-        {"id":"8", "name":"name8", "responser":"responser8", "description":"descriptino8", "info":"info8"},
-        {"id":"9", "name":"name9", "responser":"responser9", "description":"descriptino9", "info":"info9"},
-        {"id":"10", "name":"name10", "responser":"responser10", "description":"descriptino10", "info":"info10"}
-    ]
     program_list = Program.objects.all()
-    return render(request, 'program_list_template.html', {"result": program_list, "program_list": test_data})
+    return render(request, 'program_list_template.html', {"program_list": program_list})
 
-def program_detail(request, id):
+def program_detail(request, program_id):
+    try:
+        program_detail_info = Program.objects.get(id=program_id)
+    except:
+        return HttpResponse("项目不存在， ID:", program_id)
+    
+    
+    expert_list = Expert.objects.filter(selected_program_list__id=program_id)
+    
+    print(program_detail_info)
+    print(expert_list)
+    
+    
+    return render(request, 'program_detail.html', {"expert_list" : expert_list, "program": program_detail_info})
 
-    expert_list = [
-        {"name":"张三", "title":"院士", "unit":"北航", "phone":"18788878781", "level":"高级"},
-        {"name":"李四", "title":"院士", "unit":"北航", "phone":"18788878782", "level":"高级"},
-        {"name":"李四", "title":"院士", "unit":"北航", "phone":"18788878783", "level":"高级"},
-        {"name":"李四", "title":"院士", "unit":"北航", "phone":"18788878784", "level":"高级"},
-        {"name":"李四", "title":"院士", "unit":"北航", "phone":"18788878785", "level":"高级"},
-        {"name":"李四", "title":"院士", "unit":"北航", "phone":"18788878786", "level":"高级"},
-        {"name":"李四", "title":"院士", "unit":"北航", "phone":"18788878787", "level":"高级"},
-        {"name":"李四", "title":"院士", "unit":"北航", "phone":"18788878788", "level":"高级"},
-        {"name":"李四", "title":"院士", "unit":"北航", "phone":"18788878789", "level":"高级"},
-        {"name":"李四", "title":"院士", "unit":"北航", "phone":"187888787810", "level":"高级"}
-    ]
-   
+def program_check(request):
+    return render(request, 'program_check_template.html')
+    
+def program_select_experts(request, id):
     test_data = [
         {"id":"1", "name":"name1", "responser":"responser1", "description":"descriptino1", "info":"info1"},
         {"id":"2", "name":"name2", "responser":"responser2", "description":"descriptino2", "info":"info2"},
@@ -94,6 +88,8 @@ def program_export_experts(request, id):
 
 
 def program_add(request):
+    new_program = ProgramForm()
+    return render(request, 'add_program_template.html', {"new_form":new_program})
     return render(request, 'add_program_template.html')
     
 def program_delete(request, id):
@@ -131,6 +127,19 @@ def get_available_experts(program_id, num):
         return Expert.objects.filter()
 
     pass
+def save_program(request):
+    if request.method == "POST":
+        program_form = ProgramForm(request.POST)
+        print(request.POST)
+        if  program_form.is_valid():
+            program_form.save()
+            print("New program saved succefully")
+        else:
+            print("New program save failed")
+            return HttpResponse("添加新项目失败")
+
+    return redirect("/program/list")
+            
     
 def search(request):
     test_data = [

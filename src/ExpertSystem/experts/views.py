@@ -26,15 +26,14 @@ def add_expert_req(request):
     return render(request, 'add_expert_template.html', {"expert_form": expert_form})
 
 def expert_detail(request, expert_id):
-    context = {"name":"test_name"}
 
     try:
         expert = Expert.objects.get(id = expert_id)
     except:
-        return render(request, 'expert_error_detail.html', context)
+        return HttpResponse("专家不存在，ID:", expert_id)
     
     program_list = expert.selected_program_list
-    return render(request, 'expert_detail.html', program_list)
+    return render(request, 'expert_detail.html', {"expert":expert})
 
 def save_expert_req(request):
 
