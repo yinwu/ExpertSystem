@@ -146,51 +146,56 @@
 
                 <div class="container">
                     <div class="col-md-8 order-md-1">
-                        <h4 class="mb-3">新增专家信息</h4>
-                        <form class="needs-validation" novalidate="">
+                        <h4 class="mb-3">新增项目</h4>
+                        {% csrf_token %}
+                        <form action="/program/save" method="POST" class="needs-validation" novalidate="">
                           <div class="row">
+                            <!-- 项目编号 -->
                             <div class="col-md-6 mb-3">
-                              <label for="firstName">姓名</label>
-                              <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
-                              <div class="invalid-feedback">
-                                Valid first name is required.
+                              <label for="{{new_form.seq.id_for_label}}">{{new_form.seq.label}}</label>
+                              <input type="text" name="seq" class="form-control" id="{{new_form.seq.id_for_label}}" placeholder="" value="" required="">
+                              <div class="invalid-feedback">项目编号不能为空.</div>
+                            </div>
+                            <!-- 项目负责人 -->
+                            <div class="col-md-6 mb-3">
+                              <label for="{{new_form.responser.id_for_label}}">{{new_form.responser.label}}</label>
+                              <input type="text" name="responser" class="form-control" id="{{new_form.responser.id_for_label}}" placeholder="" value="" required="">
+                            </div>
+                          </div>
+                          <!-- 项目名称 -->
+                          <div class="mb-3">
+                              <label for="{{new_form.name.id_for_label}}">{{new_form.name.label}}</label>
+                              <input type="text" name="name" class="form-control" id="{{new_form.name.id_for_label}}" placeholder="" value="" required="">
+                              <div class="invalid-feedback">项目名称不能为空.</div>
+                          </div>
+                          <!-- 项目的描述 -->
+                          <div class="mb-3">
+                              <label for="{{new_form.desp.id_for_label}}">{{new_form.desp.label}}</label>
+                              <input type="text" name="desp" class="form-control" id="{{new_form.desp.id_for_label}}" placeholder="" required="">
+                              <small class="text-muted">项目的简单介绍或者描述</small>
+                            </div>
+                            <div class="row">
+                              <!-- 项目地点 -->
+                              <div class="col-md-6 mb-3">
+                                <label for="{{new_form.location.id_for_label}}">{{new_form.location.label}}</label>
+                                <input type="text" name="location" class="form-control" id="{{new_form.location.id_for_label}}" placeholder="" value="" required="">
+                                <div class="invalid-feedback">项目的归属单位.</div>
+                              </div>
+                              <!-- 项目金额 -->
+                              <div class="col-md-6 mb-3">
+                                <label for="{{new_form.money.id_for_label}}">{{new_form.money.label}}</label>
+                                <input type="text" name="money" class="form-control" id="{{new_form.money.id_for_label}}" placeholder="" value="" required="">
+                                <div class="invalid-feedback">项目的预算金额.</div>
                               </div>
                             </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-6 mb-3">
-                              <label for="cc-name">联系电话</label>
-                              <input type="text" class="form-control" id="cc-name" placeholder="" required="">
-                              <small class="text-muted">手机号码或者固定电话</small>
-                              <div class="invalid-feedback">
-                                联系电话不能为空
-                              </div>
-                            </div>
-                            </div>
-                          <div class="mb-3">
-                            <label for="email">邮箱 <span class="text-muted">(Optional)</span></label>
-                            <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                            <div class="invalid-feedback">
-                              Please enter a valid email address for shipping updates.
-                            </div>
-                          </div>
-                  
-                          <div class="mb-3">
-                            <label for="address">地址</label>
-                            <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
-                            <div class="invalid-feedback">
-                              Please enter your shipping address.
-                            </div>
-                          </div>
-                  
-                          <div class="mb-3">
-                            <label for="address2">单位<span class="text-muted">(Optional)</span></label>
-                            <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-                          </div>
-                  
+                          <hr class="mb-4">
+                          {{new_form.create_date}}
+                          {{new_form.start_date}}
+                          {{new_form.finish_date}}
+                          <hr class="mb-4">
                           <div class="row">
                             <div class="col-md-5 mb-3">
-                              <label for="country">级别</label>
+                              <label for="country">创建日期</label>
                               <select class="custom-select d-block w-100" id="country" required="">
                                 <option value="">Choose...</option>
                                 <option>United States</option>
@@ -200,7 +205,7 @@
                               </div>
                             </div>
                             <div class="col-md-4 mb-3">
-                              <label for="state">职称</label>
+                              <label for="state">招标开始日期</label>
                               <select class="custom-select d-block w-100" id="state" required="">
                                 <option value="">Choose...</option>
                                 <option>California</option>
@@ -209,15 +214,16 @@
                                 Please provide a valid state.
                               </div>
                             </div>
-                          </div>
-                          <hr class="mb-4">
-                          <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="same-address">
-                            <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
-                          </div>
-                          <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="save-info">
-                            <label class="custom-control-label" for="save-info">Save this information for next time</label>
+                            <div class="col-md-5 mb-3">
+                              <label for="country">招标截止日期</label>
+                              <select class="custom-select d-block w-100" id="country" required="">
+                                <option value="">Choose...</option>
+                                <option>United States</option>
+                              </select>
+                              <div class="invalid-feedback">
+                                Please select a valid country.
+                              </div>
+                            </div>
                           </div>
                           <hr class="mb-4">
                             <div class="mb-4">

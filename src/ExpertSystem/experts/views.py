@@ -43,9 +43,8 @@ def save_expert_req(request):
         form = ExpertForm(request.POST)
         print(request.POST)
         if form.is_valid():
-            print("成功添加专家信息")
             form.save()
         else:
-            print("添加失败，专家信息校验失败")
+            return HttpResponse("添加专家信息失败")
     # TODO: 后期添加成功后 跳转到专家详情页面。
     return redirect("/experts/list")
