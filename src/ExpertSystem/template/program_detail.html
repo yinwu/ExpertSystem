@@ -119,9 +119,9 @@
       display: inline-block;
       border-radius: 50%;
     }
-    
+    type="text/css"
     </style>
-  
+  {% load static %}
   
   </head>
 
@@ -177,36 +177,20 @@
 		
 		
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		<!--
           <h2 class="sub-header">项目详细信息</h2>
-		  <!--
-          <div class="table-responsive">
-            <div>
-              <h3>项目名称</h3>
-              <p>{{program.name}}</p>
-              <h3>项目描述</h3>
-              <p>{{program.desp}}</p>
-              <h3>项目负责人</h3>
-              <p>{{program.responser}}</p>
-              <h3>联系方式</h3>
-              <p>12343456</p>
-            </div>
-			-->
-			
+		 --> 
 		    <div class="col-md-12" >
             <div class="panel panel-default" >
             <div class="panel-body table-responsive">
-            <div style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd; background-repeat:no-repeat; padding-left:20px; background-position: bottom left;">项目信息</div>
+            <div style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd; background-repeat:no-repeat; padding-left:20px; background-position: bottom left;"></div>
 
                 <form id="inputForm" class="form-horizontal" action="" method="get">
-				<!--
-							<input id="id" name="id" type="hidden" value="aff82cbeea78412bb6d93b5b142ca9d4"/>
-							<input type="hidden" id="zbrId" name="zbrId" value="8f90c30591be47cca98223eb067f6287"/>
-							<input type="hidden" id="evaOrgId" name="evaOrgId" value="8a12bf42b4964f11aa3ac5a081356f26"/>
-							-->
+				
 							<table class="table table-bordered table-condensed">
 								<tr>
 									<td style="background-color:#ECECFF;">
-										<b>项目信息</b>
+										<b>项目详细信息</b>
 									</td>
 								</tr>
 								<tr>
@@ -270,15 +254,16 @@
 									</td>
 								</tr>
 								<tr>
-								
 									<td><label class="tab_control_label">项目描述: </label></td>
-											
+									<!--
 									<td colspan="3">
-										{{program.desp}}	
+										<textarea id="remarks" name="remarks" maxlength="500" style="width:600px;height:80px;" value="{{program_item.responser}}"></textarea>
 									</td>
-											
-
-								</tr>	
+									-->
+									<td colspan="10">
+										<textarea disabled type="text" id="remarks" name="remarks" maxlength="1000" style="width: 1100px; height: 80px">{{program_item.description}}</textarea>
+									</td
+								</tr>
 							</table>			
 	        </form>
         </div>   
@@ -321,6 +306,7 @@
 		
       </div>
     </div>
+	<div style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd; background-repeat:no-repeat; padding-left:20px; background-position: bottom left;"></div>
 	<div style="width:350px; display:block; margin:10px auto;">
 		<button type="button" class="btn-blu-btn" onclick="location.href='/program/modify/{{program.id}}';">修改</button>
 		
@@ -338,9 +324,13 @@
             <button type="button" class="btn-blu-btn" >删除</button>
 
         </a>
-		<button type="button" class="btn-blu-btn" onclick="location.href='/program/selectExperts/{{program.id}}';">抽取专家</button>						
-		<button type="button" class="btn-blu-btn" onclick="location.href='/program/exportExperts/{{program.id}}';">导出专家</button>						
+		<button type="button" class="btn-blu-btn" onclick="location.href='/program/selectExperts/{{program.id}}';">抽取专家</button>
+		
+		<button type="button" class="btn-blu-btn" onclick="location.href='/program/download/{{program.id}}';">导出专家</button>
+		
 		<button type="button" class="btn-cancel" onclick="history.go(-1)">返 回</button>
 	</div>
+	
 </body>
+   
 </html>

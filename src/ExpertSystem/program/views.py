@@ -1,10 +1,14 @@
 from django.shortcuts import render
+import os
 
 # Create your views here.
 
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.http import HttpResponseRedirect
+from django.http import FileResponse
+
 from django.shortcuts import render
+
 
 
 from experts.models import Expert
@@ -94,7 +98,36 @@ def program_export_experts(request, id):
 
 
 def program_add(request):
-    return render(request, 'add_program_template.html')
+    if request.method == 'GET':
+        return render(request, 'add_program_template.html')
+    
+    if request.method == 'POST':
+        test_data2 = [
+        {"id":"1", "name":"name1", "responser":"responser1", "description":"descriptino1", "info":"info1"},
+        {"id":"2", "name":"name2", "responser":"responser2", "description":"descriptino2", "info":"info2"},
+        {"id":"3", "name":"name3", "responser":"responser3", "description":"descriptino3", "info":"info3"},
+        {"id":"4", "name":"name4", "responser":"responser4", "description":"descriptino4", "info":"info4"},
+        {"id":"5", "name":"name5", "responser":"responser5", "description":"descriptino5", "info":"info5"},
+        {"id":"6", "name":"name6", "responser":"responser6", "description":"descriptino6", "info":"info6"},
+        {"id":"7", "name":"name7", "responser":"responser7", "description":"descriptino7", "info":"info7"},
+        {"id":"8", "name":"name8", "responser":"responser8", "description":"descriptino8", "info":"info8"},
+        {"id":"9", "name":"name9", "responser":"responser9", "description":"descriptino9", "info":"info9"},
+        {"id":"10", "name":"name10", "responser":"responser10", "description":"descriptino10", "info":"info10"}
+        ]
+        program_name = request.POST.get('name')
+        program_responser = request.POST.get('responser')
+        program_description = request.POST.get('remarks')
+        next_index = len(test_data2)+1
+        program_item = {"id":"", "name":"", "responser":"", "description":"", "info":""}
+        program_item['id'] = next_index
+        program_item['name'] = program_name
+        program_item['responser'] = program_responser
+        program_item['description'] = program_description
+        test_data2.append(program_item)
+        print("I come to POST")
+        program_list = Program.objects.all()
+        
+        return render(request, "delete_program_template.html",{"program_list":test_data2})
     
 def program_delete(request, id):
     test_data = [
@@ -189,10 +222,12 @@ def program_modify(request, id):
     
         program_name = request.POST.get('name')
         program_responser = request.POST.get('responser')
+        program_description = request.POST.get('remarks')
         program_item = {}
         program_item = test_data2[id-1]
         program_item['name'] = program_name
         program_item['responser'] = program_responser
+        program_item['description'] = program_description
         test_data2.pop(id-1)
         test_data2.insert(id-1, program_item)
         print("this is my print debug in post")
@@ -200,6 +235,51 @@ def program_modify(request, id):
         program_list = Program.objects.all()
         
         return render(request, "delete_program_template.html",{"program_list":test_data2})
-    
+        
+def download_table(request, id):
+    file_name = 'expertfile/test_' + str(id) + '.xlsx'
+    file_path = os.path.join(os.getcwd(), file_name)
+    if os.path.exists(file_path):
+        file = open(file_path, 'rb')
+        response = FileResponse(file)
+        response['Content-Type'] = 'application/octet-stream'
+        response['Content-Disposition'] = 'attachment;filename="mytest.xlsx"'
+        return response
 
+    else:
+
+        raise Http404
+        
+def program_save(request):
+    
+    
+    test_data2 = [
+        {"id":"1", "name":"name1", "responser":"responser1", "description":"descriptino1", "info":"info1"},
+        {"id":"2", "name":"name2", "responser":"responser2", "description":"descriptino2", "info":"info2"},
+        {"id":"3", "name":"name3", "responser":"responser3", "description":"descriptino3", "info":"info3"},
+        {"id":"4", "name":"name4", "responser":"responser4", "description":"descriptino4", "info":"info4"},
+        {"id":"5", "name":"name5", "responser":"responser5", "description":"descriptino5", "info":"info5"},
+        {"id":"6", "name":"name6", "responser":"responser6", "description":"descriptino6", "info":"info6"},
+        {"id":"7", "name":"name7", "responser":"responser7", "description":"descriptino7", "info":"info7"},
+        {"id":"8", "name":"name8", "responser":"responser8", "description":"descriptino8", "info":"info8"},
+        {"id":"9", "name":"name9", "responser":"responser9", "description":"descriptino9", "info":"info9"},
+        {"id":"10", "name":"name10", "responser":"responser10", "description":"descriptino10", "info":"info10"}
+        ]
+    if request.method == 'POST':
+        program_name = request.POST.get('name')
+        program_responser = request.POST.get('responser')
+        program_description = request.POST.get('remarks')
+        program_item = {}
+        program_item = test_data2[0]
+        program_item['name'] = program_name
+        program_item['responser'] = program_responser
+        program_item['description'] = program_description
+        test_data2.append(item)
+        print("I come to POST")
+    program_list = Program.objects.all()
+        
+    return render(request, "delete_program_template.html",{"program_list":test_data2})
+    
+    
+    
     

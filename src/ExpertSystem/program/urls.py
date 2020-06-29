@@ -1,4 +1,7 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from . import views
 
@@ -12,4 +15,5 @@ urlpatterns = [
     path('exportExperts/<int:id>', views.program_export_experts, name='exportExperts'),
     path('search/', views.search, name='search'),
     path('modify/<int:id>', views.program_modify, name='modifyProgram'),
+    path('download/<int:id>', views.download_table, name='download'),
 ]
