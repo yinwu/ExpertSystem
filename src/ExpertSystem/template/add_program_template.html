@@ -141,101 +141,130 @@
 </head>
 <body>
 
-    <div class="container col-md-8 col-md-offset-2">
-        <div class="bs-docs-example">
-            <div class="hero-unit">
+	
+	<div class="content-right">
 
-                <div class="container">
-                    <div class="col-md-8 order-md-1">
-                        <h4 class="mb-3">新增项目</h4>
-                        {% csrf_token %}
-                        <form action="/program/save" method="POST" class="needs-validation" novalidate="">
-                          <div class="row">
-                            <!-- 项目编号 -->
-                            <div class="col-md-6 mb-3">
-                              <label for="{{new_form.seq.id_for_label}}">{{new_form.seq.label}}</label>
-                              <input type="text" name="seq" class="form-control" id="{{new_form.seq.id_for_label}}" placeholder="" value="" required="">
-                              <div class="invalid-feedback">项目编号不能为空.</div>
-                            </div>
-                            <!-- 项目负责人 -->
-                            <div class="col-md-6 mb-3">
-                              <label for="{{new_form.responser.id_for_label}}">{{new_form.responser.label}}</label>
-                              <input type="text" name="responser" class="form-control" id="{{new_form.responser.id_for_label}}" placeholder="" value="" required="">
-                            </div>
-                          </div>
-                          <!-- 项目名称 -->
-                          <div class="mb-3">
-                              <label for="{{new_form.name.id_for_label}}">{{new_form.name.label}}</label>
-                              <input type="text" name="name" class="form-control" id="{{new_form.name.id_for_label}}" placeholder="" value="" required="">
-                              <div class="invalid-feedback">项目名称不能为空.</div>
-                          </div>
-                          <!-- 项目的描述 -->
-                          <div class="mb-3">
-                              <label for="{{new_form.desp.id_for_label}}">{{new_form.desp.label}}</label>
-                              <input type="text" name="desp" class="form-control" id="{{new_form.desp.id_for_label}}" placeholder="" required="">
-                              <small class="text-muted">项目的简单介绍或者描述</small>
-                            </div>
-                            <div class="row">
-                              <!-- 项目地点 -->
-                              <div class="col-md-6 mb-3">
-                                <label for="{{new_form.location.id_for_label}}">{{new_form.location.label}}</label>
-                                <input type="text" name="location" class="form-control" id="{{new_form.location.id_for_label}}" placeholder="" value="" required="">
-                                <div class="invalid-feedback">项目的归属单位.</div>
-                              </div>
-                              <!-- 项目金额 -->
-                              <div class="col-md-6 mb-3">
-                                <label for="{{new_form.money.id_for_label}}">{{new_form.money.label}}</label>
-                                <input type="text" name="money" class="form-control" id="{{new_form.money.id_for_label}}" placeholder="" value="" required="">
-                                <div class="invalid-feedback">项目的预算金额.</div>
-                              </div>
-                            </div>
-                          <hr class="mb-4">
-                          {{new_form.create_date}}
-                          {{new_form.start_date}}
-                          {{new_form.finish_date}}
-                          <hr class="mb-4">
-                          <div class="row">
-                            <div class="col-md-5 mb-3">
-                              <label for="country">创建日期</label>
-                              <select class="custom-select d-block w-100" id="country" required="">
-                                <option value="">Choose...</option>
-                                <option>United States</option>
-                              </select>
-                              <div class="invalid-feedback">
-                                Please select a valid country.
-                              </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                              <label for="state">招标开始日期</label>
-                              <select class="custom-select d-block w-100" id="state" required="">
-                                <option value="">Choose...</option>
-                                <option>California</option>
-                              </select>
-                              <div class="invalid-feedback">
-                                Please provide a valid state.
-                              </div>
-                            </div>
-                            <div class="col-md-5 mb-3">
-                              <label for="country">招标截止日期</label>
-                              <select class="custom-select d-block w-100" id="country" required="">
-                                <option value="">Choose...</option>
-                                <option>United States</option>
-                              </select>
-                              <div class="invalid-feedback">
-                                Please select a valid country.
-                              </div>
-                            </div>
-                          </div>
-                          <hr class="mb-4">
-                            <div class="mb-4">
-                            <button class="btn btn-primary btn-lg btn-block col-md-3 mb-4" type="submit">保存</button>
-                            </div>
-                        </form>
-                      </div>
-                </div>
-            </div>
-        </div>
-    </div>
+			<!-- Start Page Header -->
+			<div class="page-header">
+				<!--h1 class="title">当前页</h1-->
+				<ol class="breadcrumb">
+					<li><a href="/program/list.html">首页/ </a></li>
+					<li class="active">项目管理</li>
+				</ol>
+
+
+			</div>
+			<!-- End Page Header -->
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-body table-responsive">
+						<div style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd); background-repeat:no-repeat; padding-left:20px; background-position: bottom left;">
+							新建项目
+						</div>
+						<!--项目基本信息开始-->
+						<form id="inputForm" class="form-horizontal" action="" method="post">
+							
+							<table class="table table-bordered table-condensed">
+								<tr>
+									<td style="background-color:#ECECFF;">
+										<b>项目基本信息</b>
+									</td>
+								</tr>
+								<tr>
+									<td>
+							<table class="table table-bordered table-condensed" style="margin-bottom: 0px;">
+								<tr>
+									<td style="width:12%">
+										<label class="tab_control_label">项目名称: </label>
+										
+									</td>
+									<td style="width:38%">
+										<input id="name" name="name" class="required" type="text" value="{{program_item.name}}" maxlength="50"/>
+									</td>
+									<td style="width:12%"><label class="tab_control_label">项目编号: </label></td>
+									<td style="width:38%">
+										<input id="code" name="code" class="required" type="text" value="" maxlength="50"/>
+									</td>
+								</tr>
+								<tr>
+								
+									<td style="width:12%">
+										<label class="tab_control_label">项目负责人: </label>
+										
+									</td>
+									<td style="width:38%">
+										<input id="responser" name="responser" class="required" type="text" value="{{program_item.responser}}" maxlength="50"/>
+									</td>
+									<td><label class="tab_control_label">金额: </label></td>
+									<td>
+										<div class="input-append">
+										<input id="je" name="je" class="required isFloat" type="text" value="" maxlength="10"/>（万元）
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td><label class="tab_control_label">所属地: </label></td>
+									<td>
+										<select id="ssd" name="ssd">
+											<option value="" selected="selected">-请选择-</option>
+											<option value="北京">北京</option><option value="天津">天津</option><option value="上海">上海</option><option value="重庆">重庆</option><option value="河北">河北</option><option value="山西">山西</option><option value="辽宁">辽宁</option><option value="吉林">吉林</option><option value="黑龙江">黑龙江</option><option value="江苏">江苏</option><option value="西藏">西藏</option><option value="贵州">贵州</option><option value="云南">云南</option><option value="安徽">安徽</option><option value="陕西">陕西</option><option value="宁夏">宁夏</option><option value="甘肃">甘肃</option><option value="澳门">澳门</option><option value="台湾">台湾</option><option value="河南">河南</option><option value="福建">福建</option><option value="浙江">浙江</option><option value="江西">江西</option><option value="青海">青海</option><option value="新疆">新疆</option><option value="内蒙古">内蒙古</option><option value="海南">海南</option><option value="湖北">湖北</option><option value="广东">广东</option><option value="香港">香港</option><option value="山东">山东</option><option value="湖南">湖南</option><option value="广西">广西</option><option value="四川">四川</option>
+										</select>
+									</td>
+								</tr>
+								
+								<tr>
+									<td><label class="tab_control_label">评标开始时间: </label></td>
+									<td>
+										<input id="pbkssj" name="pbkssj" type="text"
+														maxlength="20" class="Wdate required"
+														value=""
+														onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',maxDate:'#F{$dp.$D(\'pbjssj\')}',isShowClear:false});" />
+									</td>
+									<td><label class="tab_control_label">评标结束时间: </label></td>
+									<td>
+										<input id="pbjssj" name="pbjssj" type="text"
+														maxlength="20" class="Wdate required"
+														value=""
+														onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'#F{$dp.$D(\'pbkssj\')}', isShowClear:false});" />
+									</td>
+								</tr>
+								
+								<tr>
+									<td><label class="tab_control_label">项目描述: </label></td>
+									<td colspan="10">
+										<textarea type="text" id="remarks" name="remarks" maxlength="1000" style="width: 1100px; height: 80px">{{program_item.description}}</textarea>
+									</td
+								</tr>
+							</table>
+							</td>
+							</tr>
+							<!-- 项目基本信息 end -->
+											
+							</table>
+							<div style="width:400px; display:block; margin:0px auto;">
+								<script type="text/javascript">
+                                   function save(hint, ref){
+                                      if(confirm(hint)){
+                                      window.location = ref;
+                                      }else{
+			                          location.reload();
+                                      }
+                                   }
+                                </script>
+		                    <a href="/program/add" onclick="return save('确认要保存该项目吗？', this.href)">
+
+                                <button type="botton" class="btn-blu-btn" >保存</button>
+
+                            </a>
+								<button id="submitBtn" type="button" class="btn-cancel" onclick="history.go(-1)">返 回</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!--content-right end-->
 </body>
 
 </html>

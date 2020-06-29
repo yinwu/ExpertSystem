@@ -92,11 +92,12 @@ def program_export_experts(request, id):
 
 
 def program_add(request):
-    """
+    
     if request.method == 'GET':
         return render(request, 'add_program_template.html')
     
     if request.method == 'POST':
+        """
         test_data2 = [
         {"id":"1", "name":"name1", "responser":"responser1", "description":"descriptino1", "info":"info1"},
         {"id":"2", "name":"name2", "responser":"responser2", "description":"descriptino2", "info":"info2"},
@@ -123,10 +124,14 @@ def program_add(request):
         program_list = Program.objects.all()
         
         return render(request, "delete_program_template.html",{"program_list":test_data2})
-    """
-    new_program = ProgramForm()
-    return render(request, 'add_program_template.html', {"new_form":new_program})
-    return render(request, 'add_program_template.html')
+        """
+        new_program = ProgramForm()
+        """
+        add new program to program db
+        then assign program db to program_list
+        """
+        return render(request, 'program_list_template.html', {"program_list":new_program})
+    
     
 def program_delete(request, id):
     test_data = [
@@ -163,6 +168,7 @@ def get_available_experts(program_id, num):
         return Expert.objects.filter()
 
     pass
+
 def save_program(request):
     if request.method == "POST":
         program_form = ProgramForm(request.POST)
@@ -176,7 +182,7 @@ def save_program(request):
 
     return redirect("/program/list")
             
-    
+   
 def search(request):
     test_data = [
         {"id":"1", "name":"name1", "responser":"responser1", "description":"descriptino1", "info":"info1"},
@@ -261,4 +267,3 @@ def download_table(request, id):
     else:
 
         raise Http404
-        
