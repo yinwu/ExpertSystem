@@ -26,15 +26,14 @@ def add_expert_req(request):
     return render(request, 'add_expert_template.html', {"expert_form": expert_form})
 
 def expert_detail(request, expert_id):
-    context = {"name":"test_name"}
 
     try:
         expert = Expert.objects.get(id = expert_id)
     except:
-        return render(request, 'expert_error_detail.html', context)
+        return HttpResponse("专家不存在，ID:", expert_id)
     
     program_list = expert.selected_program_list
-    return render(request, 'expert_detail.html', program_list)
+    return render(request, 'expert_detail.html', {"expert":expert})
 
 def save_expert_req(request):
 
@@ -43,9 +42,8 @@ def save_expert_req(request):
         form = ExpertForm(request.POST)
         print(request.POST)
         if form.is_valid():
-            print("成功添加专家信息")
             form.save()
         else:
-            print("添加失败，专家信息校验失败")
+            return HttpResponse("添加专家信息失败")
     # TODO: 后期添加成功后 跳转到专家详情页面。
     return redirect("/experts/list")
