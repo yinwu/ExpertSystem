@@ -22,8 +22,22 @@ def delete_expert_req(request):
     return render(request, 'delete_expert_template.html')
 
 def add_expert_req(request):
+    """
     expert_form = ExpertForm()
     return render(request, 'add_expert_template.html', {"expert_form": expert_form})
+    """
+    if request.method == 'GET':
+        return render(request, 'add_expert_template.html')
+    
+    if request.method == 'POST':
+        print("POST")
+        form = ExpertForm(request.POST)
+        print(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            return HttpResponse("添加专家信息失败")
+        return redirect("/experts/list")
 
 def expert_detail(request, expert_id):
 
@@ -32,8 +46,10 @@ def expert_detail(request, expert_id):
     except:
         return HttpResponse("专家不存在，ID:", expert_id)
     
-    program_list = expert.selected_program_list
-    return render(request, 'expert_detail.html', {"expert":expert})
+    program_list = expert.selected_program_list.all()
+    #return render(request, 'expert_detail.html', {"expert":expert})
+    return render(request, 'expert_detail.html', {"expert" : expert, "program_list": program_list})
+
 
 def save_expert_req(request):
 
@@ -47,3 +63,8 @@ def save_expert_req(request):
             return HttpResponse("添加专家信息失败")
     # TODO: 后期添加成功后 跳转到专家详情页面。
     return redirect("/experts/list")
+
+"""   
+def modify_expert(request, id):
+"""   
+    

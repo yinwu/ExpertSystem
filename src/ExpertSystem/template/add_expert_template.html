@@ -136,70 +136,10 @@
             box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.15);
         }
     </style>
-              <div class="mb-3">
-                <label for="{{expert_form.address.id_for_label}}">{{expert_form.address.label}}</label>
-                <input type="text" class="form-control" name="address" id="{{expert_form.address.id_for_label}}" placeholder="北京市xx区xxx" required="">
-                <div class="invalid-feedback">
-                  请输入您的联系地址.
-                </div>
-              </div>
-
-              <div class="mb-3">
-                <label for="{{expert_form.unit.id_for_label}}">{{expert_form.unit.label}}<span class="text-muted">(Optional)</span></label>
-                <input type="text" class="form-control" name="unit" id="{{expert_form.unit.id_for_label}}" placeholder="Apartment or suite">
-              </div>
-
-              <div class="row">
-                <div class="col-md-4 mb-3">
-                  
-                  <label for="expert_form.degree.id_for_label">{{expert_form.degree.label}}</label>                  
-                  <select name="degree" class="custom-select d-block w-100" id="{{expert_form.degree.id_for_label}}" required="">
-                    <option value="">Choose...</option>
-                    <!-- 没有想好怎么处理，可能需要用wiget来比较合适 -->
-                    <option value="benke">本科</option>
-                    <option value="shuoshi">硕士</option>
-                    <option value="boshi">博士</option>
-                    <option value="boshihou">博士后</option>
-                    <option value="other">其他</option>
-                  </select>
-                  <div class="invalid-feedback">
-                    请选择学历类型.
-                  </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                  <label for="{{expert_form.level.id_for_label}}">{{expert_form.level.label}}</label>
-                  <select name="level" class="custom-select d-block w-100" id="{{expert_form.level.id_for_label}}" required="">
-                    <option value="">Choose...</option>
-                    <option value="chuji">初级职称</option>
-                    <option value="zhongji">中级职称</option>
-                    <option value="gaoji">高级职称</option>
-                    <option value="jiaoshou">教授</option>
-                    <option value="shidao">硕士生导师</option>
-                    <option value="bodao">博士生导师</option>
-                    <option value="yuanshi">院士</option>
-                    <option vlaue="other" selected>其他</option>
-                  </select>
-                  <div class="invalid-feedback">
-                    Please provide a valid state.
-                  </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                  <label for="state">{{expert_form.program_type.label}}</label>
-                  <select name="program_type" class="custom-select d-block w-100" id="state" required="">
-                    <option value="">Choose...</option>
-                    <option value="ligong">理工类</option>
-                    <option value="wenshi">文史类</option>
-                    <option value="yishu">艺术类</option>
-                    <option value="othere=">其他类</option>
-                  </select>
-                  <div class="invalid-feedback">
-                    Please provide a valid state.
-                  </div>
-=======
-=======
->>>>>>> 9e7d9e2cf9f9e03b3e1216f763a958eaf048222b
+              
 </head>
 <body>
+<div 
     <div class="container col-md-8 col-md-offset-2">
         <div class="bs-docs-example">
             <div class="hero-unit">
@@ -249,27 +189,53 @@
                           </div>
                   
                           <div class="row">
-                            <div class="col-md-5 mb-3">
-                              <label for="country">级别</label>
-                              <select class="custom-select d-block w-100" id="country" required="">
-                                <option value="">Choose...</option>
-                                <option>United States</option>
-                              </select>
-                              <div class="invalid-feedback">
-                                Please select a valid country.
-                              </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                              <label for="state">职称</label>
-                              <select class="custom-select d-block w-100" id="state" required="">
-                                <option value="">Choose...</option>
-                                <option>California</option>
-                              </select>
-                              <div class="invalid-feedback">
-                                Please provide a valid state.
-                              </div>
-                            </div>
-                          </div>
+                <div class="col-md-4 mb-3">
+                  
+                  <label for="expert_form.degree.id_for_label">{{expert_form.degree.label}}</label>                  
+                  <select name="degree" class="custom-select d-block w-100" id="{{expert_form.degree.id_for_label}}" required="">
+                    <option value="">Choose...</option>
+                    <!-- 没有想好怎么处理，可能需要用wiget来比较合适 -->
+                    <option value="benke">本科</option>
+                    <option value="shuoshi">硕士</option>
+                    <option value="boshi">博士</option>
+                    <option value="boshihou">博士后</option>
+                    <option value="other">其他</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    请选择学历类型.
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="{{expert_form.level.id_for_label}}">{{expert_form.level.label}}</label>
+                  <select name="level" class="custom-select d-block w-100" id="{{expert_form.level.id_for_label}}" required="">
+                    <option value="">Choose...</option>
+                    <option value="chuji">初级职称</option>
+                    <option value="zhongji">中级职称</option>
+                    <option value="gaoji">高级职称</option>
+                    <option value="jiaoshou">教授</option>
+                    <option value="shidao">硕士生导师</option>
+                    <option value="bodao">博士生导师</option>
+                    <option value="yuanshi">院士</option>
+                    <option vlaue="other" selected>其他</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="state">{{expert_form.program_type.label}}</label>
+                  <select name="program_type" class="custom-select d-block w-100" id="state" required="">
+                    <option value="">Choose...</option>
+                    <option value="ligong">理工类</option>
+                    <option value="wenshi">文史类</option>
+                    <option value="yishu">艺术类</option>
+                    <option value="othere=">其他类</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div>
+				</div>
+			</div>
                           <hr class="mb-4">
                           <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="same-address">
@@ -280,16 +246,30 @@
                             <label class="custom-control-label" for="save-info">Save this information for next time</label>
                           </div>
                           <hr class="mb-4">
-                            <div class="mb-4">
-                            <button class="btn btn-primary btn-lg btn-block col-md-3 mb-4" type="submit">保存</button>
-                            </div>
+							<div style="width:400px; display:block; margin:0px auto;">
+								<script type="text/javascript">
+                                   function save(hint, ref){
+                                      if(confirm(hint)){
+                                      window.location = ref;
+                                      }else{
+			                          location.reload();
+                                      }
+                                   }
+                                </script>
+		                    <a href="/experts/add" onclick="return save('确认要保存该项目吗？', this.href)">
+
+                                <button type="botton" class="btn-blu-btn col-md-3 mb-4" >保存</button>
+
+                            </a>
+								<button id="submitBtn" type="button" class="btn-cancel col-md-3 mb-4" onclick="history.go(-1)">返 回</button>
+							</div>
                         </form>
-                      </div>
+                     </div>
                 </div>
             </div>
         </div>
     </div>
-  </div>
+</div>
 </body>
 
 </html>

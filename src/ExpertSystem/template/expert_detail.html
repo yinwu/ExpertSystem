@@ -12,7 +12,11 @@
     <title>专家抽签系统</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   
     <style>
@@ -81,7 +85,7 @@
     
     /*
     * Main content
-    */ 
+    */
     
     .main {
       padding: 20px;
@@ -115,9 +119,12 @@
       display: inline-block;
       border-radius: 50%;
     }
-    
+    type="text/css"
     </style>
+  {% load static %}
+  
   </head>
+
   <body>
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -149,44 +156,161 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Export</a></li>
+            <li class="active"><a href="index">主页 <span class="sr-only">(current)</span></a></li>
+            <!--<li><a href="/experts/list">专家列表</a></li>
+			-->
+			<li><a href="{% url 'index' %}">项目列表</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="">选择1</a></li>
-            <li><a href="">选择2</a></li>
-            <li><a href="">选择3</a></li>
-            <li><a href="">选择4</a></li>
-            <li><a href="">选择5</a></li>
+            
+			<li class="active"><a href="{% url 'addExpert' %}">添加专家</a></li>
+            
+			
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="">选择1</a></li>
-            <li><a href="">选择2</a></li>
-            <li><a href="">选择3</a></li>
-          </ul>
+            <li><a href="">王专家</a></li>
+            <li><a href="">李专家</a></li>
+            <li><a href="">刘专家</a></li>
+            <li><a href="">宋专家</a></li>
+            <li><a href="">朱专家</a></li>
+          </ul> 
         </div>
+		
+	
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">专家姓名</h2>
-          <h2 class="sub-header">联系电话</h2>
-          </div>
-          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h2 class="sub-header">评审项目列表3</h2>
-            <li>项目1</li>
-            <li>项目2</li>
-            <li>项目3</li>
-            <li>项目4</li>
-            <li>项目5</li>
-            </div>
-            <div>
-                <dl>
-                    <dt>测试1</dt>
-                    <dd>测试2</dd>
-                </dl>
-            </div>
+		<!--
+          <h2 class="sub-header">专家信息</h2>
+		 --> 
+		    <div class="col-md-12" >
+            <div class="panel panel-default" >
+            <div class="panel-body table-responsive">
+            <div style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd; background-repeat:no-repeat; padding-left:20px; background-position: bottom left;"></div>
+
+                <form id="inputForm" class="form-horizontal" action="" method="get">
+				
+							<table class="table table-bordered">
+								<tr>
+									<td style="background-color:#ECECFF;">
+										<b>专家详细信息</b>
+									</td>
+								</tr>
+								<tr>
+									<td>
+							        <table class="table table-bordered table-condensed" style="margin-bottom: 0px;">
+								</tr>
+								<tr>
+									<td style="width:10%">
+										<label class="tab_control_label">专家姓名: </label>
+									</td>
+									<td style="width:33%">
+										{{expert.name}}
+									</td>
+									<td style="width:10%"><label class="tab_control_label">联系电话: </label></td>
+									<td style="width:33%">
+										{{expert.phone}}
+									</td>
+									
+								</tr>
+								<tr>
+								    <td style="width:10%">
+										<label class="tab_control_label">联系地址: </label>
+									</td>
+									<td style="width:33%">
+										{{expert.address}}
+									</td>
+									<td style="width:10%"><label class="tab_control_label">电子邮箱: </label></td>
+									<td style="width:33%">
+										{{expert.email}}
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label class="tab_control_label">工作单位: </label>
+									</td>
+									<td>
+										{{expert.unit}}
+									</td>
+									<td><label class="tab_control_label">职务等级: </label></td>
+									<td>
+										{{expert.level}}
+									</td>
+								</tr>
+								<tr>
+									<td><label class="tab_control_label">学历: </label></td>
+									<td>
+										{{expert.degree}}
+									</td>
+									<td><label class="tab_control_label">专业类型: </label></td>
+									<td>
+										{{expert.program_type}}
+									</td>
+								</tr>
+							
+								
+							</table>			
+	        </form>
+        </div>   
+        </div> 
         </div>
+        </div>
+		
+        <table class="table table-striped">
+			<thead>
+			    <tr>
+					<td style="background-color:#ECECFF; width:33%">
+					<b>评审项目列表</b>
+					</td>
+				</tr>
+			</thead>
+							
+            <thead>
+                <tr>
+                  <th>项目编号</th>
+                  <th>项目名称</th>
+                  <th>项目负责人</th>
+                  <th>项目所属地</th>
+                  <th>项目创建时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for program in program_list %}
+                <tr>
+                  <td>{{program.seq}}</td>
+                  <td>{{program.name}}</td>
+                  <td>{{program.responser}}</td>
+                  <td>{{program.location}}</td>
+                  <td>{{program.date}}</td>
+                </tr>
+                {% endfor%}
+            </tbody>
+            </table>
+          </div>
+        </div>
+		
       </div>
     </div>
+	<div style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd; background-repeat:no-repeat; padding-left:20px; background-position: bottom left;"></div>
+	<div style="width:350px; display:block; margin:10px auto;">
+		<button type="button" class="btn-blu-btn" onclick="location.href='/experts/modify/{{program.id}}';">修改</button>
+		
+		<script type="text/javascript">
+           function del(hint, ref){
+            if(confirm(hint)){
+            window.location = ref;//跳转
+            }else{
+			    location.reload();
+            }
+           }
+        </script>
+		<a href="/experts/deleteProgram/{{program.id}}" onclick="return del('确认要删除该项目吗？', this.href)">
+
+            <button type="button" class="btn-blu-btn" >删除</button>
+
+        </a>
+		
+		<button type="button" class="btn-cancel" onclick="history.go(-1)">返 回</button>
+	</div>
+	
 </body>
+   
 </html>
