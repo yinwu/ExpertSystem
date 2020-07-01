@@ -156,30 +156,25 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Export</a></li>
+            
+			
+			<li class="active"><a href="/experts/index">主页 <span class="sr-only">(current)</span></a></li>
+            <li><a href="{% url 'index' %}">项目列表</a></li>
+            
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="">选择1</a></li>
-            <li><a href="">选择2</a></li>
-            <li><a href="">选择3</a></li>
-            <li><a href="">选择4</a></li>
-            <li><a href="">选择5</a></li>
+            <li><a href="{% url 'list' %}">专家列表</a></li>
+            
           </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">选择1</a></li>
-            <li><a href="">选择2</a></li>
-            <li><a href="">选择3</a></li>
+		  <ul class="nav nav-sidebar">
+            <li><a href="{% url 'addProgram' %}">添加项目</a></li>
+            
           </ul>
+          
         </div>
 		
 		
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		<!--
-          <h2 class="sub-header">项目详细信息</h2>
-		 --> 
 		    <div class="col-md-12" >
             <div class="panel panel-default" >
             <div class="panel-body table-responsive">

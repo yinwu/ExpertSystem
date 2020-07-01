@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{%load filter%}
 <html lang="zh-CN"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
@@ -156,24 +157,22 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="index">主页 <span class="sr-only">(current)</span></a></li>
-            <!--<li><a href="/experts/list">专家列表</a></li>
-			-->
+            <li class="active"><a href="/experts/index">主页 <span class="sr-only">(current)</span></a></li>
 			<li><a href="{% url 'index' %}">项目列表</a></li>
           </ul>
-          <ul class="nav nav-sidebar">
+		  <ul class="nav nav-sidebar">
             
-			<li class="active"><a href="{% url 'addExpert' %}">添加专家</a></li>
+			<li><a href="{% url 'list' %}">专家列表</a></li>
             
 			
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="">王专家</a></li>
-            <li><a href="">李专家</a></li>
-            <li><a href="">刘专家</a></li>
-            <li><a href="">宋专家</a></li>
-            <li><a href="">朱专家</a></li>
-          </ul> 
+            
+			<li><a href="{% url 'addExpert' %}">添加专家</a></li>
+            
+			
+          </ul>
+          
         </div>
 		
 	
@@ -231,18 +230,21 @@
 										{{expert.unit}}
 									</td>
 									<td><label class="tab_control_label">职务等级: </label></td>
+									
+									
 									<td>
-										{{expert.level}}
+										{{expert|displayName:'level'}}	
 									</td>
+									
 								</tr>
 								<tr>
 									<td><label class="tab_control_label">学历: </label></td>
 									<td>
-										{{expert.degree}}
+										{{expert|displayName:'degree'}}
 									</td>
 									<td><label class="tab_control_label">专业类型: </label></td>
 									<td>
-										{{expert.program_type}}
+										{{expert|displayName:'program_type'}}
 									</td>
 								</tr>
 							
@@ -283,8 +285,10 @@
                 </tr>
                 {% endfor%}
             </tbody>
-            </table>
-          </div>
+            
+		</table>
+          
+		</div>
         </div>
 		
       </div>
