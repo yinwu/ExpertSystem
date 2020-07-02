@@ -230,40 +230,34 @@
 									</td>
 									<td><label class="tab_control_label">金额: </label></td>
 									<td>
-										111.0000（万元）
+										{{program.money}}
 									</td>
 								</tr>
 								<tr>
-									<td><label class="tab_control_label">招标代理: </label></td>
-									<td>
-										联想（北京）有限公司
-									</td>
+									
 									<td><label class="tab_control_label">所属地: </label></td>
 									<td>
-										
+										{{program.locaton}}
 									</td>
 								</tr>
 								
 								<tr>
 									<td><label class="tab_control_label">评标开始时间: </label></td>
 									<td>
-										2020-06-19 14:33
+										{{program.start_date}}
 									</td>
 									<td><label class="tab_control_label">评标结束时间: </label></td>
 									<td>
-										2020-06-19 14:33
+										{{program.end_date}}
 									</td>
 								</tr>
 								
 								<tr>
 									<td><label class="tab_control_label">创建时间: </label></td>
 									<td>
-										2020-06-19 14:33
+										{{program.program_date}}
 									</td>
-									<td><label class="tab_control_label">当前状态: </label></td>
-									<td>
-										新建
-									</td>
+									
 								</tr>
 								<tr>
 								
@@ -292,43 +286,51 @@
 											<tr class="table-head-tr-huise">
 											
 											<td>
-											<label for="country">专家级别</label>
-                                            <select class="custom-select d-block w-100" id="grade" required="">
-                                            <option value="">Choose...</option>
-                                            <option>一级</option>
-											<option>二级</option>
-											
+											<label for="country">职务等级</label>
+                                            <select name="level" class="custom-select d-block w-100" id="{{expert_form.level.id_for_label}}" required="">
+                                            <option value="">选择...</option>
+                                            <option value="chuji">初级职称</option>
+                                            <option value="zhongji">中级职称</option>
+                                            <option value="gaoji">高级职称</option>
+                                            <option value="jiaoshou">教授</option>
+                                            <option value="shidao">硕士生导师</option>
+                                            <option value="bodao">博士生导师</option>
+                                            <option value="yuanshi">院士</option>
+                                            <option value="other" selected>其他</option>
                                             </select>
                                                <div class="invalid-feedback">
-                                                  请输入正确的专家级别.
+                                               请选择职称级别
                                                </div>
 											</td>
 											<td>
-											<label for="country">专家职称</label>
-                                            <select class="custom-select d-block w-100" id="title" required="">
-                                            <option value="">Choose...</option>
-                                            <option>工程师</option>
+											<label for="country">学历</label>
+                                            <select name="degree" class="custom-select d-block w-100" id="{{expert_form.degree.id_for_label}}" required="">
+                                            <option value="">选择...</option>
+                                            <option value="benke">本科</option>
+                                            <option value="shuoshi">硕士</option>
+                                            <option value="boshi">博士</option>
+                                            <option value="boshihou">博士后</option>
+                                            <option value="other">其他</option>
                                             </select>
-                                               <div class="invalid-feedback">
-                                                  请输入正确的专家职称
-                                               </div>
+                                                <div class="invalid-feedback">
+                                                   请选择学历类型.
+                                                </div>
 											</td>
 											<td>
-											<label for="country">专家领域</label>
-                                            <select class="custom-select d-block w-100" id="expertise" required="">
-                                            <option value="">Choose...</option>
-                                            <option>计算机</option>
-											<option>地质</option>
+											<label for="country">专业类型</label>
+                                            <select name="program_type" class="custom-select d-block w-100" id="state" required="">
+                                            <option value="">选择...</option>
+                                            <option value="ligong">理工类</option>
+                                            <option value="wenshi">文史类</option>
+                                            <option value="yishu">艺术类</option>
+                                            <option value="other">其他类</option>
                                             </select>
-                                               <div class="invalid-feedback">
-                                                  请输入正确的专家领域
-                                               </div>
+                                                <div class="invalid-feedback">
+                                                   请选择专业领域
+                                                </div>
 											</td>
 											</tr>
 											</thead>
-											<tbody id="xmbdTbody">
-											
-											</tbody>
 										</table>
 								</td>
 							</tr>
@@ -336,28 +338,12 @@
 							</table>
 							<div style="width:350px; display:block; margin:10px auto;">
 								<button type="submit" class="btn-blu-btn">抽取</button>
-								
-								<button type="button" class="btn-blu-btn" onclick="xmgd('aff82cbeea78412bb6d93b5b142ca9d4');">取消</button>
-								
-								
-								
 								<button type="button" class="btn-cancel" onclick="history.go(-1)">返 回</button>
 							</div>
-						</form>
-
- 
-        
+		</form>
         </div>
-
-           
-            </div> 
-    </div>
-		  
-		  
-		  
-		  
-		  
-		  
+        </div> 
+        </div>
         </div>	
       </div>
     </div>

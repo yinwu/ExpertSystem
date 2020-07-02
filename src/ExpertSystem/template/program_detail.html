@@ -193,13 +193,13 @@
 							        <table class="table table-bordered table-condensed" style="margin-bottom: 0px;">
 								</tr>
 								<tr>
-									<td style="width:12%">
+									<td style="width:15%">
 										<label class="tab_control_label">项目名称: </label>
 									</td>
 									<td style="width:38%">
 										{{program.name}}
 									</td>
-									<td style="width:12%"><label class="tab_control_label">项目编号: </label></td>
+									<td style="width:15%"><label class="tab_control_label">项目编号: </label></td>
 									<td style="width:38%">
 										{{program.seq}}
 									</td>
@@ -217,37 +217,27 @@
 									</td>
 								</tr>
 								<tr>
-									<td><label class="tab_control_label">招标代理: </label></td>
-									<td>
-										{{program.proxy}}
-									</td>
 									<td><label class="tab_control_label">所属地: </label></td>
 									<td>
 										{{program.location}}
 									</td>
+									<td><label class="tab_control_label">创建时间: </label></td>
+									<td>
+										{{program.program_date}}
+									</td>
 								</tr>
 								
 								<tr>
-									<td><label class="tab_control_label">评标开始时间: </label></td>
+									<td><label class="tab_control_label">招标开始时间: </label></td>
 									<td>
 										{{program.start_date}}
 									</td>
-									<td><label class="tab_control_label">评标结束时间: </label></td>
+									<td><label class="tab_control_label">招标结束时间: </label></td>
 									<td>
 										{{program.end_date}}
 									</td>
 								</tr>
 								
-								<tr>
-									<td><label class="tab_control_label">创建时间: </label></td>
-									<td>
-										{{program.program_date}}
-									</td>
-									<td><label class="tab_control_label">当前状态: </label></td>
-									<td>
-										新建
-									</td>
-								</tr>
 								<tr>
 									<td><label class="tab_control_label">项目描述: </label></td>
 									<!--
@@ -256,8 +246,8 @@
 									</td>
 									-->
 									<td colspan="10">
-										<textarea disabled type="text" id="remarks" name="remarks" maxlength="1000" style="width: 1100px; height: 80px">{{program_item.description}}</textarea>
-									</td
+										<textarea disabled id="remarks" name="remarks" maxlength="1000" style="width: 1100px; height: 80px" placeholder="输入项目简单描述">{{program.desp}}</textarea>
+									</td>
 								</tr>
 							</table>			
 	        </form>

@@ -295,7 +295,7 @@
     </div>
 	<div style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd; background-repeat:no-repeat; padding-left:20px; background-position: bottom left;"></div>
 	<div style="width:350px; display:block; margin:10px auto;">
-		<button type="button" class="btn-blu-btn" onclick="location.href='/experts/modify/{{program.id}}';">修改</button>
+		<button type="button" class="btn-blu-btn" onclick="location.href='/experts/modify/{{expert.id}}';">修改</button>
 		
 		<script type="text/javascript">
            function del(hint, ref){
@@ -306,7 +306,8 @@
             }
            }
         </script>
-		<a href="/experts/deleteProgram/{{program.id}}" onclick="return del('确认要删除该项目吗？', this.href)">
+		
+		<a href="/experts/deleteExpert/{{expert.id}}" onclick="return del('确认要删除该专家吗？', this.href)">
 
             <button type="button" class="btn-blu-btn" >删除</button>
 

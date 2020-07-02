@@ -168,12 +168,13 @@
             <div class="hero-unit">
                 <div class="container">
                     <div class="col-md-8 order-md-1">
-                        <h4 class="mb-3">新增专家信息</h4>
-                        <form class="needs-validation" novalidate="">
+                        <h4 class="mb-3">修改专家信息</h4>
+						<form id="inputForm" class="needs-validation" action="" method="post">
+                        <!--<form class="needs-validation" novalidate="">-->
                           <div class="row">
                             <div class="col-md-6 mb-3">
                               <label for="firstName">姓名</label>
-                              <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                              <input type="text" class="form-control" id="firstName" placeholder="" value="{{expert.name}}" required="">
 							  <small class="text-muted">姓名不能为空</small>
                               
                             </div>
@@ -181,14 +182,14 @@
                           <div class="row">
                             <div class="col-md-6 mb-3">
                               <label for="cc-name">联系电话</label>
-                              <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+                              <input type="text" class="form-control" id="cc-name" placeholder="" value="{{expert.phone}}" required="">
                               <small class="text-muted">联系电话不能为空</small>
                               
                             </div>
                             </div>
                           <div class="mb-3">
                             <label for="email">邮箱 <span class="text-muted">(Optional)</span></label>
-                            <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                            <input type="email" class="form-control" id="email" placeholder="you@example.com" value="{{expert.email}}">
                             <div class="invalid-feedback">
                               请输入正确邮箱地址
                             </div>
@@ -196,7 +197,7 @@
                   
                           <div class="mb-3">
                             <label for="address">地址</label>
-                            <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
+                            <input type="text" class="form-control" id="address" placeholder="1234 Main St" value="{{expert.address}}" required="">
                             <div class="invalid-feedback">
                               请输入住址
                             </div>
@@ -204,7 +205,7 @@
                   
                           <div class="mb-3">
                             <label for="address2">单位<span class="text-muted">(Optional)</span></label>
-                            <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+                            <input type="text" class="form-control" id="address2" placeholder="Apartment or suite" value="{{expert.unit}}">
                           </div>
 						  <br />
 		                  <br />
@@ -216,7 +217,7 @@
                   
                            <label for="expert_form.degree.id_for_label">{{expert_form.degree.label}}</label>                  
                            <select name="degree" class="custom-select d-block w-100" id="{{expert_form.degree.id_for_label}}" required="">
-                           <option value="">选择...</option>
+                           <option value={{expert.degree}}>{{expert|displayName:'degree'}}</option>
                            <!-- 没有想好怎么处理，可能需要用wiget来比较合适 -->
                            <option value="benke">本科</option>
                            <option value="shuoshi">硕士</option>
@@ -231,7 +232,7 @@
                            <div class="col-md-4 mb-3">
                            <label for="{{expert_form.level.id_for_label}}">{{expert_form.level.label}}</label>
                            <select name="level" class="custom-select d-block w-100" id="{{expert_form.level.id_for_label}}" required="">
-                           <option value="">选择...</option>
+                           <option value={{expert.level}}>{{expert|displayName:'level'}}</option>
                            <option value="chuji">初级职称</option>
                            <option value="zhongji">中级职称</option>
                            <option value="gaoji">高级职称</option>
@@ -239,7 +240,7 @@
                            <option value="shidao">硕士生导师</option>
                            <option value="bodao">博士生导师</option>
                            <option value="yuanshi">院士</option>
-                           <option value="other" selected>其他</option>
+                           <option value="other">其他</option>
                            </select>
                                <div class="invalid-feedback">
                                请选择职称级别
@@ -248,7 +249,7 @@
                            <div class="col-md-4 mb-3">
                            <label for="state">{{expert_form.program_type.label}}</label>
                            <select name="program_type" class="custom-select d-block w-100" id="state" required="">
-                           <option value="">选择...</option>
+                           <option value={{expert.program_type}}>{{expert|displayName:'program_type'}}</option>
                            <option value="ligong">理工类</option>
                            <option value="wenshi">文史类</option>
                            <option value="yishu">艺术类</option>
@@ -272,7 +273,7 @@
                                   }
                             }
                         </script>
-		            <a href="/experts/add" onclick="return save('确认要保存该项目吗？', this.href)">
+		            <a href="/experts/modify/{{expert.id}}" onclick="return save('确认要保存该项目吗？', this.href)">
 
                         <button type="botton" class="btn-blu-btn col-md-3 mb-4" >保存</button>
 
