@@ -68,6 +68,7 @@ def program_check(request):
     return render(request, 'program_check_template.html')
     
 def program_select_experts(request, id):
+    """
     test_data = [
         {"id":"1", "name":"name1", "responser":"responser1", "description":"descriptino1", "info":"info1"},
         {"id":"2", "name":"name2", "responser":"responser2", "description":"descriptino2", "info":"info2"},
@@ -80,12 +81,20 @@ def program_select_experts(request, id):
         {"id":"9", "name":"name9", "responser":"responser9", "description":"descriptino9", "info":"info9"},
         {"id":"10", "name":"name10", "responser":"responser10", "description":"descriptino10", "info":"info10"}
     ]
-    
-    
-   
-    context = {}
-    context = test_data[id-1]
-    return render(request, 'select_expert_template.html', {"program": context})
+    """
+    program = Program.objects.get(id=id)
+    if request.method == 'GET':    
+        return render(request, 'select_expert_template.html', {"program": program})
+    if request.method == 'POST':
+        level = request.POST.get('level')
+        print(level)
+        degree = request.POST.get('degree')
+        print(degree)
+        program_type = request.POST.get('program_type')
+        print(program_type)
+        number = request.POST.get('number')
+        print(number)
+        return render(request, 'select_expert_template.html', {"program": program, "level":level, "degree":degree, "program_type":program_type,"number":number})
     
 def program_export_experts(request, id):
     return render(request, 'export_expert_template.html')
@@ -126,30 +135,34 @@ def program_add(request):
         return render(request, "delete_program_template.html",{"program_list":test_data2})
         """
         new_program = ProgramForm()
+        program_responser = request.POST.get('responser')
+        program_seq = request.POST.get('code')
+        program_name = request.POST.get('name')
+        program_location = request.POST.get('location')
+        program_description = request.POST.get('remarks')
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        program_date = request.POST.get('program_date')
+        remarks = request.POST.get('remarks')
+        new_program = Program(name= program_name,seq=program_seq,responser=program_responser,location=program_location,start_date=start_date,end_date=end_date,program_date=program_date,desp=remarks)
+        new_program.save()
+        
         """
         add new program to program db
         then assign program db to program_list
         """
-        return render(request, 'program_list_template.html', {"program_list":new_program})
+        program_list = Program.objects.all()
+        
+        return render(request, 'program_list_template.html', {"program_list":program_list})
     
     
 def program_delete(request, id):
-    test_data = [
-        {"id":"1", "name":"name1", "responser":"responser1", "description":"descriptino1", "info":"info1"},
-        {"id":"2", "name":"name2", "responser":"responser2", "description":"descriptino2", "info":"info2"},
-        {"id":"3", "name":"name3", "responser":"responser3", "description":"descriptino3", "info":"info3"},
-        {"id":"4", "name":"name4", "responser":"responser4", "description":"descriptino4", "info":"info4"},
-        {"id":"5", "name":"name5", "responser":"responser5", "description":"descriptino5", "info":"info5"},
-        {"id":"6", "name":"name6", "responser":"responser6", "description":"descriptino6", "info":"info6"},
-        {"id":"7", "name":"name7", "responser":"responser7", "description":"descriptino7", "info":"info7"},
-        {"id":"8", "name":"name8", "responser":"responser8", "description":"descriptino8", "info":"info8"},
-        {"id":"9", "name":"name9", "responser":"responser9", "description":"descriptino9", "info":"info9"},
-        {"id":"10", "name":"name10", "responser":"responser10", "description":"descriptino10", "info":"info10"}
-    ]
-  
-    test_data.pop(id-1)
+    
+    """
+    Program.objects.filter(id=id).delete()
+    """
     program_list = Program.objects.all()
-    return render(request, 'delete_program_template.html', {"program_list": test_data})
+    return render(request, 'program_list_template.html', {"program_list": program_list})
     
     
 

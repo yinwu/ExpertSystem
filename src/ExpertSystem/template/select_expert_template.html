@@ -218,7 +218,7 @@
 									</td>
 									<td style="width:12%"><label class="tab_control_label">项目编号: </label></td>
 									<td style="width:38%">
-										dddcd
+										{{program.seq}}
 									</td>
 								</tr>
 								<tr>
@@ -237,7 +237,11 @@
 									
 									<td><label class="tab_control_label">所属地: </label></td>
 									<td>
-										{{program.locaton}}
+										{{program.location}}
+									</td>
+									<td><label class="tab_control_label">创建时间: </label></td>
+									<td>
+										{{program.program_date}}
 									</td>
 								</tr>
 								
@@ -252,13 +256,6 @@
 									</td>
 								</tr>
 								
-								<tr>
-									<td><label class="tab_control_label">创建时间: </label></td>
-									<td>
-										{{program.program_date}}
-									</td>
-									
-								</tr>
 								<tr>
 								
 											<td><label class="tab_control_label">项目描述: </label></td>
@@ -288,7 +285,9 @@
 											<td>
 											<label for="country">职务等级</label>
                                             <select name="level" class="custom-select d-block w-100" id="{{expert_form.level.id_for_label}}" required="">
+											
                                             <option value="">选择...</option>
+											
                                             <option value="chuji">初级职称</option>
                                             <option value="zhongji">中级职称</option>
                                             <option value="gaoji">高级职称</option>
@@ -296,7 +295,7 @@
                                             <option value="shidao">硕士生导师</option>
                                             <option value="bodao">博士生导师</option>
                                             <option value="yuanshi">院士</option>
-                                            <option value="other" selected>其他</option>
+                                            <option value="other">其他</option>
                                             </select>
                                                <div class="invalid-feedback">
                                                请选择职称级别
@@ -306,12 +305,11 @@
 											<label for="country">学历</label>
                                             <select name="degree" class="custom-select d-block w-100" id="{{expert_form.degree.id_for_label}}" required="">
                                             <option value="">选择...</option>
-                                            <option value="benke">本科</option>
+                                            <option value="benke">本科</option> 
                                             <option value="shuoshi">硕士</option>
                                             <option value="boshi">博士</option>
                                             <option value="boshihou">博士后</option>
                                             <option value="other">其他</option>
-                                            </select>
                                                 <div class="invalid-feedback">
                                                    请选择学历类型.
                                                 </div>
@@ -329,6 +327,12 @@
                                                    请选择专业领域
                                                 </div>
 											</td>
+											<td>
+											   <label>专家人数</label>
+										       <div class="input-append">
+											   <input id="number" name="number" required="" value="{{number}}"onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
+										       </div>
+									        </td>
 											</tr>
 											</thead>
 										</table>
