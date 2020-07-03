@@ -237,7 +237,7 @@
 									<td><label class="tab_control_label">金额: </label></td>
 									<td>
 										<div class="input-append">
-										<input id="je" name="je" class="required isFloat" type="text" value="{{program_item.money}}" maxlength="10"/>（万元）
+										<input id="budget" name="budget" class="required isFloat" type="text" value="{{program_item.money}}" maxlength="10"/>（万元）
 										</div>
 									</td>
 								</tr>
@@ -258,14 +258,14 @@
 								<tr>
 									<td><label class="tab_control_label">招标开始时间: </label></td>
 									<td>
-										<input id="pbkssj" name="pbkssj" type="text"
+										<input id="start_date" name="start_date" type="text"
 														maxlength="20" class="Wdate required"
 														value="{{program_item.start_date}}"
 														onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',maxDate:'#F{$dp.$D(\'pbjssj\')}',isShowClear:false});" />
 									</td>
 									<td><label class="tab_control_label">招标结束时间: </label></td>
 									<td>
-										<input id="pbjssj" name="pbjssj" type="text"
+										<input id="end_date" name="end_date" type="text"
 														maxlength="20" class="Wdate required"
 														value="{{program_item.end_date}}"
 														onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'#F{$dp.$D(\'pbkssj\')}', isShowClear:false});" />

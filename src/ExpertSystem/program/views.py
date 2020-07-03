@@ -82,6 +82,9 @@ def program_select_experts(request, id):
         {"id":"10", "name":"name10", "responser":"responser10", "description":"descriptino10", "info":"info10"}
     ]
     """
+    """
+    degree_dict = {"benke":"本科"， "shuoshi":"硕士", "boshi":"博士", "boshihou":"博士后"}
+    """
     program = Program.objects.get(id=id)
     if request.method == 'GET':    
         return render(request, 'select_expert_template.html', {"program": program})
@@ -106,34 +109,6 @@ def program_add(request):
         return render(request, 'add_program_template.html')
     
     if request.method == 'POST':
-        """
-        test_data2 = [
-        {"id":"1", "name":"name1", "responser":"responser1", "description":"descriptino1", "info":"info1"},
-        {"id":"2", "name":"name2", "responser":"responser2", "description":"descriptino2", "info":"info2"},
-        {"id":"3", "name":"name3", "responser":"responser3", "description":"descriptino3", "info":"info3"},
-        {"id":"4", "name":"name4", "responser":"responser4", "description":"descriptino4", "info":"info4"},
-        {"id":"5", "name":"name5", "responser":"responser5", "description":"descriptino5", "info":"info5"},
-        {"id":"6", "name":"name6", "responser":"responser6", "description":"descriptino6", "info":"info6"},
-        {"id":"7", "name":"name7", "responser":"responser7", "description":"descriptino7", "info":"info7"},
-        {"id":"8", "name":"name8", "responser":"responser8", "description":"descriptino8", "info":"info8"},
-        {"id":"9", "name":"name9", "responser":"responser9", "description":"descriptino9", "info":"info9"},
-        {"id":"10", "name":"name10", "responser":"responser10", "description":"descriptino10", "info":"info10"}
-        ]
-        program_name = request.POST.get('name')
-        program_responser = request.POST.get('responser')
-        program_description = request.POST.get('remarks')
-        next_index = len(test_data2)+1
-        program_item = {"id":"", "name":"", "responser":"", "description":"", "info":""}
-        program_item['id'] = next_index
-        program_item['name'] = program_name
-        program_item['responser'] = program_responser
-        program_item['description'] = program_description
-        test_data2.append(program_item)
-        print("I come to POST")
-        program_list = Program.objects.all()
-        
-        return render(request, "delete_program_template.html",{"program_list":test_data2})
-        """
         new_program = ProgramForm()
         program_responser = request.POST.get('responser')
         program_seq = request.POST.get('code')
@@ -146,25 +121,16 @@ def program_add(request):
         remarks = request.POST.get('remarks')
         new_program = Program(name= program_name,seq=program_seq,responser=program_responser,location=program_location,start_date=start_date,end_date=end_date,program_date=program_date,desp=remarks)
         new_program.save()
-        
-        """
-        add new program to program db
-        then assign program db to program_list
-        """
+  
         program_list = Program.objects.all()
         
         return render(request, 'program_list_template.html', {"program_list":program_list})
     
     
-def program_delete(request, id):
-    
-    """
+def program_delete(request, id):    
     Program.objects.filter(id=id).delete()
-    """
     program_list = Program.objects.all()
     return render(request, 'program_list_template.html', {"program_list": program_list})
-    
-    
 
 def get_experts_list(program_id):
     experts = Expert.objects.filter(program__id=program_id)
@@ -205,39 +171,35 @@ def search(request):
      
     
 def program_modify(request, id):
-    program = Program.objects.get(id=id)
-    return render(request, 'modify_program_template.html', {"program_item": program, "program_id": id})
+    if request.method == 'GET':
+        program = Program.objects.get(id=id)
+        return render(request, 'modify_program_template.html', {"program_item": program, "program_id": id})
     
         
     if request.method == 'POST':
-        test_data2 = [
-        {"id":"1", "name":"name1", "responser":"responser1", "description":"descriptino1", "info":"info1"},
-        {"id":"2", "name":"name2", "responser":"responser2", "description":"descriptino2", "info":"info2"},
-        {"id":"3", "name":"name3", "responser":"responser3", "description":"descriptino3", "info":"info3"},
-        {"id":"4", "name":"name4", "responser":"responser4", "description":"descriptino4", "info":"info4"},
-        {"id":"5", "name":"name5", "responser":"responser5", "description":"descriptino5", "info":"info5"},
-        {"id":"6", "name":"name6", "responser":"responser6", "description":"descriptino6", "info":"info6"},
-        {"id":"7", "name":"name7", "responser":"responser7", "description":"descriptino7", "info":"info7"},
-        {"id":"8", "name":"name8", "responser":"responser8", "description":"descriptino8", "info":"info8"},
-        {"id":"9", "name":"name9", "responser":"responser9", "description":"descriptino9", "info":"info9"},
-        {"id":"10", "name":"name10", "responser":"responser10", "description":"descriptino10", "info":"info10"}
-        ]
-    
         program_name = request.POST.get('name')
         program_responser = request.POST.get('responser')
-        program_description = request.POST.get('remarks')
-        program_item = {}
-        program_item = test_data2[id-1]
-        program_item['name'] = program_name
-        program_item['responser'] = program_responser
-        program_item['description'] = program_description
-        test_data2.pop(id-1)
-        test_data2.insert(id-1, program_item)
-        print("this is my print debug in post")
-    
+        program_seq = request.POST.get('code')
+        program_money = request.POST.get('budget')
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        program_date = request.POST.get('program_date')
+        location = request.POST.get('location')
+        remarks = request.POST.get('remarks')
+        modify_program = Program.objects.get(id=id)
+        modify_program.name = program_name
+        modify_program.responser = program_responser
+        modify_program.seq = program_seq
+        modify_program.start_date = start_date
+        modify_program.end_date = end_date
+        modify_program.program_date = program_date
+        modify_program.location = location
+        modify_program.desp = remarks
+        modify_program.money = program_money
+        modify_program.save()
+
         program_list = Program.objects.all()
-        
-        return render(request, "delete_program_template.html",{"program_list":test_data2})
+        return render(request, "program_list_template.html",{"program_list":program_list})
         
 def download_table(request, id):
     file_name = 'expertfile/test_' + str(id) + '.xlsx'

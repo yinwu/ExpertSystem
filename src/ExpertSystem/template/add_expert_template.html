@@ -169,11 +169,14 @@
                 <div class="container">
                     <div class="col-md-8 order-md-1">
                         <h4 class="mb-3">新增专家信息</h4>
+						<form id="inputForm" class="needs-validation" action="" method="post">
+						<!--
                         <form class="needs-validation" novalidate="">
+						-->
                           <div class="row">
                             <div class="col-md-6 mb-3">
-                              <label for="firstName">姓名</label>
-                              <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                              <label for="name">姓名</label>
+                              <input type="text" name="name" class="form-control" id="name" placeholder="" value="" required="">
 							  <small class="text-muted">姓名不能为空</small>
                               
                             </div>
@@ -181,14 +184,14 @@
                           <div class="row">
                             <div class="col-md-6 mb-3">
                               <label for="cc-name">联系电话</label>
-                              <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+                              <input type="text" name="phone" class="form-control" id="cc-name" placeholder="" required="">
                               <small class="text-muted">联系电话不能为空</small>
                               
                             </div>
                             </div>
                           <div class="mb-3">
                             <label for="email">邮箱 <span class="text-muted">(Optional)</span></label>
-                            <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                            <input type="email" name="email" class="form-control" id="email" placeholder="you@example.com">
                             <div class="invalid-feedback">
                               请输入正确邮箱地址
                             </div>
@@ -196,7 +199,7 @@
                   
                           <div class="mb-3">
                             <label for="address">地址</label>
-                            <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
+                            <input type="text" name="address" class="form-control" id="address" placeholder="1234 Main St" required="">
                             <div class="invalid-feedback">
                               请输入住址
                             </div>
@@ -204,7 +207,7 @@
                   
                           <div class="mb-3">
                             <label for="address2">单位<span class="text-muted">(Optional)</span></label>
-                            <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+                            <input type="text" name="unit" class="form-control" id="address2" placeholder="Apartment or suite">
                           </div>
 						  <br />
 		                  <br />

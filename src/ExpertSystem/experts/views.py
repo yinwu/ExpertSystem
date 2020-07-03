@@ -19,17 +19,14 @@ def expert_list(request):
 
     
 def delete_expert_req(request, expert_id):
+    Expert.objects.filter(id=expert_id).delete()
     expert_list = Expert.objects.all()
     return render(request, 'expert_list_template.html', {"result":expert_list})
 
 def add_expert_req(request):
-    """
-    expert_form = ExpertForm()
-    return render(request, 'add_expert_template.html', {"expert_form": expert_form})
-    """
     if request.method == 'GET':
         return render(request, 'add_expert_template.html')
-    
+        
     if request.method == 'POST':
         print("POST")
         form = ExpertForm(request.POST)
