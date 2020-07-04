@@ -268,20 +268,24 @@
             <thead>
                 <tr>
                   <th>专家姓名</th>
-                  <th>专家职称</th>
-                  <th>单位</th>
+                  <th>职务等级</th>
+                  <th>工作单位</th>
                   <th>联系方式</th>
-                  <th>级别</th>
+                  <th>最高学历</th>
+                  <th>专业类型</th>
+                  <th>确认状态</th>
                 </tr>
             </thead>
             <tbody>
                 {% for expert in expert_list %}
                 <tr>
                   <td>{{expert.name}}</td>
-                  <td>{{expert.title}}</td>
+                  <td>{{expert.level}}</td>
                   <td>{{expert.unit}}</td>
                   <td>{{expert.phone}}</td>
-                  <td>{{expert.level}}</td>
+                  <td>{{expert.degree}}</td>
+                  <td>{{expert.program_type}}</td>
+                  <td>{{expert.status}}</td>
                 </tr>
                 {% endfor%}
             </tbody>

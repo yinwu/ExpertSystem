@@ -7,35 +7,39 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from experts.models import *
 
-
 from .forms import ExpertForm
 
 def index(request):
     return render(request, 'index.html')
 
 def expert_list(request):
-    expert_list = Expert.objects.all()
+    expert_list = Expert.objects.filter(visible=True)
     return render(request, 'expert_list_template.html', {"result":expert_list})
 
     
 def delete_expert_req(request, expert_id):
-    Expert.objects.filter(id=expert_id).delete()
-    expert_list = Expert.objects.all()
-    return render(request, 'expert_list_template.html', {"result":expert_list})
+
+    expert_to_delete = Expert.objects.get(id=expert_id)
+    expert_to_delete.visible = False
+    expert_to_delete.save()
+    return redirect("/experts/list") 
 
 def add_expert_req(request):
     if request.method == 'GET':
         return render(request, 'add_expert_template.html')
         
     if request.method == 'POST':
-        print("POST")
         form = ExpertForm(request.POST)
-        print(request.POST)
+        new_expert_name = request.POST["name"]
         if form.is_valid():
             form.save()
+            new_expert = Expert.objects.get(name=new_expert_name)
+            return redirect("/experts/detail/"+str(new_expert.id))
         else:
             return HttpResponse("添加专家信息失败")
-        return redirect("/experts/list")
+    else:
+        return redirect("program/list")
+        
 
 def expert_detail(request, expert_id):
 
@@ -47,20 +51,6 @@ def expert_detail(request, expert_id):
     program_list = expert.selected_program_list.all()
     #return render(request, 'expert_detail.html', {"expert":expert})
     return render(request, 'expert_detail.html', {"expert" : expert, "program_list": program_list})
-
-
-def save_expert_req(request):
-
-    if request.method == "POST":
-        print("POST")
-        form = ExpertForm(request.POST)
-        print(request.POST)
-        if form.is_valid():
-            form.save()
-        else:
-            return HttpResponse("添加专家信息失败")
-    # TODO: 后期添加成功后 跳转到专家详情页面。
-    return redirect("/experts/list")
 
    
 def modify_expert_req(request, expert_id):
@@ -79,13 +69,14 @@ def modify_expert_req(request, expert_id):
         return render(request, 'modify_expert_template.html', {"expert" : expert, "program_list": program_list})
     
     if request.method == 'POST':
-        print("POST")
-        form = ExpertForm(request.POST)
-        print(request.POST)
+        expert_to_modify = Expert.objects.get(id=expert_id)
+        form = ExpertForm(request.POST,instance=expert_to_modify)
         if form.is_valid():
             form.save()
+            return redirect("/experts/detail/"+ str(expert_id))
         else:
             return HttpResponse("修改专家信息失败")
+        
         return redirect("/experts/list")
         
 def search(request):

@@ -1,38 +1,44 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="https://v3.bootcss.com/favicon.ico">
+<html lang="zh-CN">
 
-    <title>专家抽签系统</title>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="https://v3.bootcss.com/favicon.ico">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <title>专家抽签系统</title>
 
-    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  
-    <style>
+  <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+
+  <style>
     body {
       padding-top: 50px;
     }
-    
+
     /*
     * Global add-ons
     */
-    
+
     .sub-header {
       padding-bottom: 10px;
       border-bottom: 1px solid #eee;
     }
-    
+
     /*
     * Top navigation
     * Hide default border to remove 1px line.
@@ -40,15 +46,16 @@
     .navbar-fixed-top {
       border: 0;
     }
-    
+
     /*
     * Sidebar
     */
-    
+
     /* Hide for mobile, show later */
     .sidebar {
       display: none;
     }
+
     @media (min-width: 768px) {
       .sidebar {
         position: fixed;
@@ -59,155 +66,164 @@
         display: block;
         padding: 20px;
         overflow-x: hidden;
-        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        overflow-y: auto;
+        /* Scrollable contents if viewport is shorter than content. */
         background-color: #f5f5f5;
         border-right: 1px solid #eee;
       }
     }
-    
+
     /* Sidebar navigation */
     .nav-sidebar {
-      margin-right: -21px; /* 20px padding + 1px border */
+      margin-right: -21px;
+      /* 20px padding + 1px border */
       margin-bottom: 20px;
       margin-left: -20px;
     }
-    .nav-sidebar > li > a {
+
+    .nav-sidebar>li>a {
       padding-right: 20px;
       padding-left: 20px;
     }
-    .nav-sidebar > .active > a,
-    .nav-sidebar > .active > a:hover,
-    .nav-sidebar > .active > a:focus {
+
+    .nav-sidebar>.active>a,
+    .nav-sidebar>.active>a:hover,
+    .nav-sidebar>.active>a:focus {
       color: #fff;
       background-color: #428bca;
     }
-    
-    
+
+
     /*
     * Main content
     */
-    
+
     .main {
       padding: 20px;
     }
+
     @media (min-width: 768px) {
       .main {
         padding-right: 40px;
         padding-left: 40px;
       }
     }
+
     .main .page-header {
       margin-top: 0;
     }
-    
-    
+
+
     /*
     * Placeholder dashboard ideas
     */
-    
+
     .placeholders {
       margin-bottom: 30px;
       text-align: center;
     }
+
     .placeholders h4 {
       margin-bottom: 0;
     }
+
     .placeholder {
       margin-bottom: 20px;
     }
+
     .placeholder img {
       display: inline-block;
       border-radius: 50%;
     }
-    
-    </style>
-  
-  
-  </head>
+  </style>
 
-  <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">专家抽签系统</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+          aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">专家抽签系统</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Settings</a></li>
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+        <form class="navbar-form navbar-right">
+          <input type="text" class="form-control" placeholder="Search...">
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+          <li class="active"><a href="/experts/index">主页 <span class="sr-only">(current)</span></a></li>
+          <li><a href="{% url 'index' %}">项目列表</a></li>
+          <li><a href="/experts/add">添加专家</a></li>
+
+        </ul>
+
+      </div>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h2 class="sub-header">专家列表</h2>
+        <div class="col-sm-4">
+          <form method="get" action="/experts/search/">
+            {% csrf_token %}
+            <div class="input-group">
+              <input type="text" name="search_str" class="form-control" placeholder="请输入关键字" required />
+              <span class="input-group-btn">
+                <input type="submit" class="btn btn-default" value="查询" />
+              </span>
+            </div>
           </form>
         </div>
-      </div>
-    </nav>
-
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-			<li class="active"><a href="/experts/index">主页 <span class="sr-only">(current)</span></a></li>
-			<li><a href="{% url 'index' %}">项目列表</a></li>
-            <li><a href="{% url 'list' %}">专家列表</a></li>
-            <li><a href="/experts/add">添加专家</a></li>
-            
-          </ul>
-          
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">专家列表</h2>
-		  <div class="col-sm-4">
-		  <form method="get" action="/experts/search/">
-		  {% csrf_token %}
-		  <div class="input-group">
-		  <input type="text" name="search_str" class="form-control" placeholder="请输入关键字" required />
-		  <span class="input-group-btn">
-		  <input type="submit" class="btn btn-default" value="查询" />
-		  </span>
-		  </div>
-		  </form>
-		  </div>
-		  <br />
-		  <br />
-		  <br />
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>姓名</th>
-                  <th>联系电话</th>
-                  <th>工作单位</th>
-                  <th>职务等级</th>
-                  <th>学历</th>
-                  <th>专业类型</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for expert in result %}
-                <tr onclick="location.href='/experts/detail/{{expert.id}}'";>
-                  <td>{{expert.name}}</td>
-                  <td>{{expert.phone}}</td>
-                  <td>{{expert.unit}}</td>
-                  <td>{{ expert.get_level_display}}</td>
-                  <td>{{expert.get_degree_display}}</td>
-                  <td>{{expert.get_program_type_display}}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
+        <br />
+        <br />
+        <br />
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>姓名</th>
+                <th>联系电话</th>
+                <th>工作单位</th>
+                <th>职务等级</th>
+                <th>学历</th>
+                <th>专业类型</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for expert in result %}
+              <tr onclick="location.href='/experts/detail/{{expert.id}}'" ;>
+                <td>{{expert.name}}</td>
+                <td>{{expert.phone}}</td>
+                <td>{{expert.unit}}</td>
+                <td>{{ expert.get_level_display}}</td>
+                <td>{{expert.get_degree_display}}</td>
+                <td>{{expert.get_program_type_display}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
+  </div>
 </body>
+
 </html>
