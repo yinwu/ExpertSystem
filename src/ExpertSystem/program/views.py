@@ -121,12 +121,13 @@ def program_add(request):
         program_seq = request.POST.get('code')
         program_name = request.POST.get('name')
         program_location = request.POST.get('location')
+        program_money = request.POST.get('budget')
         program_description = request.POST.get('remarks')
         start_date = request.POST.get('start_date')
         end_date = request.POST.get('end_date')
         program_date = request.POST.get('program_date')
         remarks = request.POST.get('remarks')
-        new_program = Program(name= program_name,seq=program_seq,responser=program_responser,location=program_location,start_date=start_date,end_date=end_date,program_date=program_date,desp=remarks)
+        new_program = Program(name= program_name,seq=program_seq,responser=program_responser,location=program_location,money=program_money,start_date=start_date,end_date=end_date,program_date=program_date,desp=remarks)
         new_program.save()
   
         
@@ -189,19 +190,21 @@ def program_modify(request, id):
         modify_program.money = program_money
         modify_program.save()
 
-        program_list = Program.objects.all()
-        return render(request, "program_list_template.html",{"program_list":program_list})
+        return redirect("/program/list")
         
 def download_table(request, id):
+    print("enter download table")
     file_name = 'expertfile/test_' + str(id) + '.xlsx'
     file_path = os.path.join(os.getcwd(), file_name)
+    print(file_path)
     if os.path.exists(file_path):
         file = open(file_path, 'rb')
         response = FileResponse(file)
         response['Content-Type'] = 'application/octet-stream'
         response['Content-Disposition'] = 'attachment;filename="mytest.xlsx"'
+        print("file exist")
         return response
 
     else:
-
+        print("raise 404")
         raise Http404
