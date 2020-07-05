@@ -46,7 +46,7 @@ class Expert(models.Model):
     program_type = models.CharField(max_length=500, verbose_name="专业类型", choices=type_choice, default="other")
 
     selected_program_list = models.ManyToManyField(Program, related_name="selected", through="Comments")
-    #excluded_program_list = models.ManyToManyField(Program, related_name="excluded", through="ExcluedeExpert")
+    excluded_program_list = models.ManyToManyField(Program, related_name="excluded", through="ExcluedeExpert")
 
 
     class Meta:

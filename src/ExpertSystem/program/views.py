@@ -20,7 +20,7 @@ from program.models import Program
 from django.forms.models import model_to_dict
 
 def program_list(request):
-    program_list = Program.objects.all()
+    program_list = Program.objects.filter(visible=True)
     return render(request, 'program_list_template.html', {"program_list": program_list})
 
 def program_detail(request, program_id):
@@ -133,7 +133,10 @@ def program_add(request):
         return redirect("/program/list") 
     
 def program_delete(request, id):    
-    Program.objects.get(id=id).delete()
+    # Program.objects.get(id=id).delete()
+    program_to_delete = Program.objects.get(id=id)
+    program_to_delete.visible = False
+    program_to_delete.save()
     return redirect("/program/list") 
 
 def save_program(request):

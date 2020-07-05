@@ -5,6 +5,7 @@ from django.db import models
 
 class Program(models.Model):
     id = models.AutoField(primary_key=True)
+    visible = models.BooleanField(default=True)
     seq = models.CharField(max_length=100, null=False, verbose_name="项目编号")
     name = models.CharField(max_length=500, verbose_name="项目名称", null=False)
     desp = models.CharField(max_length=1000, verbose_name="项目描述", null=True)
