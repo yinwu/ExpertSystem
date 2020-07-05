@@ -29,7 +29,7 @@ def program_detail(request, program_id):
     except:
         return HttpResponse("项目不存在， ID:", program_id)
     
-    expert_list = Expert.objects.filter(selected_program_list__id=program_id)
+    comment_list = Comments.objects.filter(program__id = program_id).exclude(status="nok")
     # expert_dict = {}
     # for item in expert_list:
     #     comment = Comments.objects.filter(expert__id=item.id).filter(program__id=program_id)[0]
@@ -39,7 +39,7 @@ def program_detail(request, program_id):
         
     # print(expert_dict)
 
-    return render(request, 'program_detail.html', {"expert_list" : expert_list, "program": program_detail_info})
+    return render(request, 'program_detail.html', {"expert_list" : comment_list, "program": program_detail_info})
 
 def program_check(request):
     return render(request, 'program_check_template.html')
@@ -88,20 +88,15 @@ def program_select_experts(request, id):
 
         return redirect('/program/detail/'+str(program.id))
     
-def program_exclude_expert(request, program_id, expert_id):
-    # 新增黑名单
-    exclude_expert = ExcluedeExpert()
-    program_to_exclued = Program.objects.get(id = program_id)
-    expert_to_exclued = Expert.objects.get(id = expert_id)
-    exclude_expert.expert = expert_to_exclued
-    exclude_expert.program = program_to_exclued
-    exclude_expert.save()
-
-    # 删除创建的commnet条目
-    comment_to_delete = Comments.objects.filter(program__id = program_id).filter(expert__id = expert_id)
-    if comment_to_delete.counts() > 0:
-         for item in comment_to_delete:
-             item.delete()
+def expert_exclude(request, expert_id, program_id):
+    comments = Comments.objects.filter(expert__id = expert_id, program__id = program_id)
+    if comments.count() > 0:
+        comment = comments[0]
+        comment.status = "nok"
+        comment.save()
+        return redirect("/program/detail/"+str(program_id))
+    else:
+        return HttpResponse("确认专家失败")
 
     return redirect("/program/detail/" + str(program_id))
 
@@ -129,7 +124,6 @@ def program_add(request):
         remarks = request.POST.get('remarks')
         new_program = Program(name= program_name,seq=program_seq,responser=program_responser,location=program_location,money=program_money,start_date=start_date,end_date=end_date,program_date=program_date,desp=remarks)
         new_program.save()
-  
         
         return redirect("/program/list") 
     
@@ -208,3 +202,14 @@ def download_table(request, id):
     else:
         print("raise 404")
         raise Http404
+
+def expert_confirm(request, program_id, expert_id):
+    
+    comments = Comments.objects.filter(expert__id = expert_id, program__id = program_id)
+    if comments.count() > 0:
+        comment = comments[0]
+        comment.status = "ok"
+        comment.save()
+        return redirect("/program/detail/"+str(program_id))
+    else:
+        return HttpResponse("确认专家失败")

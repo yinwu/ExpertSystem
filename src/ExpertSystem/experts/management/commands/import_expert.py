@@ -18,8 +18,8 @@ class Command(BaseCommand):
                     expert.address = item[3]
                     expert.unit = item[4]
                     expert.degree = item[5]
-                    expert.level = item[6]
-                    expert.program_type = item[7]
+                    expert.program_type = item[6]
+                    expert.level = item[7]
                     expert.save()
                     print("update exist expert:", item[0])
                 else:
@@ -30,8 +30,8 @@ class Command(BaseCommand):
                     new_expert.address = item[3]
                     new_expert.unit = item[4]
                     new_expert.degree = item[5]
-                    new_expert.level = item[6]
-                    new_expert.program_type = item[7]
+                    new_expert.program_type = item[6]
+                    new_expert.level = item[7]
                     new_expert.save()
                     print("add new expert:", item[0])
 

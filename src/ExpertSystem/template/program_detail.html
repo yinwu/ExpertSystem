@@ -1,38 +1,44 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="https://v3.bootcss.com/favicon.ico">
+<html lang="zh-CN">
 
-    <title>专家抽签系统</title>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="https://v3.bootcss.com/favicon.ico">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <title>专家抽签系统</title>
 
-    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  
-    <style>
+  <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+
+  <style>
     body {
       padding-top: 50px;
     }
-    
+
     /*
     * Global add-ons
     */
-    
+
     .sub-header {
       padding-bottom: 10px;
       border-bottom: 1px solid #eee;
     }
-    
+
     /*
     * Top navigation
     * Hide default border to remove 1px line.
@@ -40,15 +46,16 @@
     .navbar-fixed-top {
       border: 0;
     }
-    
+
     /*
     * Sidebar
     */
-    
+
     /* Hide for mobile, show later */
     .sidebar {
       display: none;
     }
+
     @media (min-width: 768px) {
       .sidebar {
         position: fixed;
@@ -59,274 +66,293 @@
         display: block;
         padding: 20px;
         overflow-x: hidden;
-        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        overflow-y: auto;
+        /* Scrollable contents if viewport is shorter than content. */
         background-color: #f5f5f5;
         border-right: 1px solid #eee;
       }
     }
-    
+
     /* Sidebar navigation */
     .nav-sidebar {
-      margin-right: -21px; /* 20px padding + 1px border */
+      margin-right: -21px;
+      /* 20px padding + 1px border */
       margin-bottom: 20px;
       margin-left: -20px;
     }
-    .nav-sidebar > li > a {
+
+    .nav-sidebar>li>a {
       padding-right: 20px;
       padding-left: 20px;
     }
-    .nav-sidebar > .active > a,
-    .nav-sidebar > .active > a:hover,
-    .nav-sidebar > .active > a:focus {
+
+    .nav-sidebar>.active>a,
+    .nav-sidebar>.active>a:hover,
+    .nav-sidebar>.active>a:focus {
       color: #fff;
       background-color: #428bca;
     }
-    
-    
+
+
     /*
     * Main content
     */
-    
+
     .main {
       padding: 20px;
     }
+
     @media (min-width: 768px) {
       .main {
         padding-right: 40px;
         padding-left: 40px;
       }
     }
+
     .main .page-header {
       margin-top: 0;
     }
-    
-    
+
+
     /*
     * Placeholder dashboard ideas
     */
-    
+
     .placeholders {
       margin-bottom: 30px;
       text-align: center;
     }
+
     .placeholders h4 {
       margin-bottom: 0;
     }
+
     .placeholder {
       margin-bottom: 20px;
     }
+
     .placeholder img {
       display: inline-block;
       border-radius: 50%;
     }
+
     type="text/css"
-    </style>
+  </style>
   {% load static %}
-  
-  </head>
 
-  <body>
+</head>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">专家抽签系统</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
-        </div>
-      </div>
-    </nav>
+<body>
 
+  <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            
-			
-			<li class="active"><a href="/experts/index">主页 <span class="sr-only">(current)</span></a></li>
-            <li><a href="{% url 'index' %}">项目列表</a></li>
-            
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="{% url 'list' %}">专家列表</a></li>
-            
-          </ul>
-		  <ul class="nav nav-sidebar">
-            <li><a href="{% url 'addProgram' %}">添加项目</a></li>
-            
-          </ul>
-          
-        </div>
-		
-		
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		    <div class="col-md-12" >
-            <div class="panel panel-default" >
-            <div class="panel-body table-responsive">
-            <div style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd; background-repeat:no-repeat; padding-left:20px; background-position: bottom left;"></div>
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+          aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">专家抽签系统</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Settings</a></li>
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+        <form class="navbar-form navbar-right">
+          <input type="text" class="form-control" placeholder="Search...">
+        </form>
+      </div>
+    </div>
+  </nav>
 
-                <form id="inputForm" class="form-horizontal" action="" method="get">
-				
-							<table class="table table-bordered table-condensed">
-								<tr>
-									<td style="background-color:#ECECFF;">
-										<b>项目详细信息</b>
-									</td>
-								</tr>
-								<tr>
-									<td>
-							        <table class="table table-bordered table-condensed" style="margin-bottom: 0px;">
-								</tr>
-								<tr>
-									<td style="width:15%">
-										<label class="tab_control_label">项目名称: </label>
-									</td>
-									<td style="width:38%">
-										{{program.name}}
-									</td>
-									<td style="width:15%"><label class="tab_control_label">项目编号: </label></td>
-									<td style="width:38%">
-										{{program.seq}}
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<label class="tab_control_label">项目负责人: </label>
-									</td>
-									<td>
-										{{program.responser}}
-									</td>
-									<td><label class="tab_control_label">金额: </label></td>
-									<td>
-										{{program.money}}
-									</td>
-								</tr>
-								<tr>
-									<td><label class="tab_control_label">所属地: </label></td>
-									<td>
-										{{program.location}}
-									</td>
-									<td><label class="tab_control_label">创建时间: </label></td>
-									<td>
-										{{program.program_date}}
-									</td>
-								</tr>
-								
-								<tr>
-									<td><label class="tab_control_label">招标开始时间: </label></td>
-									<td>
-										{{program.start_date}}
-									</td>
-									<td><label class="tab_control_label">招标结束时间: </label></td>
-									<td>
-										{{program.end_date}}
-									</td>
-								</tr>
-								
-								<tr>
-									<td><label class="tab_control_label">项目描述: </label></td>
-									<!--
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+
+
+          <li class="active"><a href="/experts/index">主页 <span class="sr-only">(current)</span></a></li>
+          <li><a href="{% url 'index' %}">项目列表</a></li>
+
+        </ul>
+        <ul class="nav nav-sidebar">
+          <li><a href="{% url 'list' %}">专家列表</a></li>
+
+        </ul>
+        <ul class="nav nav-sidebar">
+          <li><a href="{% url 'addProgram' %}">添加项目</a></li>
+
+        </ul>
+
+      </div>
+
+
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-body table-responsive">
+              <div
+                style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd; background-repeat:no-repeat; padding-left:20px; background-position: bottom left;">
+              </div>
+
+              <form id="inputForm" class="form-horizontal" action="" method="get">
+
+                <table class="table table-bordered table-condensed">
+                  <tr>
+                    <td style="background-color:#ECECFF;">
+                      <b>项目详细信息</b>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <table class="table table-bordered table-condensed" style="margin-bottom: 0px;">
+                  </tr>
+                  <tr>
+                    <td style="width:15%">
+                      <label class="tab_control_label">项目名称: </label>
+                    </td>
+                    <td style="width:38%">
+                      {{program.name}}
+                    </td>
+                    <td style="width:15%"><label class="tab_control_label">项目编号: </label></td>
+                    <td style="width:38%">
+                      {{program.seq}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="tab_control_label">项目负责人: </label>
+                    </td>
+                    <td>
+                      {{program.responser}}
+                    </td>
+                    <td><label class="tab_control_label">金额: </label></td>
+                    <td>
+                      {{program.money}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label class="tab_control_label">所属地: </label></td>
+                    <td>
+                      {{program.location}}
+                    </td>
+                    <td><label class="tab_control_label">创建时间: </label></td>
+                    <td>
+                      {{program.program_date}}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><label class="tab_control_label">招标开始时间: </label></td>
+                    <td>
+                      {{program.start_date}}
+                    </td>
+                    <td><label class="tab_control_label">招标结束时间: </label></td>
+                    <td>
+                      {{program.end_date}}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><label class="tab_control_label">项目描述: </label></td>
+                    <!--
 									<td colspan="3">
 										<textarea id="remarks" name="remarks" maxlength="500" style="width:600px;height:80px;" value="{{program_item.responser}}"></textarea>
 									</td>
 									-->
-									<td colspan="10">
-										<textarea disabled id="remarks" name="remarks" maxlength="1000" style="width: 1100px; height: 80px" placeholder="输入项目简单描述">{{program.desp}}</textarea>
-									</td>
-								</tr>
-							</table>			
-	        </form>
-        </div>   
-        </div> 
-        </div>
-        </div>
-		
-        <table class="table table-striped">
-			<thead>
-			    <tr>
-					<td style="background-color:#ECECFF;">
-					<b>评审专家列表</b>
-					</td>
-				</tr>
-			</thead>
-							
-            <thead>
-                <tr>
-                  <th>专家姓名</th>
-                  <th>职务等级</th>
-                  <th>工作单位</th>
-                  <th>联系方式</th>
-                  <th>最高学历</th>
-                  <th>专业类型</th>
-                  <th>确认状态</th>
-				  <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for expert in expert_list %}
-                <tr>
-                  <td>{{expert.name}}</td>
-                  <td>{{expert.level}}</td>
-                  <td>{{expert.unit}}</td>
-                  <td>{{expert.phone}}</td>
-                  <td>{{expert.degree}}</td>
-                  <td>{{expert.program_type}}</td>
-                  <td>{{expert.status}}</td>
-				  <td>
-				  <button type="button" class="btn-blu-btn" onclick="location.href='/program/confirm';">确认专家</button>
-				  </td>
-				  <td>
-				  <button type="button" class="btn-blu-btn" onclick="location.href='/program/exclude';">排除专家</button>
-				  </td>
-                </tr>
-                {% endfor%}
-            </tbody>
-            </table>
+                    <td colspan="10">
+                      <textarea disabled id="remarks" name="remarks" maxlength="1000"
+                        style="width: 1100px; height: 80px" placeholder="输入项目简单描述">{{program.desp}}</textarea>
+                    </td>
+                  </tr>
+                </table>
+              </form>
+            </div>
           </div>
         </div>
-		
       </div>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <td style="background-color:#ECECFF;">
+              <b>评审专家列表</b>
+            </td>
+          </tr>
+        </thead>
+
+        <thead>
+          <tr>
+            <th>专家姓名</th>
+            <th>职务等级</th>
+            <th>工作单位</th>
+            <th>联系方式</th>
+            <th>最高学历</th>
+            <th>专业类型</th>
+            <th>确认状态</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for expert in expert_list %}
+          <tr>
+            <td>{{expert.expert.name}}</td>
+            <td>{{expert.expert.level}}</td>
+            <td>{{expert.expert.unit}}</td>
+            <td>{{expert.expert.phone}}</td>
+            <td>{{expert.expert.degree}}</td>
+            <td>{{expert.expert.program_type}}</td>
+            <td>{{expert.get_status_display}}</td>
+            <td>
+              <button type="button" class="btn-blu-btn"
+                onclick="location.href='/program/confirm/{{expert.expert.id}}/{{program.id}}';">确认专家</button>
+            </td>
+            <td>
+              <button type="button" class="btn-blu-btn"
+                onclick="location.href='/program/exclude/{{expert.expert.id}}/{{program.id}}';">排除专家</button>
+            </td>
+          </tr>
+          {% endfor%}
+        </tbody>
+      </table>
     </div>
-	<div style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd; background-repeat:no-repeat; padding-left:20px; background-position: bottom left;"></div>
-	<div style="width:350px; display:block; margin:10px auto;">
-		<button type="button" class="btn-blu-btn" onclick="location.href='/program/modify/{{program.id}}';">修改</button>
-		
-		<script type="text/javascript">
-           function del(hint, ref){
-            if(confirm(hint)){
-            window.location = ref;//跳转
-            }else{
-			    location.reload();
-            }
-           }
-        </script>
-		<a href="/program/deleteProgram/{{program.id}}" onclick="return del('确认要删除该项目吗？', this.href)">
+  </div>
 
-            <button type="button" class="btn-blu-btn" >删除</button>
+  </div>
+  </div>
+  <div
+    style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd; background-repeat:no-repeat; padding-left:20px; background-position: bottom left;">
+  </div>
+  <div style="width:350px; display:block; margin:10px auto;">
+    <button type="button" class="btn-blu-btn" onclick="location.href='/program/modify/{{program.id}}';">修改</button>
 
-        </a>
-		<button type="button" class="btn-blu-btn" onclick="location.href='/program/selectExperts/{{program.id}}';">抽取专家</button>
-		
-		<button type="button" class="btn-blu-btn" onclick="location.href='/program/download/{{program.id}}';">导出专家</button>
-		
-		<button type="button" class="btn-cancel" onclick="history.go(-1)">返 回</button>
-	</div>
-	
+    <script type="text/javascript">
+      function del(hint, ref) {
+        if (confirm(hint)) {
+          window.location = ref;//跳转
+        } else {
+          location.reload();
+        }
+      }
+    </script>
+    <a href="/program/deleteProgram/{{program.id}}" onclick="return del('确认要删除该项目吗？', this.href)">
+
+      <button type="button" class="btn-blu-btn">删除</button>
+
+    </a>
+    <button type="button" class="btn-blu-btn"
+      onclick="location.href='/program/selectExperts/{{program.id}}';">抽取专家</button>
+
+    <button type="button" class="btn-blu-btn" onclick="location.href='/program/download/{{program.id}}';">导出专家</button>
+
+    <button type="button" class="btn-cancel" onclick="history.go(-1)">返 回</button>
+  </div>
+
 </body>
-   
+
 </html>
