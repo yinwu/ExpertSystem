@@ -274,6 +274,7 @@
                   <th>最高学历</th>
                   <th>专业类型</th>
                   <th>确认状态</th>
+				  <th>操作</th>
                 </tr>
             </thead>
             <tbody>
@@ -286,6 +287,12 @@
                   <td>{{expert.degree}}</td>
                   <td>{{expert.program_type}}</td>
                   <td>{{expert.status}}</td>
+				  <td>
+				  <button type="button" class="btn-blu-btn" onclick="location.href='/program/confirm';">确认专家</button>
+				  </td>
+				  <td>
+				  <button type="button" class="btn-blu-btn" onclick="location.href='/program/exclude';">排除专家</button>
+				  </td>
                 </tr>
                 {% endfor%}
             </tbody>
