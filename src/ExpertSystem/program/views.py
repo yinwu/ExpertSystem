@@ -12,7 +12,7 @@ from django.shortcuts import render
 from django.db.models import Q
 
 
-from experts.models import Expert, Comments, ExcluedeExpert
+from experts.models import Expert, Comments
 from program.models import Program
 from program.forms import ProgramForm
 from program.models import Program
