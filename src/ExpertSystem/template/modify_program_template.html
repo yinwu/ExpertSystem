@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head>
+
+<script type="text/javascript" src="../../../static/js/My97DatePicker/WdatePicker.js"></script>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -171,8 +173,8 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="/experts/index">主页 <span class="sr-only">(current)</span></a></li>
-            <li><a href="{% url 'index' %}">项目列表</a></li>
-			<li><a href="{% url 'list' %}">专家列表</a></li>
+            <li><a href="{% url 'index' %}">项目管理</a></li>
+			<li><a href="{% url 'list' %}">专家管理</a></li>
           </ul>
           <ul class="nav nav-sidebar">
 			<li><a href="{% url 'addProgram' %}">添加项目</a></li>	
@@ -247,11 +249,12 @@
 										<input id="location" name="location" class="required" type="text" value="{{program_item.location}}" maxlength="50"/>
 									</td>
 									<td><label class="tab_control_label">项目创建时间: </label></td>
+									
 									<td>
 										<input id="program_date" name="program_date" type="text"
 														maxlength="20" class="Wdate required"
 														value="{{program_item.program_date}}"
-														onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',maxDate:'#F{$dp.$D(\'pbjssj\')}',isShowClear:false});" />
+														onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'program_date\')}',isShowClear:false});"/>
 									</td>
 								</tr>
 								
@@ -261,14 +264,14 @@
 										<input id="start_date" name="start_date" type="text"
 														maxlength="20" class="Wdate required"
 														value="{{program_item.start_date}}"
-														onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',maxDate:'#F{$dp.$D(\'pbjssj\')}',isShowClear:false});" />
+														onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'start_date\')}', isShowClear:false});"/>
 									</td>
 									<td><label class="tab_control_label">招标结束时间: </label></td>
 									<td>
 										<input id="end_date" name="end_date" type="text"
 														maxlength="20" class="Wdate required"
 														value="{{program_item.end_date}}"
-														onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'#F{$dp.$D(\'pbkssj\')}', isShowClear:false});" />
+														onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'end_date\')}', isShowClear:false});" />
 									</td>
 								</tr>
 								
