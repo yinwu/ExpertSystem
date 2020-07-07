@@ -58,6 +58,7 @@ def program_select_experts(request, id):
         number_value = int(request.POST.get('number'))
 
         print(program_type_value)
+        print(number_value)
 
         q = Q()
         q.connector = "AND"
