@@ -271,6 +271,7 @@
                   <th>项目负责人</th>
                   <th>项目所属地</th>
                   <th>项目创建时间</th>
+				  <th>评审意见</th>
                 </tr>
             </thead>
             <tbody>
@@ -280,7 +281,11 @@
                   <td>{{program.name}}</td>
                   <td>{{program.responser}}</td>
                   <td>{{program.location}}</td>
-                  <td>{{program.date}}</td>
+                  <td>{{program.program_date}}</td>
+				  <td>
+              <button type="button" class="btn-blu-btn"
+                onclick="location.href='/experts/comments/{{expert.id}}/{{program.id}}';">评审意见</button>
+            </td>
                 </tr>
                 {% endfor%}
             </tbody>

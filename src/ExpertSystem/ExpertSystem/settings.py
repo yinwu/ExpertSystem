@@ -134,5 +134,5 @@ STATICFILES_DIRS = [
     
 ]
 
-
+APPEND_SLASH = False
 

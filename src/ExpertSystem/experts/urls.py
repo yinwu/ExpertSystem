@@ -13,4 +13,6 @@ urlpatterns = [
     path('deleteExpert/<int:expert_id>', views.delete_expert_req, name='deleteExpert'),
     path('modify/<int:expert_id>', views.modify_expert_req, name='modify'),
     path('search/', views.search, name='search'),
+    path('comments/<int:expert_id>/<int:program_id>', views.comments, name='comments'),  
+    path('saveComments/<int:expert_id>/<int:program_id>', views.save_comments, name='saveComments'),
 ]
