@@ -55,14 +55,11 @@ def program_select_experts(request, id):
         level_value = request.POST.get('level')
         degree_value = request.POST.get('degree')
         program_type_value = request.POST.get('program_type')
-        number_value = int(request.POST.get('number'))
+        request_experts_count = int(request.POST.get('number'))
 
-        print(program_type_value)
-        print(number_value)
-
+        # 合并用户的过滤条件
         q = Q()
         q.connector = "AND"
-
         if level_value != "all":
             q.children.append(("level",level_value))
         if degree_value != "all":
@@ -70,22 +67,43 @@ def program_select_experts(request, id):
         if program_type_value != "all":
             q.children.append(("program_type",program_type_value))
         
-        # 过滤满足条件的，排除已经入选的和曾经排除的专家
-        available_experts = Expert.objects.filter(q).exclude(
-            selected_program_list__id=id).exclude(visible=False)
-        selected_expert_list = {}
-
-        # 备选的专家数收于要求
-        if number_value > available_experts.count():
-            return HttpResponse("没有足够的专家供您抽取，请您添加专家，修改限制条件，或者减少本次抽签专家数量")
+        # 已确认专家数量（不管专家是否符合新条件，只要确认过就予以保留）
+        confirmed_experts = Comments.objects.filter(program__id = id).filter(status="ok")
         
-        selected_expert_list = random.sample(list(available_experts), number_value)
+        # 要删除的专家数量
+        count_to_selected = request_experts_count - confirmed_experts.count()
 
-        for item in selected_expert_list:
-            new_comment = Comments()
-            new_comment.expert = item
-            new_comment.program = program
-            new_comment.save()
+        # 请求抽取的专家数量 小于 已确认的专家数量
+        if count_to_selected < 0:
+            # 删除的夺取的专家
+            experts_to_delete = random.sample(list(confirmed_experts), (0-count_to_selected))
+            for expert in experts_to_delete:
+                expert.delete()
+        
+        # 要抽取的专家数量大于已确认专家的数量，不做任何处理
+        elif count_to_selected >= 0:
+            # 解绑抽取后未确认的专家
+            expert_wait_for_confirm = Comments.objects.filter(program__id = id).filter(status="unknow")
+            for item in expert_wait_for_confirm:
+                item.delete()
+            
+            # 未确认的专家已经跟项目解绑，selected_program_list__id=id 只剩下已排除和已确认的
+            available_experts = Expert.objects.filter(q).exclude(
+                selected_program_list__id=id).exclude(visible=False)
+            selected_expert_list = {}
+
+            # 备选的专家数小于要求
+            if count_to_selected > available_experts.count():
+                return HttpResponse("没有足够的专家供您抽取，请您添加专家，修改限制条件，或者减少本次抽签专家数量")
+        
+            # 从候选队列中抽取专家数量
+            selected_expert_list = random.sample(list(available_experts), count_to_selected)
+
+            for item in selected_expert_list:
+                new_comment = Comments()
+                new_comment.expert = item
+                new_comment.program = program
+                new_comment.save()
 
         return redirect('/program/detail/'+str(program.id))
     
