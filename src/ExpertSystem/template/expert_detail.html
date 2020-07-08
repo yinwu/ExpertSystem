@@ -157,21 +157,15 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="/experts/index">主页 <span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href="{% url 'list' %}">专家管理<span class="sr-only">(current)</span></a></li>
 			<li><a href="{% url 'index' %}">项目管理</a></li>
+          </ul>  
+          <ul class="nav nav-sidebar">
+			<li><a href="{% url 'addExpert' %}">添加专家</a></li>	
           </ul>
 		  <ul class="nav nav-sidebar">
-            
-			<li><a href="{% url 'list' %}">专家管理</a></li>
-            
-			
-          </ul>
-          <ul class="nav nav-sidebar">
-            
-			<li><a href="{% url 'addExpert' %}">添加专家</a></li>
-            
-			
-          </ul>
+			<li><a href="{% url 'login' %}">退出</a></li>
+        </ul> 
           
         </div>
 		
@@ -184,7 +178,7 @@
 				<li class="active">专家管理</li>
 			</ol>
 		</div>
-			<!-- End Page Header -->
+		<!-- End Page Header -->
 		    <div class="col-md-12" >
             <div class="panel panel-default" >
             <div class="panel-body table-responsive">
