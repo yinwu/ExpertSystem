@@ -6,11 +6,32 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 from experts.models import *
+from django.contrib import auth
 
 from .forms import ExpertForm
 
 def login(request):
     return render(request, 'login.html')
+
+def login_validation(request):
+    next_url = request.GET.get("next")
+    username = request.POST.get("name")
+    passwd = request.POST.get("passwd")
+
+    print(username)
+    print(passwd)
+
+    user_obj = auth.authenticate(request, username=username, password=pwd)
+    if user_obj:
+        # 用户名和密码正确
+        auth.login(request, user_obj)  # 给该次请求设置了session数据，并在响应中回写cookie
+        if next_url:
+            return redirect(next_url)
+        else:
+            return redirect("/book_list/")
+    else:
+        # 用户名或密码错误
+        return render(request, "login.html", {"error_msg": "用户名或密码错误"})
 
 def index(request):
     return render(request, 'index.html')

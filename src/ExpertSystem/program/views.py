@@ -126,7 +126,7 @@ def expert_exclude(request, expert_id, program_id):
 def program_export_experts(request, id):
     return render(request, 'export_expert_template.html')
 
-
+@login_required
 def program_add(request):
     
     if request.method == 'GET':
@@ -149,6 +149,7 @@ def program_add(request):
         
         return redirect("/program/list") 
     
+@login_required
 def program_delete(request, id):    
     # Program.objects.get(id=id).delete()
     program_to_delete = Program.objects.get(id=id)
@@ -156,6 +157,7 @@ def program_delete(request, id):
     program_to_delete.save()
     return redirect("/program/list") 
 
+@login_required
 def save_program(request):
     if request.method == "POST":
         program_form = ProgramForm(request.POST)
@@ -177,7 +179,7 @@ def search(request):
     return render(request, 'program_list_template.html', {"program_list": post_list})
     
      
-    
+@login_required
 def program_modify(request, id):
     if request.method == 'GET':
         program = Program.objects.get(id=id)
@@ -225,6 +227,7 @@ def download_table(request, id):
         print("raise 404")
         raise Http404
 
+@login_required
 def expert_confirm(request, program_id, expert_id):
     
     comments = Comments.objects.filter(expert__id = expert_id, program__id = program_id)
