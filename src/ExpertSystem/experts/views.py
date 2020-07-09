@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 # Create your views here.
-
+from django.contrib.auth.decorators import login_required
 
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -19,7 +19,7 @@ def expert_list(request):
     expert_list = Expert.objects.filter(visible=True)
     return render(request, 'expert_list_template.html', {"result":expert_list})
 
-    
+@login_required
 def delete_expert_req(request, expert_id):
 
     expert_to_delete = Expert.objects.get(id=expert_id)
@@ -27,6 +27,7 @@ def delete_expert_req(request, expert_id):
     expert_to_delete.save()
     return redirect("/experts/list") 
 
+@login_required
 def add_expert_req(request):
     if request.method == 'GET':
         return render(request, 'add_expert_template.html')
@@ -55,7 +56,7 @@ def expert_detail(request, expert_id):
     #return render(request, 'expert_detail.html', {"expert":expert})
     return render(request, 'expert_detail.html', {"expert" : expert, "program_list": program_list})
 
-   
+@login_required
 def modify_expert_req(request, expert_id):
     """
     expert_form = ExpertForm()

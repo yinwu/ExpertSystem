@@ -49,7 +49,7 @@ def program_check(request):
 def program_check(request):
     return render(request, 'program_check_template.html')
 
-
+@login_required()
 def program_select_experts(request, id):
     program = Program.objects.get(id=id)
     if request.method == 'GET':    

@@ -8,5 +8,5 @@ from django.contrib import admin
 from .models import *
 
 admin.site.register(Program)
-admin.site.site_header = 'XX大学专家抽签系统'
-admin.site.site_title = 'XX大学专家抽签系统'
+admin.site.site_header = '陆军防化指挥工程学院专家抽取系统'
+admin.site.site_title = '陆军防化指挥工程学院专专家抽取系统'
