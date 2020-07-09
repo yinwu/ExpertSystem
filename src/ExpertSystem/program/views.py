@@ -2,6 +2,7 @@ import os
 import random
 from django.shortcuts import render, redirect
 
+from django.contrib.auth.models import User
 
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -52,9 +53,14 @@ def program_check(request):
 @login_required()
 def program_select_experts(request, id):
     program = Program.objects.get(id=id)
-    if request.method == 'GET':    
+    if request.method == 'GET':
         return render(request, 'select_expert_template.html', {"program": program})
     if request.method == 'POST':
+
+        user = User.objects.get(username=request.user.username)
+        if user.username != "admin":
+            return HttpResponse("您不是管理员，你没有权限抽取专家")
+
         level_value = request.POST.get('level')
         degree_value = request.POST.get('degree')
         program_type_value = request.POST.get('program_type')
@@ -109,8 +115,14 @@ def program_select_experts(request, id):
                 new_comment.save()
 
         return redirect('/program/detail/'+str(program.id))
-    
+
+@login_required
 def expert_exclude(request, expert_id, program_id):
+
+    user = User.objects.get(username=request.user.username)
+    if user.username != "admin":
+        return HttpResponse("您不是管理员，你没有权限添加项目")
+
     comments = Comments.objects.filter(expert__id = expert_id, program__id = program_id)
     if comments.count() > 0:
         comment = comments[0]
@@ -133,6 +145,11 @@ def program_add(request):
         return render(request, 'add_program_template.html')
     
     if request.method == 'POST':
+
+        user = User.objects.get(username=request.user.username)
+        if user.username != "admin":
+            return HttpResponse("您不是管理员，你没有权限添加项目")
+
         new_program = ProgramForm()
         program_responser = request.POST.get('responser')
         program_seq = request.POST.get('code')
@@ -150,7 +167,12 @@ def program_add(request):
         return redirect("/program/list") 
     
 @login_required
-def program_delete(request, id):    
+def program_delete(request, id):
+
+    user = User.objects.get(username=request.user.username)
+    if user.username != "admin":
+        return HttpResponse("您不是管理员，你没有权限删除项目")
+
     # Program.objects.get(id=id).delete()
     program_to_delete = Program.objects.get(id=id)
     program_to_delete.visible = False
@@ -160,20 +182,22 @@ def program_delete(request, id):
 @login_required
 def save_program(request):
     if request.method == "POST":
+
+        user = User.objects.get(username=request.user.username)
+        if user.username != "admin":
+            return HttpResponse("您不是管理员，你没有权限添加项目")
+
         program_form = ProgramForm(request.POST)
         print(request.POST)
         if  program_form.is_valid():
             program_form.save()
-            print("New program saved succefully")
         else:
-            print("New program save failed")
             return HttpResponse("添加新项目失败")
 
     return redirect("/program/list")
             
    
 def search(request):
-    
     keyStr = request.GET.get('name')
     post_list = Program.objects.filter(name = keyStr)
     return render(request, 'program_list_template.html', {"program_list": post_list})
@@ -184,9 +208,13 @@ def program_modify(request, id):
     if request.method == 'GET':
         program = Program.objects.get(id=id)
         return render(request, 'modify_program_template.html', {"program_item": program, "program_id": id})
-    
         
     if request.method == 'POST':
+
+        user = User.objects.get(username=request.user.username)
+        if user.username != "admin":
+            return HttpResponse("您不是管理员，你没有权限修改项目")
+
         program_name = request.POST.get('name')
         program_responser = request.POST.get('responser')
         program_seq = request.POST.get('code')
@@ -229,6 +257,10 @@ def download_table(request, id):
 
 @login_required
 def expert_confirm(request, program_id, expert_id):
+
+    user = User.objects.get(username=request.user.username)
+    if user.username != "admin":
+        return HttpResponse("您不是管理员，你没有权限进行该项操作")
     
     comments = Comments.objects.filter(expert__id = expert_id, program__id = program_id)
     if comments.count() > 0:
