@@ -2,6 +2,8 @@ import os
 import random
 from django.shortcuts import render, redirect
 
+
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 from django.http import HttpResponse, Http404
@@ -46,7 +48,8 @@ def program_check(request):
 
 def program_check(request):
     return render(request, 'program_check_template.html')
-    
+
+
 def program_select_experts(request, id):
     program = Program.objects.get(id=id)
     if request.method == 'GET':    
@@ -66,7 +69,7 @@ def program_select_experts(request, id):
             q.children.append(("degree",degree_value))
         if program_type_value != "all":
             q.children.append(("program_type",program_type_value))
-        
+
         # 已确认专家数量（不管专家是否符合新条件，只要确认过就予以保留）
         confirmed_experts = Comments.objects.filter(program__id = id).filter(status="ok")
         

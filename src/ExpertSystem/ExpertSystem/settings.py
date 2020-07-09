@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "144.34.182.215"]
 
-
+LOGIN_URL = '/admin/'
 # Application definition
 
 INSTALLED_APPS = [
@@ -131,7 +131,6 @@ STATICFILES_DIRS = [
     ("js", os.path.join(STATIC_ROOT, 'js')),
     ("css", os.path.join(STATIC_ROOT, 'css')),
     ("images", os.path.join(STATIC_ROOT, 'images')),
-    
 ]
 
 APPEND_SLASH = False
