@@ -70,11 +70,12 @@ def login_validation(request):
     next_url = request.GET.get("next")
     username = request.POST.get("name")
     passwd = request.POST.get("passwd")
+    
 
     print(username)
     print(passwd)
 
-    user_obj = auth.authenticate(request, username=username, password=pwd)
+    user_obj = auth.authenticate(request, username=username, password=passwd)
     if user_obj:
         # 用户名和密码正确
         auth.login(request, user_obj)  # 给该次请求设置了session数据，并在响应中回写cookie
