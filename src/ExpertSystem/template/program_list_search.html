@@ -155,10 +155,20 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li>
+            <!--用户登陆信息-->
+            {% if user.is_authenticated %}
+            <!-- 如果用户已经登录，则显示用户名下拉框 -->
+            <li class="nav-item dropdown">
+              <a><strong>用户</strong>：{{ user.username }}</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a href="/experts/login_out/">退出登陆</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="/experts/login/">登录</a>
+            </li>
+            {% endif %}
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
