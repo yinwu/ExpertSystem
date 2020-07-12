@@ -23,8 +23,12 @@ from program.models import Program
 from django.forms.models import model_to_dict
 
 def program_list(request):
-    program_list = Program.objects.filter(visible=True)
-    return render(request, 'program_list_template.html', {"program_list": program_list})
+    if request.user.username == "admin":
+        program_list = Program.objects.filter(visible=True)
+        return render(request, 'program_list_template.html', {"program_list": program_list})
+    else:
+       return render(request, 'program_list_template.html', {"program_list": {}}) 
+
 
 def program_detail(request, program_id):
     try:
@@ -33,15 +37,6 @@ def program_detail(request, program_id):
         return HttpResponse("项目不存在， ID:", program_id)
     
     comment_list = Comments.objects.filter(program__id = program_id).exclude(status="nok")
-    # expert_dict = {}
-    # for item in expert_list:
-    #     comment = Comments.objects.filter(expert__id=item.id).filter(program__id=program_id)[0]
-    #     item = model_to_dict(item)
-    #     item["status"] = comment.status
-    #     expert_dict.append(item)
-        
-    # print(expert_dict)
-
     return render(request, 'program_detail.html', {"expert_list" : comment_list, "program": program_detail_info})
 
 def program_check(request):

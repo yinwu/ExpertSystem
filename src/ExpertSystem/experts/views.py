@@ -42,8 +42,25 @@ def update_user(expert, new_name):
         print("更新用户账户信息失败")
 
 
-def login(request):
-    return render(request, 'login.html')
+def user_login(request):
+    next_url = request.GET.get('next', '')
+    print(next)
+    if request.method == "POST":
+        user_name = request.POST["user_name"]
+        user_password = request.POST["user_password"]
+
+        user = authenticate(username=user_name, password=user_password)
+        if user:
+            login(request, user)
+            if next_url:
+                print("next url:", next_url)
+                return redirect(next_url)
+            else:
+                return redirect("/program/list")
+        else:
+            return HttpResponse("输入的用户名和密码错误")
+    else:
+        return render(request, 'login.html')
 
 def login_out_user(request):
     logout(request)
