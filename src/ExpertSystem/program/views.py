@@ -52,15 +52,15 @@ def program_check(request):
 
 @login_required()
 def program_select_experts(request, id):
+    user = User.objects.get(username=request.user.username)
+    if user.username != "admin":
+        return HttpResponse("您不是管理员，你没有权限抽取专家")
+
     program = Program.objects.get(id=id)
+
     if request.method == 'GET':
         return render(request, 'select_expert_template.html', {"program": program})
     if request.method == 'POST':
-
-        user = User.objects.get(username=request.user.username)
-        if user.username != "admin":
-            return HttpResponse("您不是管理员，你没有权限抽取专家")
-
         level_value = request.POST.get('level')
         degree_value = request.POST.get('degree')
         program_type_value = request.POST.get('program_type')
@@ -141,15 +141,14 @@ def program_export_experts(request, id):
 @login_required
 def program_add(request):
     
+    user = User.objects.get(username=request.user.username)
+    if user.username != "admin":
+        return HttpResponse("您不是管理员，你没有权限添加专家")
+
     if request.method == 'GET':
         return render(request, 'add_program_template.html')
     
     if request.method == 'POST':
-
-        user = User.objects.get(username=request.user.username)
-        if user.username != "admin":
-            return HttpResponse("您不是管理员，你没有权限添加项目")
-
         new_program = ProgramForm()
         program_responser = request.POST.get('responser')
         program_seq = request.POST.get('code')
@@ -181,12 +180,11 @@ def program_delete(request, id):
 
 @login_required
 def save_program(request):
+    user = User.objects.get(username=request.user.username)
+    if user.username != "admin":
+        return HttpResponse("您不是管理员，你没有权限添加项目")
+
     if request.method == "POST":
-
-        user = User.objects.get(username=request.user.username)
-        if user.username != "admin":
-            return HttpResponse("您不是管理员，你没有权限添加项目")
-
         program_form = ProgramForm(request.POST)
         print(request.POST)
         if  program_form.is_valid():
@@ -202,19 +200,17 @@ def search(request):
     post_list = Program.objects.filter(name = keyStr)
     return render(request, 'program_list_template.html', {"program_list": post_list})
     
-     
-@login_required
+
 def program_modify(request, id):
+    user = User.objects.get(username=request.user.username)
+    if user.username != "admin":
+        return HttpResponse("您不是管理员，你没有权限修改该项目")
+
     if request.method == 'GET':
         program = Program.objects.get(id=id)
         return render(request, 'modify_program_template.html', {"program_item": program, "program_id": id})
-        
+    
     if request.method == 'POST':
-
-        user = User.objects.get(username=request.user.username)
-        if user.username != "admin":
-            return HttpResponse("您不是管理员，你没有权限修改项目")
-
         program_name = request.POST.get('name')
         program_responser = request.POST.get('responser')
         program_seq = request.POST.get('code')
@@ -237,8 +233,13 @@ def program_modify(request, id):
         modify_program.save()
 
         return redirect("/program/list")
-        
+
+@login_required
 def download_table(request, id):
+    user = User.objects.get(username=request.user.username)
+    if user.username != "admin":
+        return HttpResponse("您不是管理员，你没有权限进行该操作") 
+
     print("enter download table")
     file_name = 'expertfile/test_' + str(id) + '.xlsx'
     file_path = os.path.join(os.getcwd(), file_name)
@@ -255,13 +256,11 @@ def download_table(request, id):
         print("raise 404")
         raise Http404
 
-@login_required
 def expert_confirm(request, program_id, expert_id):
-
     user = User.objects.get(username=request.user.username)
     if user.username != "admin":
-        return HttpResponse("您不是管理员，你没有权限进行该项操作")
-    
+        return HttpResponse("您不是管理员，你没有权限进行该操作") 
+
     comments = Comments.objects.filter(expert__id = expert_id, program__id = program_id)
     if comments.count() > 0:
         comment = comments[0]

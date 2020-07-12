@@ -3,7 +3,10 @@ from django.db import models
 # Create your models here.
 
 from program.models import Program
+from django.contrib.auth.models import User
 
+def get_default_user():
+    return User.objects.get_or_create(id = 2)[0].id
 
 class Expert(models.Model):
     id = models.AutoField(primary_key=True)
@@ -19,8 +22,7 @@ class Expert(models.Model):
     program_type = models.CharField(max_length=500, verbose_name="专业类型", null=True)
 
     selected_program_list = models.ManyToManyField(Program, related_name="selected", through="Comments")
-
-
+    account = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="账户", default=get_default_user, null=True)
     class Meta:
         verbose_name = '专家'
         verbose_name_plural = verbose_name
