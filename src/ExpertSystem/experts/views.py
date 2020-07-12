@@ -84,7 +84,7 @@ def delete_expert_req(request, expert_id):
     # 删除该专家的账户
     delete_user(expert_to_delete)
 
-    return redirect("/experts/list") 
+    return redirect("/experts/list/") 
 
 #暂时只检查电话号码长度,电话号码不能少于8位
 def is_valid_phone_no(phone_number):
@@ -161,7 +161,7 @@ def modify_expert_req(request, expert_id):
         else:
             return HttpResponse("修改专家信息失败")
         
-        return redirect("/experts/list")
+        return redirect("/experts/list/")
         
 def search(request):
     test_data = [
