@@ -15,6 +15,7 @@
     <img src="../../../static/images/TopPic.png" width="100%" height="73">
 </nav>
 <!--中部内容-->
+<form id="inputForm" class="needs-validation" action="/experts/loginValidation/" method="post">
 <div class="wrap" id="wrap">
     <div class="logWrap" >
         <img id="banner" class="banner" src="../../../static/images/demo2.png" >
@@ -27,19 +28,20 @@
             <!-- 输入框 -->
             <div class="InputStr">
                 <img src="/static/images/user.png" width="20" height="20" alt=""/>
-                <input type="text"
+                <input name="name" id="name" type="text"
                        placeholder="输入用户名" />
             </div>
             <div class="InputStr">
                 <img src="../../../static/images/password.png" width="20" height="20" alt=""/>
-                <input type="password"
+                <input name= "passwd" id= "passwd" type="password"
                        placeholder="输入用户密码" />
             </div>
             <div class="LoginButton">
-                <a href="/program/list" target="_self"><button>登 录</button></a>
+                <a href="/experts/loginValidation/" target="_self"><button>登 录</button></a>
             </div>
         </div>
     </div>
 </div>
+</form>
 </body>
 </html>
