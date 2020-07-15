@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "144.34.182.215"]
 
+
 LOGIN_URL = '/experts/login/'
 LOGIN_REDIRECT_URL = '/user/accounts/'
 # Application definition
