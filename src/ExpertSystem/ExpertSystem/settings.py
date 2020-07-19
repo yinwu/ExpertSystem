@@ -25,7 +25,7 @@ SECRET_KEY = 'rf=5j8bl(s^i6^a((po)$vdh1h0j7q%u5wd!%3+gnu_&#^j4sl'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "144.34.182.215"]
+ALLOWED_HOSTS = ["*"]
 
 
 LOGIN_URL = '/experts/login/'

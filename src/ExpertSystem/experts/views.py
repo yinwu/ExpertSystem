@@ -71,10 +71,6 @@ def login_validation(request):
     next_url = request.GET.get("next")
     username = request.POST.get("name")
     passwd = request.POST.get("passwd")
-    
-
-    print(username)
-    print(passwd)
 
     user_obj = auth.authenticate(request, username=username, password=passwd)
     if user_obj:
