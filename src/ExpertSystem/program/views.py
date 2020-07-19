@@ -18,16 +18,27 @@ from django.db.models import Q
 from experts.models import Expert, Comments
 from program.models import Program
 from program.forms import ProgramForm
-from program.models import Program
 
 from django.forms.models import model_to_dict
+from django.core.exceptions import ObjectDoesNotExist
 
 def program_list(request):
+    # 领导和管理员可以进行看到所有项目
     if request.user.username == "admin":
         program_list = Program.objects.filter(visible=True)
         return render(request, 'program_list_template.html', {"program_list": program_list})
     else:
-       return render(request, 'program_list_template.html', {"program_list": {}}) 
+        # 只展示跟自己有关系的项目：
+        user_name = request.user.username
+        try:
+            request_expert = Expert.objects.get(account__username = user_name)
+        except ObjectDoesNotExist:
+            return redirect("/experts/login/")
+        else:
+            comments = Comments.objects.filter(expert = request_expert)
+            program_list = Program.objects.filter(selected = request_expert)
+
+            return render(request, 'program_list_template.html', {"program_list": program_list}) 
 
 
 def program_detail(request, program_id):

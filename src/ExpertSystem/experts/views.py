@@ -11,6 +11,7 @@ from experts.models import *
 from django.contrib import auth
 
 from .forms import ExpertForm
+from django.core.exceptions import ObjectDoesNotExist
 
 def delete_user(expert):
     try:
@@ -90,9 +91,19 @@ def login_validation(request):
 def index(request):
     return render(request, 'index.html')
 
+@login_required
 def expert_list(request):
-    expert_list = Expert.objects.filter(visible=True)
-    return render(request, 'expert_list_template.html', {"result":expert_list})
+    login_user = request.user.username
+    if login_user == "admin":
+        expert_list = Expert.objects.filter(visible=True)
+        return render(request, 'expert_list_template.html', {"result":expert_list})
+    else:
+        try:
+            request_expert = Expert.objects.get(phone = login_user)
+        except:
+            return redirect("/experts/login/")
+        return redirect("/experts/detail/" + str(request_expert.id)) 
+
 
 @login_required
 def delete_expert_req(request, expert_id):
@@ -146,7 +157,7 @@ def add_expert_req(request):
     else:
         return redirect("program/list")
         
-
+@login_required
 def expert_detail(request, expert_id):
 
     try:
@@ -185,7 +196,8 @@ def modify_expert_req(request, expert_id):
             return HttpResponse("修改专家信息失败")
         
         return redirect("/experts/list/")
-        
+
+@login_required
 def search(request):
     keyStr = request.GET.get('search_str')
     print(keyStr)
@@ -193,13 +205,14 @@ def search(request):
     expert_list = Expert.objects.filter(name = keyStr)
     return render(request, 'expert_list_template.html', {"result":expert_list})
     
-   
+@login_required
 def comments(request, expert_id, program_id):
     expert = Expert.objects.get(id=expert_id)
     program = Program.objects.get(id=program_id)
     example_comments = {"expert_id": expert_id, "program_id":program_id, "score":"100", "comment_date":"2020-01-01", "comments":"评审通过"}
     return render(request, 'expert_program_comments.html', {"expert" : expert, "program": program, "comment" : example_comments})  
-       
+
+@login_required
 def save_comments(request, expert_id, program_id):
     score = request.GET.get('score')
     comment_date = request.GET.get('comment_date')
