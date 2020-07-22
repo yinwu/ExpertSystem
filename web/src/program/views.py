@@ -118,7 +118,9 @@ def program_select_experts(request, id):
                 new_comment = Comments()
                 new_comment.expert = item
                 new_comment.program = program
+                new_comment.valuation_status = "unvaluated"
                 new_comment.save()
+                print("have created comment item!!!")
 
         return redirect('/program/detail/'+str(program.id))
 

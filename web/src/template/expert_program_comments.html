@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 {% load static %}
+{% load filter %}
 <html lang="zh-CN">
-<script type="text/javascript" src="../../../../static/js/My97DatePicker/WdatePicker.js"></script>
+
+<script src="{%static 'js/jquery.js'%}"></script>
+<script type="text/javascript" src="{%static 'js/My97DatePicker/WdatePicker.js'%}"></script>
+
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
@@ -131,7 +135,7 @@
 
     type="text/css"
   </style>
-  {% load static %}
+ 
 
 </head>
 
@@ -174,15 +178,15 @@
   </nav>
 
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-3 col-md-2 sidebar">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
           <li class="active"><a href="{% url 'login' %}">退出<span class="sr-only">(current)</span></a></li>
         </ul>
-      </div>
+    </div>
 
 
-      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 	  <!-- Start Page Header -->
 		<div class="page-header">
 			<ol class="breadcrumb">
@@ -262,81 +266,80 @@
         </div>
 	  <!-- End Program Info -->
       </div>
-	  
-	  
-	  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-	    <div class="col-md-12">
-        <div class="panel panel-default">
-		<div class="panel-body table-responsive">
-              <div
-                style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd; background-repeat:no-repeat; padding-left:20px; background-position: bottom left;">
-              </div>
 
-      <form id="inputForm" class="form-horizontal" action="" method="post">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <div style="background-color:#ECECFF; height: 40px">
-              <b>项目评审</b>
-            </div>
-          </tr>
-        </thead>
-
-        <tbody>
-        
-          <tr>
-            <td><label class="tab_control_label">评分: </label></td>
-			<td>
-				<div class="input-append">
-				<input id="my_score" name="my_score" class="required isFloat" type="text" value="{{comment.score}}" maxlength="10"/>（分）
-				</div>
-			</td>
-			<td><label class="tab_control_label">点评时间: </label></td>
-									
-			<td>
-				<input id="comment_date" name="comment_date" type="text"
-					maxlength="20" class="Wdate required"
-					value="{{comment.comment_date}}"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'comment_date\')}',isShowClear:false});"/>
-			</td>
-          </tr>
-		  <tr>
-            <td><label class="tab_control_label">项目评审意见: </label></td>
-            <td colspan="10">
-                <textarea id="remarks" name="remarks" maxlength="5000"
-                style="width: 1100px; height: 300px" placeholder="输入项目评审意见">{{comment.comments}}</textarea>
-            </td>        
-          </tr>
-          
-        </tbody>
+	  
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+	<div class="col-md-12">
+	<div class="panel panel-default">
+	<div class="panel-body table-responsive">
+	<div style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd); background-repeat:no-repeat; padding-left:20px; background-position: bottom left;">
+						
+	</div>
+	
+	<form id="inputForm" class="form-horizontal" action="" method="post">
+							
+		<table class="table table-bordered table-condensed">
+			<tr>
+				<td style="background-color:#ECECFF;">
+				    <b>项目评审信息</b>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table class="table table-bordered table-condensed" style="margin-bottom: 0px;">
+						<tr>
+							<td><label class="tab_control_label">评审状态</label></td>
+			                <td>
+			                  <select name="valuationStatus" class="custom-select" id="valuationStatus"
+                                 required="">
+						        <option value={{comment.valuation_status}}>{{comment|displayName:'valuation_status'}}</option>
+                                <option value="待评审">待评审</option>
+                                <option value="评审通过">评审通过</option>
+                                <option value="评审不通过">评审不通过</option>
+                              </select>
+			                </td>	
+							<td><label class="tab_control_label">点评时间</label></td>
+							<td>
+			                  {{comment.input_date}}
+							</td>
+						</tr>
+								
+						<tr>
+                            <td><label class="tab_control_label">评审意见</label></td>
+                            <td colspan="10">
+                            <textarea id="remarks" name="remarks" maxlength="10000"
+                               style="width: 1100px; height: 300px" placeholder="输入项目评审意见">{{comment.content}}</textarea>
+                            </td>        
+                        </tr>
+					</table>
+				</td>
+			</tr>
 		</table>
-      
-	  <div
-        style="border-bottom:1px solid #ccc; margin-bottom:15px; color:#3299fd; background-repeat:no-repeat; padding-left:20px; background-position: bottom left;">
-      </div>
-      <div style="width:350px; display:block; margin:10px auto;">
-        <script type="text/javascript">
-           function save(hint, ref) {
-               if (confirm(hint)) {
-               window.location = ref;//跳转
-               } else {
-                          location.reload();
-                      }
-              }
-        </script>
-        <a href="/experts/saveComments/{{expert.id}}/{{program.id}}" onclick="return save('确认要保存该点评吗？', this.href)">
-          <button type="button" class="btn-blu-btn">保存</button>
-        </a>
-        <button type="button" class="btn-cancel" onclick="history.go(-1)">返 回</button>
-      </div>
-	  
-      </form>
-	  </div>
-	  </div>
-	  </div>
-  </div
-	  
+		<div style="width:400px; display:block; margin:0px auto;">
+			<script type="text/javascript">
+                function save(hint, ref){
+                    if(confirm(hint)){
+                        window.location = ref;//跳转
+                    }else{
+			            location.reload();
+                    }
+                }
+            </script>
+		    <a href="/experts/comments/{{expert.id}}/{{program.id}}" onclick="return save('确认要保存该项目吗？', this.href)">
+
+                <button type="botton" class="btn-blu-btn" >保存</button>
+
+            </a>
+			<button id="submitBtn" type="button" class="btn-cancel" onclick="history.go(-1)">返 回</button>
+		</div>
+	</form>
     </div>
+	</div>
+	</div>
+	</div>
+	  
+	  
+  </div>
   </div>
   
 </body>

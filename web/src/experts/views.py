@@ -205,14 +205,17 @@ def search(request):
 def comments(request, expert_id, program_id):
     expert = Expert.objects.get(id=expert_id)
     program = Program.objects.get(id=program_id)
-    example_comments = {"expert_id": expert_id, "program_id":program_id, "score":"100", "comment_date":"2020-01-01", "comments":"评审通过"}
-    return render(request, 'expert_program_comments.html', {"expert" : expert, "program": program, "comment" : example_comments})  
+    comment= Comments.objects.get(program=program, expert=expert)
+    
+    if request.method == 'GET':
+        return render(request, 'expert_program_comments.html', {"expert" : expert, "program": program, "comment" : comment}) 
+    if request.method == 'POST':
+        comments = request.POST.get('remarks')    
+        status = request.POST.get('valuationStatus')
+        comment.content = comments
+        comment.valuation_status = status
+        comment.save()
+        return redirect("/experts/detail/" + str(expert_id))
 
-@login_required
-def save_comments(request, expert_id, program_id):
-    score = request.GET.get('score')
-    comment_date = request.GET.get('comment_date')
-    comments = request.GET.get('remarks')
-    return redirect("/experts/detail/" + str(expert_id))
               
       

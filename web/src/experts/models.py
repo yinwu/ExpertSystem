@@ -33,7 +33,7 @@ class Expert(models.Model):
 class Comments(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE, verbose_name='项目名称')
     expert = models.ForeignKey(Expert, on_delete=models.CASCADE, verbose_name='评审专家')
-    content = models.CharField(max_length=10000, verbose_name="评审意见")
+    content = models.CharField(max_length=10000, verbose_name="评审意见", null=True)
     input_date = models.DateField(auto_now=True, verbose_name="评审日期")
 
     status_choice = [
@@ -41,8 +41,16 @@ class Comments(models.Model):
         ("nok","已排除"),
         ("unknow","待确认"),
     ]
-
-    status = models.CharField(max_length=20, verbose_name="评审状态", choices=status_choice, default="unknow")
+ 
+    valuation_status_choice = [
+        ("pass","评审通过"),
+        ("nopass","评审不通过"),
+        ("unvaluated","待评审"),
+    ]
+    
+    status = models.CharField(max_length=20, verbose_name="确认状态", choices=status_choice, default="unknow", null=True)
+    valuation_status = models.CharField(max_length=20, verbose_name="评审状态", choices=valuation_status_choice, default="unvaluated", null=True)
+    
 
     class Meta:
         verbose_name = '专家评审意见'
