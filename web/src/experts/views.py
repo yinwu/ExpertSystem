@@ -196,9 +196,12 @@ def modify_expert_req(request, expert_id):
 @login_required
 def search(request):
     keyStr = request.GET.get('search_str')
-    print(keyStr)
+    
+    expert_list = Expert.objects.filter(name__contains=keyStr).all() | Expert.objects.filter(phone__contains=keyStr).all() |\
+    Expert.objects.filter(email__contains=keyStr).all() | Expert.objects.filter(address__contains=keyStr).all() |\
+    Expert.objects.filter(unit__contains=keyStr).all() | Expert.objects.filter(level__contains=keyStr).all() |\
+    Expert.objects.filter(program_type__contains=keyStr).all() | Expert.objects.filter(degree__contains=keyStr).all()
    
-    expert_list = Expert.objects.filter(name = keyStr)
     return render(request, 'expert_list_template.html', {"result":expert_list})
     
 @login_required

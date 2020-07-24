@@ -17,7 +17,6 @@ urlpatterns = [
     path('exportExperts/<int:id>', views.program_export_experts, name='exportExperts'),
     path('search/', views.search, name='search'),
     path('modify/<int:id>', views.program_modify, name='modifyProgram'),
-    path('download/<int:id>', views.download_table, name='download'),
     path('confirm/<int:expert_id>/<int:program_id>', views.expert_confirm, name='confirm'),
     path('exclude/<int:expert_id>/<int:program_id>', views.expert_exclude, name='exclude'),
 ]

@@ -1,5 +1,9 @@
 import os
 import random
+import xlwt
+from datetime import timezone, datetime
+from dateutil import tz, zoneinfo
+from django.utils.http import urlquote
 from django.shortcuts import render, redirect
 
 from django.contrib.auth.models import User
@@ -21,6 +25,7 @@ from program.forms import ProgramForm
 
 from django.forms.models import model_to_dict
 from django.core.exceptions import ObjectDoesNotExist
+
 
 def program_list(request):
     # 领导和管理员可以进行看到所有项目
@@ -142,9 +147,34 @@ def expert_exclude(request, expert_id, program_id):
 
     return redirect("/program/detail/" + str(program_id))
 
+def buildFile(program_id):
+    if Comments.objects.filter(program__id = program_id).exclude(status="nok").exists():
+        
+        return True
+    else:
+        return False
+    
+    
 
 def program_export_experts(request, id):
-    return render(request, 'export_expert_template.html')
+    program = Program.objects.get(id=id)
+    allow_export = Comments.objects.filter(program__id = id).exclude(status="nok").exists()
+    if request.method == 'GET':
+        return render(request, 'export_expert_template.html', {"program": program, "allow_export":allow_export})
+    if request.method == 'POST':
+        filename = request.POST.get('fileName')
+        program = Program.objects.get(id=id)
+        if len(filename) == 0:
+            tz_bj = tz.gettz('Asia/Beijing')
+            date_time = datetime.now(tz=tz_bj)
+    
+            file_name = "{}-{}.xls".format(program.name, date_time.strftime("%Y%m%d"))
+            print(file_name)
+        else:
+            file_name = filename + ".xls"
+            print(file_name)
+        return download_table(request, id, file_name)
+        
 
 @login_required
 def program_add(request):
@@ -205,7 +235,13 @@ def save_program(request):
    
 def search(request):
     keyStr = request.GET.get('name')
-    post_list = Program.objects.filter(name = keyStr)
+    
+    post_list = Program.objects.filter(name__contains=keyStr).all() | Program.objects.filter(responser__contains=keyStr).all() |\
+    Program.objects.filter(location__contains=keyStr).all() | Program.objects.filter(seq__contains=keyStr).all() |\
+    Program.objects.filter(money__contains=keyStr).all() | Program.objects.filter(desp__contains=keyStr).all() |\
+    Program.objects.filter(program_date__contains=keyStr).all() | Program.objects.filter(start_date__contains=keyStr).all() |\
+    Program.objects.filter(end_date__contains=keyStr).all()
+    
     return render(request, 'program_list_template.html', {"program_list": post_list})
     
 
@@ -243,26 +279,64 @@ def program_modify(request, id):
         return redirect("/program/list")
 
 @login_required
-def download_table(request, id):
+def download_table(request, id, file):
     user = User.objects.get(username=request.user.username)
     if user.username != "admin":
         return HttpResponse("您不是管理员，你没有权限进行该操作") 
-
-    print("enter download table")
-    file_name = 'expertfile/test_' + str(id) + '.xlsx'
-    file_path = os.path.join(os.getcwd(), file_name)
-    print(file_path)
-    if os.path.exists(file_path):
-        file = open(file_path, 'rb')
-        response = FileResponse(file)
-        response['Content-Type'] = 'application/octet-stream'
-        response['Content-Disposition'] = 'attachment;filename="mytest.xlsx"'
-        print("file exist")
-        return response
-
-    else:
-        print("raise 404")
-        raise Http404
+        
+    program = Program.objects.get(id=id)
+   
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment;filename="%s"' % (urlquote(file))
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet(program.name)
+    
+    # Creating style for file
+    head_style = xlwt.XFStyle()
+    head_style.font.bold = True
+    body_style = xlwt.XFStyle()
+    pattern_light = xlwt.Pattern()
+    pattern_light.pattern = xlwt.Pattern.SOLID_PATTERN
+    pattern_light.pattern_fore_colour = 22
+    pattern_white = xlwt.Pattern()
+    pattern_white.pattern = xlwt.Pattern.SOLID_PATTERN
+    pattern_white.pattern_fore_colour = 1
+    
+    # Sheet header, first row
+    row_num = 0
+    columns = ['专家姓名', '职务等级', '工作单位', '联系电话', '最高学历', '专业类型', '确认状态', '评审意见']
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], head_style)
+        
+    # Sheet body, remaining rows
+    comments = Comments.objects.filter(program__id = id).exclude(status="nok")
+    for comment in comments:
+        row_num += 1
+        if row_num % 2 == 0:
+            body_style.pattern = pattern_light
+        else:
+            body_style.pattern = pattern_white       
+        expert = comment.expert
+        ws.write(row_num,0, expert.name, body_style)
+        ws.write(row_num,1, expert.level, body_style)
+        ws.write(row_num,2, expert.unit, body_style)
+        ws.write(row_num,3, expert.phone, body_style)
+        ws.write(row_num,4, expert.degree, body_style)
+        ws.write(row_num,5, expert.program_type, body_style)
+        if comment.status == 'ok':
+            ws.write(row_num,6, '已确认', body_style)
+        else:
+            ws.write(row_num,6, '待确认', body_style)
+        if comment.valuation_status == 'pass':
+            ws.write(row_num,7, '评审通过', body_style)
+        else:
+            if comment.valuation_status == 'nopass':
+                ws.write(row_num,7, '评审不通过', body_style)
+            else:
+                ws.write(row_num,7, '待评审', body_style)
+                    
+    wb.save(response)
+    return response
 
 def expert_confirm(request, program_id, expert_id):
     user = User.objects.get(username=request.user.username)
