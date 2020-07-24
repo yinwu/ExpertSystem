@@ -167,12 +167,9 @@ def program_export_experts(request, id):
         if len(filename) == 0:
             tz_bj = tz.gettz('Asia/Beijing')
             date_time = datetime.now(tz=tz_bj)
-    
-            file_name = "{}-{}.xls".format(program.name, date_time.strftime("%Y%m%d"))
-            print(file_name)
+            file_name = "{}-{}.xls".format(program.name, date_time.strftime("%Y%m%d"))    
         else:
             file_name = filename + ".xls"
-            print(file_name)
         return download_table(request, id, file_name)
         
 
