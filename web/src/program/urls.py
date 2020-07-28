@@ -19,4 +19,5 @@ urlpatterns = [
     path('modify/<int:id>', views.program_modify, name='modifyProgram'),
     path('confirm/<int:expert_id>/<int:program_id>', views.expert_confirm, name='confirm'),
     path('exclude/<int:expert_id>/<int:program_id>', views.expert_exclude, name='exclude'),
+    path('importProgram', views.program_import, name='importProgram'),
 ]

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+import xlrd
 
 # Create your views here.
 from django.contrib.auth.decorators import login_required
@@ -196,13 +197,17 @@ def modify_expert_req(request, expert_id):
 @login_required
 def search(request):
     keyStr = request.GET.get('search_str')
+    if request.user.username == "admin":
+        expert_list = Expert.objects.filter(visible=True)
+    else:
+        return HttpResponse("您不是管理员，你没有权限搜索专家")
     
-    expert_list = Expert.objects.filter(name__contains=keyStr).all() | Expert.objects.filter(phone__contains=keyStr).all() |\
+    return_list = expert_list & (Expert.objects.filter(name__contains=keyStr).all() | Expert.objects.filter(phone__contains=keyStr).all() |\
     Expert.objects.filter(email__contains=keyStr).all() | Expert.objects.filter(address__contains=keyStr).all() |\
     Expert.objects.filter(unit__contains=keyStr).all() | Expert.objects.filter(level__contains=keyStr).all() |\
-    Expert.objects.filter(program_type__contains=keyStr).all() | Expert.objects.filter(degree__contains=keyStr).all()
+    Expert.objects.filter(program_type__contains=keyStr).all() | Expert.objects.filter(degree__contains=keyStr).all())
    
-    return render(request, 'expert_list_template.html', {"result":expert_list})
+    return render(request, 'expert_list_template.html', {"result":return_list})
     
 @login_required
 def comments(request, expert_id, program_id):
@@ -220,5 +225,42 @@ def comments(request, expert_id, program_id):
         comment.save()
         return redirect("/experts/detail/" + str(expert_id))
 
-              
-      
+@login_required       
+def import_experts(request):
+    user = User.objects.get(username=request.user.username)
+    if user.username != "admin":
+        return HttpResponse("您不是管理员，你没有权限进行该操作")
+        
+    if request.method == 'GET':
+        return render(request, 'import_expert_template.html')
+    else:
+        if request.method == 'POST':
+            f = request.FILES.get("uploadFile") 
+            excel_type = f.name.split('.')[1]
+            
+            if excel_type in ['xlsx','xls']:
+                # 开始解析上传的excel表格
+                wb = xlrd.open_workbook(filename=None,file_contents=f.read())
+                table = wb.sheets()[0]
+                rows = table.nrows  # 总行数
+                
+                for i in range(1,rows):
+                    rowVlaues = table.row_values(i)
+                    new_expert_name = rowVlaues[0]
+                    new_expert_phone = rowVlaues[1]
+
+                    if is_valid_phone_no(str(new_expert_phone)) == False:
+                        return HttpResponse("电话号码格式不正确")
+
+                    existing_experts = Expert.objects.filter(phone=new_expert_phone)
+                    for existing_expert in existing_experts:
+                        if existing_expert.visible == True:
+                            return HttpResponse("系统中有重复专家信息，请删除后再导入")
+                    new_expert = Expert(name=rowVlaues[0], phone=str(int(rowVlaues[1])), email=rowVlaues[2], address=rowVlaues[3], unit=rowVlaues[4], degree=rowVlaues[5], program_type=rowVlaues[6], level=rowVlaues[7])
+                    new_expert.save()
+                    add_user(new_expert)
+                    
+                expert_list = Expert.objects.filter(visible=True)
+                return render(request, 'expert_list_template.html', {"result":expert_list})
+            else:
+                return render(request,'import_expert_template.html',{'message':'导入失败: 需导入.xlsx 或.xls excel格式文件'})              

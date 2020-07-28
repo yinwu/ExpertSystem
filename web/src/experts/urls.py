@@ -16,4 +16,5 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('comments/<int:expert_id>/<int:program_id>', views.comments, name='comments'),  
     path('loginValidation/', views.login_validation, name='loginValidation'),
+    path('importExperts', views.import_experts, name='importExperts'),
 ]

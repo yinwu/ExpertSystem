@@ -3,6 +3,7 @@
 <html lang="zh-CN">
 
 <head>
+  <script type="text/javascript" src="../../../static/js/My97DatePicker/WdatePicker.js"></script>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -128,6 +129,22 @@
       display: inline-block;
       border-radius: 50%;
     }
+
+    tr:hover {
+      box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.15);
+    }
+
+    /*
+	a{
+	display: inline-block;
+	padding: 10px;
+	background-color: white;
+	color: #3299fd;
+	font-size: 15px;
+	float: left;
+	margin-right:10px;
+	}
+	*/
   </style>
 
 
@@ -175,73 +192,88 @@
     <div class="row">
       <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
-          <li class="active"><a href="{% url 'list' %}">专家管理 <span class="sr-only">(current)</span></a></li>
-          <li><a href="{% url 'index' %}">项目管理</a></li>
-		  
-          
-
+          <li class="active"><a href="{% url 'index' %}">项目管理<span class="sr-only">(current)</span></a></li>
+          <li><a href="{% url 'list' %}">专家管理</a></li>
         </ul>
-		<ul class="nav nav-sidebar">
-		<li><a href="/experts/add">添加专家</a></li>
-		<li><a href="/experts/importExperts">导入专家</a></li>
-        </ul>
-		<ul class="nav nav-sidebar">
-			<li><a href="{% url 'login' %}">退出</a></li>
+        <ul class="nav nav-sidebar">
+			<li><a href="{% url 'addProgram' %}">添加项目</a></li>
         </ul> 
-		
+        <ul class="nav nav-sidebar">
+          <li><a href="{% url 'login' %}">退出</a></li>
+        </ul>
       </div>
+
+
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-	  <!-- Start Page Header -->
-		<div class="page-header">
-				
-		<ol class="breadcrumb">
-			<li><a href="/experts/list/">首页</a></li>
-			<li class="active">专家管理</li>
-		</ol>
-		</div>
-	<!-- End Page Header -->
-        <h2 class="sub-header">专家列表</h2>
-        <div class="col-sm-4">
-          <form method="get" action="/experts/search/">
-            {% csrf_token %}
-            <div class="input-group">
-              <input type="text" name="search_str" class="form-control" placeholder="请输入关键字" required />
-              <span class="input-group-btn">
-                <input type="submit" class="btn btn-default" value="查询" />
-              </span>
+        <!-- Start Page Header -->
+        <div class="page-header">
+          <ol class="breadcrumb">
+            <li><a href="/program/list">首页</a></li>
+            <li class="active">项目管理</li>
+          </ol>
+        </div>
+        <!-- End Page Header -->
+
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-body table-responsive">
+              <form id="inputForm" class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+
+                <table class="table table-bordered table-condensed">
+                  <tr>
+                    <td style="background-color:#ECECFF;">
+                      <b>导入项目文件</b>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <table class="table table-bordered table-condensed" style="margin-bottom: 0px;">
+                        <tr>
+
+                          <td style="width:38%">
+						  <input type="file" name="uploadFile" id="uploadFile" required=""/>
+                            
+                          </td>
+                          
+                        </tr>
+                        
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+                <div style="width:400px; display:block; margin:0px auto;">
+                  <script type="text/javascript">
+                    function save(hint, ref) {
+                      if (confirm(hint)) {
+                        window.location = ref;
+                      } else {
+                        location.reload();
+                      }
+                    }
+                  </script>
+                  <a href="/program/importProgram" onclick="return save('确认导入项目吗？', this.href)">
+
+                    <button type="botton" class="btn-blu-btn col-md-3 mb-4">导入</button>
+
+                  </a>
+                  <button id="submitBtn" type="button" class="btn-cancel col-md-3 mb-4" onclick="history.go(-1)">返
+                    回</button>
+                </div>
+              </form>
+			  {% if message %}
+			  <script>
+			  
+			      alert('{{ message }}');
+				  
+			  </script>
+			  {% endif %}
+
             </div>
-          </form>
+          </div>
         </div>
-        <br />
-        <br />
-        <br />
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>姓名</th>
-                <th>联系电话</th>
-                <th>工作单位</th>
-                <th>职务等级</th>
-                <th>学历</th>
-                <th>专业类型</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for expert in result %}
-              <tr onclick="location.href='/experts/detail/{{expert.id}}'" ;>
-                <td>{{expert.name}}</td>
-                <td>{{expert.phone}}</td>
-                <td>{{expert.unit}}</td>
-                <td>{{ expert.level}}</td>
-                <td>{{expert.degree}}</td>
-                <td>{{expert.program_type}}</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
+
       </div>
+
     </div>
   </div>
 </body>

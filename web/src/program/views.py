@@ -1,6 +1,8 @@
 import os
 import random
 import xlwt
+import xlrd
+from xlrd import xldate_as_tuple, xldate_as_datetime
 from datetime import timezone, datetime
 from dateutil import tz, zoneinfo
 from django.utils.http import urlquote
@@ -229,15 +231,25 @@ def save_program(request):
 
     return redirect("/program/list")
             
-   
+@login_required  
 def search(request):
     keyStr = request.GET.get('name')
-    
-    post_list = Program.objects.filter(name__contains=keyStr).all() | Program.objects.filter(responser__contains=keyStr).all() |\
+    if request.user.username == "admin":
+        program_list = Program.objects.filter(visible=True)
+    else:
+        user_name = request.user.username
+        try:
+            request_expert = Expert.objects.get(account__username = user_name)
+        except ObjectDoesNotExist:
+            return redirect("/experts/login/")
+        else:
+            comments = Comments.objects.filter(expert = request_expert)
+            program_list = Program.objects.filter(selected = request_expert)
+    post_list = program_list & (Program.objects.filter(name__contains=keyStr).all() | Program.objects.filter(responser__contains=keyStr).all() |\
     Program.objects.filter(location__contains=keyStr).all() | Program.objects.filter(seq__contains=keyStr).all() |\
     Program.objects.filter(money__contains=keyStr).all() | Program.objects.filter(desp__contains=keyStr).all() |\
     Program.objects.filter(program_date__contains=keyStr).all() | Program.objects.filter(start_date__contains=keyStr).all() |\
-    Program.objects.filter(end_date__contains=keyStr).all()
+    Program.objects.filter(end_date__contains=keyStr).all())
     
     return render(request, 'program_list_template.html', {"program_list": post_list})
     
@@ -348,3 +360,40 @@ def expert_confirm(request, program_id, expert_id):
         return redirect("/program/detail/"+str(program_id))
     else:
         return HttpResponse("确认专家失败")
+
+@login_required       
+def program_import(request):
+    user = User.objects.get(username=request.user.username)
+    if user.username != "admin":
+        return HttpResponse("您不是管理员，你没有权限进行该操作")
+        
+    if request.method == 'GET':
+        return render(request, 'import_program_template.html')
+    else:
+        if request.method == 'POST':
+            f = request.FILES.get("uploadFile") 
+            excel_type = f.name.split('.')[1]
+            
+            if excel_type in ['xlsx','xls']:
+                # 开始解析上传的excel表格
+                wb = xlrd.open_workbook(filename=None,file_contents=f.read())
+                table = wb.sheets()[0]
+                rows = table.nrows  # 总行数
+                
+                for i in range(1,rows):
+                    rowVlaues = table.row_values(i)
+                    #strftime('%Y-%m-%d %H:%M:%S')
+                    #date = (datetime(*xldate_as_tuple(rowVlaues[6],0))).
+                    create_date = xldate_as_datetime(rowVlaues[6],0).strftime('%Y-%m-%d')
+                    start_date = xldate_as_datetime(rowVlaues[7],0).strftime('%Y-%m-%d')
+                    finish_date = xldate_as_datetime(rowVlaues[8],0).strftime('%Y-%m-%d')
+                    
+                    new_program = ProgramForm()
+                    new_program = Program(seq=rowVlaues[0],name= rowVlaues[1],desp=rowVlaues[2], responser=rowVlaues[3],\
+                    location=rowVlaues[4],money=rowVlaues[5],program_date=create_date,start_date=start_date,end_date=finish_date)
+                    new_program.save() 
+                program_list = Program.objects.filter(visible=True)                    
+                return render(request,'program_list_template.html',{"program_list": program_list})
+            else:
+                return render(request,'import_program_template.html',{'message':'导入失败: 需导入.xlsx 或.xls excel格式文件'})
+           
